@@ -4,15 +4,18 @@ using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Tailenders.Data;
+using Tailenders.Navigation;
 
 namespace Tailenders.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
+        private readonly INavigationService _navigationService;
         private readonly ProfileRetriever _profileRetriever;
 
-        public MainViewModel()
+        public MainViewModel(INavigationService navigationService)
         {
+            _navigationService = navigationService;
             _profileRetriever = new ProfileRetriever();
 
             CardItems = new ObservableCollection<CardItemViewModel>();
@@ -25,6 +28,7 @@ namespace Tailenders.ViewModels
             SearchAgainCommand = new RelayCommand(ReloadData);
             ProfileLikedCommand = new RelayCommand<CardItemViewModel>(RemoveItem);
             ProfileDiscardedCommand = new RelayCommand<CardItemViewModel>(RemoveItem);
+            NavigateToPartnershipsCommand = new RelayCommand(NavigateToPartnerships);
 
             ReloadData();
         }
@@ -47,6 +51,7 @@ namespace Tailenders.ViewModels
         public ICommand ProfileDiscardedCommand { get; private set; }
         public ICommand ProfileLikedCommand { get; private set; }
         public ICommand SearchAgainCommand { get; private set; }
+        public ICommand NavigateToPartnershipsCommand { get; private set; }
 
         private void ReloadData()
         {
@@ -64,6 +69,11 @@ namespace Tailenders.ViewModels
         {
             //CardItems.Remove(item);
             Debug.WriteLine(item.Name);
+        }
+
+        private void NavigateToPartnerships()
+        {
+            _navigationService.NavigateTo(PageKeys.MatchesPage);
         }
     }
 }

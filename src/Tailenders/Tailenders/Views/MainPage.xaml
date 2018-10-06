@@ -4,62 +4,69 @@
              xmlns:swipecards="clr-namespace:Tailenders.Controls.Swipeview"
              xmlns:viewmodels="clr-namespace:Tailenders.ViewModels"
              x:Class="Tailenders.Views.MainPage"
-             BindingContext="{Binding Main, Source={StaticResource Locator}}"
-             Title="{Binding Title}">
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="Partnerships"
+                     Order="Primary"
+                     Command="{Binding NavigateToPartnershipsCommand}"/>
+    </ContentPage.ToolbarItems>
     <Grid>
-        <Image Source="page_background.png" HorizontalOptions="Fill"
+        <Image Source="page_background.png"
+               HorizontalOptions="Fill"
                VerticalOptions="Fill"
-               
-               Aspect="AspectFill"/>
-        
-         <StackLayout HorizontalOptions="Center"
-                     VerticalOptions="Center"
-                     BackgroundColor="Snow"
-                     Padding="10,10,10,10"
-                      IsVisible="{Binding HasNoProfilesToView}">
-            <Label Text="You're out!" 
-                   HorizontalTextAlignment="Center"
-                   FontSize="Large"
-                   Margin="0,0,0,12"/>
-            <Button Text="Search again"
-                    HorizontalOptions="Fill"
-                    BackgroundColor="SeaGreen"
-                    TextColor="Snow"
-                    Padding="12,8,12,8"
-                    Command="{Binding SearchAgainCommand}"/>
-        </StackLayout>
-        
+               Aspect="AspectFill" />
+
+        <Frame CornerRadius="4"
+               IsClippedToBounds="True"
+               HorizontalOptions="Center"
+               VerticalOptions="Center">
+            <StackLayout BackgroundColor="Snow"
+                         Padding="10,10,10,10"
+                         IsVisible="{Binding HasNoProfilesToView}">
+                <Label Text="You're out!"
+                       HorizontalTextAlignment="Center"
+                       FontSize="Large"
+                       Margin="0,0,0,12" />
+                <Button Text="Search again"
+                        HorizontalOptions="Fill"
+                        BackgroundColor="SeaGreen"
+                        TextColor="Snow"
+                        Padding="12,8,12,8"
+                        Command="{Binding SearchAgainCommand}" />
+            </StackLayout>
+        </Frame>
+
         <swipecards:CardStackView x:Name="ProfileSwipeView"
-                              x:DataType="viewmodels:MainViewModel"
-                              ItemsSource="{Binding CardItems}"
-                              Margin="20,100,20,60"
+                                  x:DataType="viewmodels:MainViewModel"
+                                  ItemsSource="{Binding CardItems}"
+                                  Margin="20,100,20,60"
                                   IsVisible="{Binding HasProfilesToView}"
                                   SwipedLeftCommand="{Binding ProfileDiscardedCommand}"
                                   SwipedRightCommand="{Binding ProfileLikedCommand}">
             <swipecards:CardStackView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:CardItemViewModel">
-                   <Grid>
+                    <Grid>
                         <Image Source="{Binding PhotoUrl}"
-                           HorizontalOptions="Fill"
-                           VerticalOptions="Fill"
-                           Aspect="AspectFill"/>
-                    <StackLayout HorizontalOptions="Fill"
-                           VerticalOptions="End"
-                                 BackgroundColor="#65000000"
-                                 Padding="12,12,12,12">
-                        <Label Text="{Binding Description}"
-                               TextColor="Snow"
-                               FontSize="Large"
-                               FontAttributes="Bold"
-                               Margin="0,0,0,4"/>
-                        <Label Text="{Binding Location}"
-                               TextColor="Snow"
-                               FontSize="Medium"/>
-                    </StackLayout>
-                </Grid>
-            </DataTemplate>
-        </swipecards:CardStackView.ItemTemplate>
-    </swipecards:CardStackView>
-        
-     </Grid>
+                               HorizontalOptions="Fill"
+                               VerticalOptions="Fill"
+                               Aspect="AspectFill" />
+                        <StackLayout HorizontalOptions="Fill"
+                                     VerticalOptions="End"
+                                     BackgroundColor="#65000000"
+                                     Padding="12,12,12,12">
+                            <Label Text="{Binding Description}"
+                                   TextColor="Snow"
+                                   FontSize="Large"
+                                   FontAttributes="Bold"
+                                   Margin="0,0,0,4" />
+                            <Label Text="{Binding Location}"
+                                   TextColor="Snow"
+                                   FontSize="Medium" />
+                        </StackLayout>
+                    </Grid>
+                </DataTemplate>
+            </swipecards:CardStackView.ItemTemplate>
+        </swipecards:CardStackView>
+
+    </Grid>
 </ContentPage>
