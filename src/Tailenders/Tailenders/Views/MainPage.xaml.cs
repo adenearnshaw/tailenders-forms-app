@@ -1,5 +1,5 @@
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+// using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace Tailenders.Views
 {
@@ -10,7 +10,5 @@ namespace Tailenders.Views
             InitializeComponent();
             //On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
         }
-
-
     }
 }

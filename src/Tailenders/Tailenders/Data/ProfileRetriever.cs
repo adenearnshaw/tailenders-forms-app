@@ -1,19 +1,22 @@
 using System.Collections.Generic;
-using Tailenders.ViewModels;
+using Tailenders.Models;
 
 namespace Tailenders.Data
 {
     public class ProfileRetriever
     {
-        public IReadOnlyCollection<CardItemViewModel> GetProfilesAsCards()
+        private static ProfileRetriever _instance;
+        public static ProfileRetriever Instance => _instance ?? (_instance = new ProfileRetriever());
+
+        public IReadOnlyCollection<ProfileItem> GetProfilesAsCards()
         {
-            var list = new List<CardItemViewModel>
+            var list = new List<ProfileItem>
             {
-                new CardItemViewModel("Jimmy", "36", "Burnley", "te_avatar_jimmy.png"),
-                new CardItemViewModel("Felix", "34", "Southwark", "te_avatar_felix.png"),
-                new CardItemViewModel("Greg", "32", "Lewisham", "te_avatar_greg.png"),
-                new CardItemViewModel("Mattchin", "", "Bristol", "te_avatar_mattchin.png"),
-                new CardItemViewModel("Michael", "43", "Eccles", "te_avatar_michael.png")
+                new ProfileItem("Jimmy", "36", "Burnley", "te_avatar_jimmy.png"),
+                new ProfileItem("Felix", "34", "Southwark", "te_avatar_felix.png"),
+                new ProfileItem("Greg", "32", "Lewisham", "te_avatar_greg.png"),
+                new ProfileItem("Mattchin", "", "Bristol", "te_avatar_mattchin.png"),
+                new ProfileItem("Michael", "43", "Eccles", "te_avatar_michael.png")
             };
             return list;
         }

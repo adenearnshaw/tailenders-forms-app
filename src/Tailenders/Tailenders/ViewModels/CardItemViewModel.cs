@@ -1,21 +1,22 @@
+using System;
 using GalaSoft.MvvmLight;
+using Tailenders.Models;
 
 namespace Tailenders.ViewModels
 {
     public class CardItemViewModel : ViewModelBase
     {
-        public CardItemViewModel(string name, string age, string location, string photoUrl)
+        public CardItemViewModel(ProfileItem profileItem)
         {
-            Name = name;
-            Age = age;
-            Location = location;
-            PhotoUrl = photoUrl;
+            Data = profileItem;
         }
 
-        public string Name { get; }
-        public string Age { get; }
-        public string Location { get; }
-        public string PhotoUrl { get; }
+        public ProfileItem Data { get; }
+        
+        public string Name => Data.Name;
+        public string Age => Data.Age;
+        public string Location => Data.Location;
+        public string PhotoUrl => Data.PhotoUrl;
 
         public string Description
         {

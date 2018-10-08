@@ -2,7 +2,7 @@ namespace Tailenders.Navigation
 {
     public interface INavigationAware
     {
-        void OnNavigatedTo(object navigationParams);
-        void OnNavigatedFrom();
+        void OnNavigatedToAsync(object navigationParams);
+        void OnNavigatingFrom();
     }
 }

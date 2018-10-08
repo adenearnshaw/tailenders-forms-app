@@ -5,11 +5,18 @@ namespace Tailenders.ViewModels
 {
     public class BaseViewModel : ViewModelBase, INavigationAware
     {
-        public virtual void OnNavigatedTo(object navigationParams)
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set => Set(ref _isBusy, value);
+        }
+
+        public virtual void OnNavigatedToAsync(object navigationParams)
         {
         }
 
-        public virtual void OnNavigatedFrom()
+        public virtual void OnNavigatingFrom()
         {
         }
     }

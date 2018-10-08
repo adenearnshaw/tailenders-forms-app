@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:swipecards="clr-namespace:Tailenders.Controls.Swipeview"
+             xmlns:swipeCardView="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
              xmlns:viewmodels="clr-namespace:Tailenders.ViewModels"
              x:Class="Tailenders.Views.MainPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Name="Partnerships"
                      Order="Primary"
-                     Command="{Binding NavigateToPartnershipsCommand}"/>
+                     Command="{Binding NavigateToPartnershipsCommand}" />
     </ContentPage.ToolbarItems>
     <Grid>
         <Image Source="page_background.png"
@@ -17,6 +17,7 @@
                Aspect="AspectFill" />
 
         <Frame CornerRadius="4"
+               IsVisible="False"
                IsClippedToBounds="True"
                HorizontalOptions="Center"
                VerticalOptions="Center">
@@ -36,7 +37,42 @@
             </StackLayout>
         </Frame>
 
-        <swipecards:CardStackView x:Name="ProfileSwipeView"
+        <swipeCardView:SwipeCardView ItemsSource="{Binding CardItems}"
+                                     HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="FillAndExpand"
+                                     Margin="20,100,20,60"
+                                     SwipedLeftCommand="{Binding ProfileDiscardedCommand}"
+                                     SwipedRightCommand="{Binding ProfileLikedCommand}">
+            <swipeCardView:SwipeCardView.ItemTemplate>
+                <DataTemplate x:DataType="viewmodels:CardItemViewModel">
+                    <Frame CornerRadius="10"
+                           IsClippedToBounds="True"
+                           Padding="0">
+                        <Grid>
+                            <Image Source="{Binding PhotoUrl}"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Fill"
+                                   Aspect="AspectFill" />
+                            <StackLayout HorizontalOptions="Fill"
+                                         VerticalOptions="End"
+                                         BackgroundColor="#65000000"
+                                         Padding="12,12,12,12">
+                                <Label Text="{Binding Description}"
+                                       TextColor="Snow"
+                                       FontSize="Large"
+                                       FontAttributes="Bold"
+                                       Margin="0,0,0,4" />
+                                <Label Text="{Binding Location}"
+                                       TextColor="Snow"
+                                       FontSize="Medium" />
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </swipeCardView:SwipeCardView.ItemTemplate>
+        </swipeCardView:SwipeCardView>
+
+        <!--<swipecards:CardStackView x:Name="ProfileSwipeView"
                                   x:DataType="viewmodels:MainViewModel"
                                   ItemsSource="{Binding CardItems}"
                                   Margin="20,100,20,60"
@@ -66,7 +102,7 @@
                     </Grid>
                 </DataTemplate>
             </swipecards:CardStackView.ItemTemplate>
-        </swipecards:CardStackView>
+        </swipecards:CardStackView>-->
 
     </Grid>
 </ContentPage>

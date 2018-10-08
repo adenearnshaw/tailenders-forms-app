@@ -5,18 +5,17 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Tailenders.Data;
 using Tailenders.Navigation;
+using Xamarin.Forms.Internals;
 
 namespace Tailenders.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
-        private readonly ProfileRetriever _profileRetriever;
 
         public MainViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
-            _profileRetriever = new ProfileRetriever();
 
             CardItems = new ObservableCollection<CardItemViewModel>();
             CardItems.CollectionChanged += (sender, e) =>
@@ -26,15 +25,13 @@ namespace Tailenders.ViewModels
             };
 
             SearchAgainCommand = new RelayCommand(ReloadData);
-            ProfileLikedCommand = new RelayCommand<CardItemViewModel>(RemoveItem);
-            ProfileDiscardedCommand = new RelayCommand<CardItemViewModel>(RemoveItem);
+            ProfileLikedCommand = new RelayCommand<int>(OnProfileLiked);
+            ProfileDiscardedCommand = new RelayCommand<int>(OnProfileDisliked);
             NavigateToPartnershipsCommand = new RelayCommand(NavigateToPartnerships);
 
             ReloadData();
         }
-
-        public string Title => "Blower";
-
+        
         private bool _hasProfilesToView;
         public bool HasProfilesToView
         {
@@ -51,24 +48,43 @@ namespace Tailenders.ViewModels
         public ICommand ProfileDiscardedCommand { get; private set; }
         public ICommand ProfileLikedCommand { get; private set; }
         public ICommand SearchAgainCommand { get; private set; }
+        public ICommand FinishedSwipingCommand { get; private set; }
         public ICommand NavigateToPartnershipsCommand { get; private set; }
 
         private void ReloadData()
         {
-            var data = _profileRetriever.GetProfilesAsCards();
+            var data = ProfileRetriever.Instance.GetProfilesAsCards();
 
             CardItems.Clear();
             foreach (var card in data)
             {
-                CardItems.Add(card);
+                CardItems.Add(new CardItemViewModel(card));
             }
             RaisePropertyChanged(nameof(CardItems));
         }
 
-        private void RemoveItem(CardItemViewModel item)
+        private void OnProfileLiked(int itemIndex)
         {
-            //CardItems.Remove(item);
-            Debug.WriteLine(item.Name);
+            var likedProfile = CardItems.ElementAt(itemIndex);
+            MatchesManager.Instance.AddProfileToMatches(likedProfile.Data);
+
+            AddNewProfileItem(itemIndex);
+        }
+
+        private void OnProfileDisliked(int itemIndex)
+        {
+            AddNewProfileItem(itemIndex);
+        }
+
+        private void AddNewProfileItem(int itemIndex)
+        {
+            var elementIndex = itemIndex % 5;
+            var data = ProfileRetriever.Instance.GetProfilesAsCards().ElementAtOrDefault(elementIndex);
+
+            if (data != null)
+            {
+                CardItems.Add(new CardItemViewModel(data));
+            }
         }
 
         private void NavigateToPartnerships()
