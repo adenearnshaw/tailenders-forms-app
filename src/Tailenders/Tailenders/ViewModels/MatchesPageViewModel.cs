@@ -1,19 +1,23 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Tailenders.Data;
+using Tailenders.Navigation;
 
 namespace Tailenders.ViewModels
 {
     public class MatchesPageViewModel : BaseViewModel
     {
-        public MatchesPageViewModel()
+        private readonly INavigationService _navigationService;
+
+        public MatchesPageViewModel(INavigationService navigationService)
         {
+            _navigationService = navigationService;
+
             Matches = new ObservableCollection<MatchItemViewModel>();
             RefreshDataCommand = new RelayCommand(RefreshMatches);
+            NavigateToConversationCommand = new RelayCommand<MatchItemViewModel>(NavigateToConversation);
         }
 
         private bool _hasMatches;
@@ -31,6 +35,7 @@ namespace Tailenders.ViewModels
         public ObservableCollection<MatchItemViewModel> Matches { get; set; }
 
         public ICommand RefreshDataCommand { get; private set; }
+        public ICommand NavigateToConversationCommand { get; private set; }
 
         public override void OnNavigatedToAsync(object navigationParams)
         {
@@ -55,6 +60,11 @@ namespace Tailenders.ViewModels
             HasMatches = Matches.Any();
             
             IsBusy = false;
+        }
+
+        private void NavigateToConversation(MatchItemViewModel match)
+        {
+            _navigationService.NavigateTo(PageKeys.ConversationPage, match.Data);
         }
     }
 }

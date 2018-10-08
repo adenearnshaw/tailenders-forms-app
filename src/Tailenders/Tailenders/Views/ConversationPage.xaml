@@ -1,13 +1,60 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Tailenders.Views.ConversationPage"
-             Title="Conversation">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+             xmlns:messaging="clr-namespace:Tailenders.Controls.Messaging"
+             xmlns:behaviors="clr-namespace:Tailenders.Behaviors"
+             Title="{Binding Name}"
+             BackgroundColor="#A0CA6F"
+             BindingContext="{Binding Source={StaticResource Locator}, Path=Conversation}" xmlns:eff="clr-namespace:Tailenders.Effects">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <messaging:MessageDataTemplateSelector x:Key="MessageSelector"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <behaviors:NavigationAwareBehavior />
+    </ContentPage.Behaviors>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="AUTO" />
+        </Grid.RowDefinitions>
+        <ListView
+            x:Name="MessageListView"
+            BackgroundColor="#B6DB8C"
+            HasUnevenRows="True"
+            ItemTemplate="{StaticResource MessageSelector}"
+            ItemsSource="{Binding Messages}"
+            SelectionMode="None"
+            SeparatorVisibility="None" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.Effects>
+                <eff:TopPaddingWhenKeyboardAppearsEffect />
+            </Grid.Effects>
+            <Entry
+                x:Name="EntryText"
+                Completed="Entry_Completed"
+                Focused="EntryText_Focused"
+                ReturnCommand="{Binding SubmitMessageCommand}"
+                ReturnCommandParameter="{Binding PendingMessage}"
+                Text="{Binding PendingMessage}"
+                Margin="4,4,4,4"
+                HeightRequest="30"
+            FontSize="Medium"/>
+            <!--<Button Grid.Column="1" 
+                    Command="{Binding SubmitMessageCommand}"
+                    CommandParameter="{Binding PendingMessage}"
+                    Text="Send" 
+                    WidthRequest="60"
+                    Margin="4,0,0,0"
+                    Clicked="Button_Clicked"/>-->
+        </Grid>
+    </Grid>
+    
 </ContentPage>

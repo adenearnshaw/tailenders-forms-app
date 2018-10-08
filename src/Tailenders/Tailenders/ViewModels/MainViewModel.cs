@@ -53,7 +53,7 @@ namespace Tailenders.ViewModels
 
         private void ReloadData()
         {
-            var data = ProfileRetriever.Instance.GetProfilesAsCards();
+            var data = ProfileRetriever.Instance.GetProfilesAsCards().OrderByDescending(p => p.MatchedAt);
 
             CardItems.Clear();
             foreach (var card in data)

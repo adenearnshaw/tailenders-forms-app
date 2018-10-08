@@ -2,8 +2,21 @@
 <Application xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Tailenders.App"
-             xmlns:vm="clr-namespace:Tailenders.ViewModels">
+             xmlns:vm="clr-namespace:Tailenders.ViewModels" 
+             xmlns:converters="clr-namespace:Tailenders.Converters">
     <Application.Resources>
         <vm:ViewModelLocator x:Key="Locator" />
+        <ResourceDictionary>
+            <Style TargetType="Grid">
+                <Setter Property="RowSpacing" Value="0" />
+                <Setter Property="ColumnSpacing" Value="0" />
+            </Style>
+            <Style TargetType="StackLayout">
+                <Setter Property="Spacing" Value="0" />
+            </Style>
+            
+            <converters:ItemTappedEventArgsToItemConverter x:Key="ItemTappedEventArgsToItemConverter" />
+            <converters:BooleanInverterConverter x:Key="BooleanInverterConverter" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

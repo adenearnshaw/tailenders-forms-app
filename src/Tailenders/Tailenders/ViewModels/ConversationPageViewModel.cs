@@ -1,5 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 using Tailenders.Data;
 using Tailenders.Models;
 using Tailenders.Navigation;
@@ -15,6 +19,8 @@ namespace Tailenders.ViewModels
         public ConversationPageViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
+            Messages = new ObservableCollection<ConversationItemViewModel>();
+            SubmitMessageCommand = new RelayCommand<string>(async(msg) => await SubmitMessage(msg));
         }
 
         private string _name;
@@ -38,7 +44,16 @@ namespace Tailenders.ViewModels
             set => Set(ref _photoUrl, value);
         }
 
-        public ObservableCollection<ConversationItemViewModel> Messges { get; set; }
+        private string _pendingMessage;
+        public string PendingMessage
+        {
+            get => _pendingMessage;
+            set => Set(ref _pendingMessage, value);
+        }
+
+        public ObservableCollection<ConversationItemViewModel> Messages { get; set; }
+
+        public ICommand SubmitMessageCommand { get; private set; }
 
         public override void OnNavigatedToAsync(object navigationParams)
         {
@@ -60,14 +75,24 @@ namespace Tailenders.ViewModels
 
             foreach (var conversationItem in _profileItem.Conversation.OrderBy(c => c.TimeStamp))
             {
-                Messges.Add(new ConversationItemViewModel(conversationItem));
+                Messages.Add(new ConversationItemViewModel(conversationItem));
             }
-            RaisePropertyChanged(nameof(Messges));
+
+            if (!Messages.Any()){
+                Messages.Add(new ConversationItemViewModel(new ConversationItem
+                {
+                    ProfileId = _profileItem.Id,
+                    IsOutgoing = false,
+                    Message = "Hey, did I just knick a ball to you while you were standing directly behind me?\r\n\r\nBecause I think I have a hot spot for you, and I reckon your a keeper.",
+                    TimeStamp = DateTime.UtcNow
+                }));
+            }
+            RaisePropertyChanged(nameof(Messages));
         }
 
         public override void OnNavigatingFrom()
         {
-            var allMessages = Messges.Select(m => new ConversationItem
+            var allMessages = Messages.Select(m => new ConversationItem
             {
                 ProfileId = _profileItem.Id,
                 IsOutgoing = m.IsOutgoing,
@@ -79,6 +104,31 @@ namespace Tailenders.ViewModels
             MatchesManager.Instance.UpdateProfileItem(_profileItem);
 
             base.OnNavigatingFrom();
+        }
+
+        private async Task SubmitMessage(string message)
+        {
+            var newMsg = new ConversationItem
+            {
+                ProfileId = "user_1",
+                IsOutgoing = true,
+                Message = message,
+                TimeStamp = DateTime.Now
+            };
+
+            Messages.Add(new ConversationItemViewModel(newMsg));
+
+            await Task.Delay(2500);
+
+            Messages.Add(new ConversationItemViewModel(new ConversationItem
+            {
+                ProfileId = _profileItem.Id,
+                IsOutgoing = false,
+                Message = "Haha yeah totally",
+                TimeStamp = DateTime.UtcNow
+            }));
+
+            PendingMessage = string.Empty;
         }
     }
 }

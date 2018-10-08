@@ -45,7 +45,7 @@
                                      SwipedRightCommand="{Binding ProfileLikedCommand}">
             <swipeCardView:SwipeCardView.ItemTemplate>
                 <DataTemplate x:DataType="viewmodels:CardItemViewModel">
-                    <Frame CornerRadius="10"
+                    <Frame CornerRadius="0"
                            IsClippedToBounds="True"
                            Padding="0">
                         <Grid>
@@ -71,38 +71,5 @@
                 </DataTemplate>
             </swipeCardView:SwipeCardView.ItemTemplate>
         </swipeCardView:SwipeCardView>
-
-        <!--<swipecards:CardStackView x:Name="ProfileSwipeView"
-                                  x:DataType="viewmodels:MainViewModel"
-                                  ItemsSource="{Binding CardItems}"
-                                  Margin="20,100,20,60"
-                                  IsVisible="{Binding HasProfilesToView}"
-                                  SwipedLeftCommand="{Binding ProfileDiscardedCommand}"
-                                  SwipedRightCommand="{Binding ProfileLikedCommand}">
-            <swipecards:CardStackView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:CardItemViewModel">
-                    <Grid>
-                        <Image Source="{Binding PhotoUrl}"
-                               HorizontalOptions="Fill"
-                               VerticalOptions="Fill"
-                               Aspect="AspectFill" />
-                        <StackLayout HorizontalOptions="Fill"
-                                     VerticalOptions="End"
-                                     BackgroundColor="#65000000"
-                                     Padding="12,12,12,12">
-                            <Label Text="{Binding Description}"
-                                   TextColor="Snow"
-                                   FontSize="Large"
-                                   FontAttributes="Bold"
-                                   Margin="0,0,0,4" />
-                            <Label Text="{Binding Location}"
-                                   TextColor="Snow"
-                                   FontSize="Medium" />
-                        </StackLayout>
-                    </Grid>
-                </DataTemplate>
-            </swipecards:CardStackView.ItemTemplate>
-        </swipecards:CardStackView>-->
-
     </Grid>
 </ContentPage>

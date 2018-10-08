@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:behaviors="clr-namespace:Tailenders.Behaviors;assembly=Tailenders"
@@ -10,9 +10,10 @@
              BindingContext="{Binding Source={StaticResource Locator}, Path=Matches}">
     <ContentPage.Behaviors>
         <behaviors:NavigationAwareBehavior />
+        <behaviors:PageDisappearingClearSelectedItemBehavior  ListViewToClear="{x:Reference MatchResultsList}" />
     </ContentPage.Behaviors>
 
-    <Grid Margin="0,80,0,0">
+    <Grid IsVisible="{Binding IsBusy, Converter={StaticResource BooleanInverterConverter}}">
         <StackLayout IsVisible="{Binding HasNoMatches}"
                      HorizontalOptions="Center"
                      VerticalOptions="Center"
@@ -25,50 +26,54 @@
                    TextColor="#181818" />
         </StackLayout>
 
-        <ListView IsVisible="{Binding HasMatches}"
+        <ListView x:Name="MatchResultsList"
+                  IsVisible="{Binding HasMatches}"
                   ItemsSource="{Binding Matches}"
                   HasUnevenRows="True"
                   IsPullToRefreshEnabled="True"
                   RefreshCommand="{Binding RefreshDataCommand}"
-                  IsRefreshing="{Binding IsBusy}">
+                  IsRefreshing="{Binding IsBusy}"
+                  BackgroundColor="Transparent">
+            <ListView.Behaviors>
+                <behaviors:EventToCommandBehavior EventName="ItemTapped"
+                                                  Command="{Binding NavigateToConversationCommand}"
+                                                  Converter="{StaticResource ItemTappedEventArgsToItemConverter}" />
+            </ListView.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid BackgroundColor="#B6DB8C">
+                        <Grid BackgroundColor="#B6DB8C"
+                              HeightRequest="80">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="80" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="50" />
-                                <RowDefinition Height="30" />
-                            </Grid.RowDefinitions>
-
-                            <abstractions:CircleImage Grid.Row="0"
-                                                      Grid.Column="0"
-                                                      Grid.RowSpan="2"
+                            
+                            <abstractions:CircleImage Grid.Column="0"
                                                       HorizontalOptions="Center"
                                                       VerticalOptions="Center"
                                                       Source="{Binding ProfileUrl}"
                                                       Aspect="AspectFill"
-                                                      WidthRequest="60"
-                                                      HeightRequest="60" />
-                            <Label Grid.Row="0"
-                                   Grid.Column="1"
-                                   FontSize="Large"
-                                   TextColor="#181818"
-                                   Text="{Binding Name}"
-                                   VerticalOptions="Center"/>
-                            <Label Grid.Row="1"
-                                   Grid.Column="1"
-                                   FontSize="Medium"
-                                   TextColor="#181818"
-                                   Text="{Binding MatchedAt}"
-                                   VerticalOptions="Center"/>
+                                                      WidthRequest="68"
+                                                      HeightRequest="68" />
+                            <StackLayout VerticalOptions="Center" 
+                                         Grid.Column="1">
+                                <Label FontSize="Large"
+                                       TextColor="#181818"
+                                       Text="{Binding Name}"
+                                       VerticalOptions="Center"/>
+                                <Label FontSize="Medium"
+                                       TextColor="#181818"
+                                       Text="{Binding MatchedAt}"
+                                       VerticalOptions="Center"/>
+                            </StackLayout>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.Footer>
+                <BoxView IsVisible="false"/>
+            </ListView.Footer>
         </ListView>
     </Grid>
 
