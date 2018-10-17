@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Tailenders.Views
@@ -8,7 +9,16 @@ namespace Tailenders.Views
     {
         public MasterPage()
         {
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
+            NavigationPage.SetBackButtonTitle(this, "Back");
+
+            mainPage.MenuClicked += MainPageOnMenuClicked;
+        }
+
+        private void MainPageOnMenuClicked(object sender, EventArgs e)
+        {
+            this.IsPresented = !this.IsPresented;
         }
     }
 }

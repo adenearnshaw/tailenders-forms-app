@@ -3,21 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:views="clr-namespace:Tailenders.Views;assembly=Tailenders"
-             x:Class="Tailenders.Views.MenuPage">
+             x:Class="Tailenders.Views.MenuPage"
+             Title="Tailenders"
+             BackgroundColor="#A0CA6F">
     <Grid BackgroundColor="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="200" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid>
-            <Image Source="bg.png"
-                   Aspect="AspectFill" />
+            <!--<Image Source="bg.png"
+                   Aspect="AspectFill" />-->
+            <BoxView BackgroundColor="#8AAF5F" 
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill"/>
             <StackLayout Padding="0,20,0,0"
                          HorizontalOptions="CenterAndExpand"
                          VerticalOptions="CenterAndExpand">
                 <abstractions:CircleImage BorderColor="White"
                                           BorderThickness="2"
-                                          Source="profile.png"
+                                          Source="aden_avatar.png"
                                           Aspect="AspectFill"
                                           WidthRequest="85"
                                           HeightRequest="85" />

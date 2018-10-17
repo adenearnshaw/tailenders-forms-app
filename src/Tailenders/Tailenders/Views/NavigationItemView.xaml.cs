@@ -1,16 +1,17 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Tailenders.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class NavigationItemView : Grid
-	{
-		public NavigationItemView ()
-		{
-			InitializeComponent ();
-		}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class NavigationItemView : Grid
+    {
+        public NavigationItemView()
+        {
+            InitializeComponent();
+        }
 
         public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(
             nameof(CommandParameter),

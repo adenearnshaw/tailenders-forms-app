@@ -1,15 +1,13 @@
 ﻿<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:views="clr-namespace:Tailenders.Views;assembly=Tailenders"
-                  x:Class="Tailenders.Views.MasterPage">
+                  x:Class="Tailenders.Views.MasterPage"
+                  MasterBehavior="Popover"
+                  Icon="menu.png">
     <MasterDetailPage.Master>
         <views:MenuPage x:Name="menuPage" />
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
-        <NavigationPage>
-            <x:Arguments>
-                <views:MainPage />
-            </x:Arguments>
-        </NavigationPage>
+        <views:MainPage x:Name="mainPage" />
     </MasterDetailPage.Detail>
 </MasterDetailPage>

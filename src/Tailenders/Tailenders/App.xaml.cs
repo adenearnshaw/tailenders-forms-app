@@ -12,7 +12,7 @@ namespace Tailenders
         {
             InitializeComponent();
 
-            MainPage = new CustomNavigationPage(new MainPage());
+            MainPage = new CustomNavigationPage(new MasterPage());
             //{
             //    BarBackgroundColor = Color.FromHex("#A0CA6F"),
             //    BarTextColor = Color.Snow

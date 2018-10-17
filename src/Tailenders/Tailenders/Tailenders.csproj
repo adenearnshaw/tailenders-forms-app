@@ -12,7 +12,8 @@
   <ItemGroup>
     <PackageReference Include="MLToolkit.Forms.SwipeCardView" Version="1.2.0" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
-    <PackageReference Include="Xam.FormsPlugin.Iconize" Version="1.5.0.13-beta" />
+    <PackageReference Include="Xam.Plugin.Iconize" Version="3.2.0.75" />
+    <PackageReference Include="Xam.Plugin.Iconize.FontAwesome" Version="3.2.0.75" />
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
     <PackageReference Include="Xamarin.Forms" Version="3.2.0.871581" />
   </ItemGroup>

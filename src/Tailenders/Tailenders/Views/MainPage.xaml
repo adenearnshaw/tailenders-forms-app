@@ -3,73 +3,110 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:swipeCardView="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
              xmlns:viewmodels="clr-namespace:Tailenders.ViewModels"
+             xmlns:iconize="clr-namespace:Plugin.Iconize;assembly=Plugin.Iconize"
              x:Class="Tailenders.Views.MainPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
-    <ContentPage.ToolbarItems>
+    <!--<ContentPage.ToolbarItems>
         <ToolbarItem Name="Partnerships"
                      Order="Primary"
                      Command="{Binding NavigateToPartnershipsCommand}" />
-    </ContentPage.ToolbarItems>
-    <Grid>
+    </ContentPage.ToolbarItems>-->
+    <Grid HorizontalOptions="Fill"
+          VerticalOptions="Fill">
         <Image Source="page_background.png"
                HorizontalOptions="Fill"
                VerticalOptions="Fill"
                Aspect="AspectFill" />
 
-        <Frame CornerRadius="4"
-               IsVisible="False"
-               IsClippedToBounds="True"
-               HorizontalOptions="Center"
-               VerticalOptions="Center">
-            <StackLayout BackgroundColor="Snow"
-                         Padding="10,10,10,10"
-                         IsVisible="{Binding HasNoProfilesToView}">
-                <Label Text="You're out!"
-                       HorizontalTextAlignment="Center"
-                       FontSize="Large"
-                       Margin="0,0,0,12" />
-                <Button Text="Search again"
-                        HorizontalOptions="Fill"
-                        BackgroundColor="SeaGreen"
-                        TextColor="Snow"
-                        Padding="12,8,12,8"
-                        Command="{Binding SearchAgainCommand}" />
-            </StackLayout>
-        </Frame>
+        <Grid Padding="20,100,20,60"
+              HorizontalOptions="Fill"
+              VerticalOptions="Fill"
+              RowSpacing="0"
+              ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-        <swipeCardView:SwipeCardView ItemsSource="{Binding CardItems}"
-                                     HorizontalOptions="FillAndExpand"
-                                     VerticalOptions="FillAndExpand"
-                                     Margin="20,100,20,60"
-                                     SwipedLeftCommand="{Binding ProfileDiscardedCommand}"
-                                     SwipedRightCommand="{Binding ProfileLikedCommand}">
-            <swipeCardView:SwipeCardView.ItemTemplate>
-                <DataTemplate x:DataType="viewmodels:CardItemViewModel">
-                    <Frame CornerRadius="0"
-                           IsClippedToBounds="True"
-                           Padding="0">
-                        <Grid>
-                            <Image Source="{Binding PhotoUrl}"
-                                   HorizontalOptions="Fill"
-                                   VerticalOptions="Fill"
-                                   Aspect="AspectFill" />
-                            <StackLayout HorizontalOptions="Fill"
-                                         VerticalOptions="End"
-                                         BackgroundColor="#65000000"
-                                         Padding="12,12,12,12">
-                                <Label Text="{Binding Description}"
-                                       TextColor="Snow"
-                                       FontSize="Large"
-                                       FontAttributes="Bold"
-                                       Margin="0,0,0,4" />
-                                <Label Text="{Binding Location}"
-                                       TextColor="Snow"
-                                       FontSize="Medium" />
-                            </StackLayout>
-                        </Grid>
-                    </Frame>
-                </DataTemplate>
-            </swipeCardView:SwipeCardView.ItemTemplate>
-        </swipeCardView:SwipeCardView>
+
+
+            <Button Grid.Row="0"
+                    Grid.Column="0"
+                    Text="Menu"
+                    TextColor="Snow"
+                    Clicked="MenuButtonClicked" />
+
+            <Button Grid.Row="0"
+                    Grid.Column="2"
+                    TextColor="Snow"
+                    Text="Partnerships"
+                    Command="{Binding NavigateToPartnershipsCommand}" />
+
+            <Frame Grid.Row="1"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="3"
+                   CornerRadius="4"
+                   IsVisible="False"
+                   IsClippedToBounds="True"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center">
+                <StackLayout BackgroundColor="Snow"
+                             Padding="10,10,10,10"
+                             IsVisible="{Binding HasNoProfilesToView}">
+                    <Label Text="You're out!"
+                           HorizontalTextAlignment="Center"
+                           FontSize="Large"
+                           Margin="0,0,0,12" />
+                    <Button Text="Search again"
+                            HorizontalOptions="Fill"
+                            BackgroundColor="SeaGreen"
+                            TextColor="Snow"
+                            Padding="12,8,12,8"
+                            Command="{Binding SearchAgainCommand}" />
+                </StackLayout>
+            </Frame>
+
+            <swipeCardView:SwipeCardView Grid.Row="1"
+                                         Grid.Column="0"
+                                         Grid.ColumnSpan="3"
+                                         ItemsSource="{Binding CardItems}"
+                                         HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="FillAndExpand"
+                                         SwipedLeftCommand="{Binding ProfileDiscardedCommand}"
+                                         SwipedRightCommand="{Binding ProfileLikedCommand}">
+                <swipeCardView:SwipeCardView.ItemTemplate>
+                    <DataTemplate x:DataType="viewmodels:CardItemViewModel">
+                        <Frame CornerRadius="0"
+                               IsClippedToBounds="True"
+                               Padding="0">
+                            <Grid>
+                                <Image Source="{Binding PhotoUrl}"
+                                       HorizontalOptions="Fill"
+                                       VerticalOptions="Fill"
+                                       Aspect="AspectFill" />
+                                <StackLayout HorizontalOptions="Fill"
+                                             VerticalOptions="End"
+                                             BackgroundColor="#65000000"
+                                             Padding="12,12,12,12">
+                                    <Label Text="{Binding Description}"
+                                           TextColor="Snow"
+                                           FontSize="Large"
+                                           FontAttributes="Bold"
+                                           Margin="0,0,0,4" />
+                                    <Label Text="{Binding Location}"
+                                           TextColor="Snow"
+                                           FontSize="Medium" />
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </swipeCardView:SwipeCardView.ItemTemplate>
+            </swipeCardView:SwipeCardView>
+        </Grid>
     </Grid>
 </ContentPage>
