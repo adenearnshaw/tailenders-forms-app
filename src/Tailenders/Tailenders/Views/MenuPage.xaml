@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:views="clr-namespace:Tailenders.Views;assembly=Tailenders"
+             x:Class="Tailenders.Views.MenuPage"
+             Title="Tailenders"
+             BackgroundColor="#A0CA6F" xmlns:iconize="clr-namespace:Plugin.Iconize;assembly=Plugin.Iconize">
+    <Grid BackgroundColor="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="220" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Frame BackgroundColor="#8AAF5F"
+               HasShadow="false"
+               HorizontalOptions="Fill"
+               VerticalOptions="Fill">
+            <StackLayout Padding="0,50,0,0"
+                  HorizontalOptions="CenterAndExpand"
+                  VerticalOptions="CenterAndExpand">
+                <abstractions:CircleImage BorderColor="White"
+                                          BorderThickness="2"
+                                          Source="aden_avatar.png"
+                                          Aspect="AspectFit"
+                                          WidthRequest="85"
+                                          HeightRequest="85" />
+                <Label Margin="0,12,0,0"
+                       Text="Aden"
+                       TextColor="White"
+                       FontSize="Large" 
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center">
+                </Label>
+            </StackLayout>
+        </Frame>
+        <StackLayout Margin="20,20,20,0"
+                     Grid.Row="1"
+                     Spacing="15">
+            <views:NavigationItemView Text="Profile"
+                                      Icon="fas-user-alt"
+                                      Command="{Binding NavigationCommand}"
+                                      CommandParameter="1" />
+            <ContentView HeightRequest="1"
+                         BackgroundColor="Snow" />
+            <views:NavigationItemView Text="Settings"
+                                      Icon="fas-cog"
+                                      Command="{Binding NavigationCommand}"
+                                      CommandParameter="2" />
+            <ContentView HeightRequest="1"
+                         BackgroundColor="Snow" />
+            <views:NavigationItemView Text="Podcast"
+                                      Icon="fas-podcast"
+                                      Command="{Binding NavigationCommand}"
+                                      CommandParameter="3" />
+        </StackLayout>
+    </Grid>
+</ContentPage>

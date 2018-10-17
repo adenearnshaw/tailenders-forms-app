@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
+using NavigationPage = Xamarin.Forms.NavigationPage;
 
 namespace Tailenders.Views
 {
@@ -15,7 +10,9 @@ namespace Tailenders.Views
 	{
 		public MatchesPage ()
 		{
-			InitializeComponent ();
+		    NavigationPage.SetHasNavigationBar(this, true);
+            InitializeComponent();
+            NavigationPage.SetBackButtonTitle(this, "Back");
 
             On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
         }
