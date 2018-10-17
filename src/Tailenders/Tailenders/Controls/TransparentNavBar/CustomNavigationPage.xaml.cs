@@ -1,8 +1,9 @@
+using Plugin.Iconize;
 using Xamarin.Forms;
 
 namespace Tailenders.Controls.TransparentNavBar
 {
-    public partial class CustomNavigationPage : NavigationPage
+    public partial class CustomNavigationPage : IconNavigationPage
     {
         public CustomNavigationPage() : base()
         {

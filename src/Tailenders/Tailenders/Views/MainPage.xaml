@@ -18,7 +18,7 @@
                VerticalOptions="Fill"
                Aspect="AspectFill" />
 
-        <Grid Padding="20,100,20,60"
+        <Grid Padding="20,40,20,60"
               HorizontalOptions="Fill"
               VerticalOptions="Fill"
               RowSpacing="0"
@@ -32,20 +32,23 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-
-
-
-            <Button Grid.Row="0"
-                    Grid.Column="0"
-                    Text="Menu"
-                    TextColor="Snow"
-                    Clicked="MenuButtonClicked" />
+            
+            <iconize:IconButton Grid.Row="0"
+                                Grid.Column="0"
+                                Text="fas-bars"
+                                TextColor="Snow"
+                                FontSize="28"
+                                WidthRequest="48"
+                                Clicked="MenuButtonClicked"
+                                Margin="0,0,0,16"
+                                Padding="0"/>
 
             <Button Grid.Row="0"
                     Grid.Column="2"
                     TextColor="Snow"
                     Text="Partnerships"
-                    Command="{Binding NavigateToPartnershipsCommand}" />
+                    Command="{Binding NavigateToPartnershipsCommand}" 
+                    Margin="0,0,0,16" />
 
             <Frame Grid.Row="1"
                    Grid.Column="0"

@@ -11,7 +11,8 @@ namespace Tailenders.Views
 		public MatchesPage ()
 		{
 		    NavigationPage.SetHasNavigationBar(this, true);
-            InitializeComponent ();
+            InitializeComponent();
+            NavigationPage.SetBackButtonTitle(this, "Back");
 
             On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
         }
