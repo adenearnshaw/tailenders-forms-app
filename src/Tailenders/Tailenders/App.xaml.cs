@@ -16,11 +16,11 @@ namespace Tailenders
                   .With(new Plugin.Iconize.Fonts.FontAwesomeBrandsModule())
                   .With(new Plugin.Iconize.Fonts.FontAwesomeSolidModule());
 
-            MainPage = new CustomNavigationPage(new MasterPage());
-            //{
-            //    BarBackgroundColor = Color.FromHex("#A0CA6F"),
-            //    BarTextColor = Color.Snow
-            //};
+            MainPage = new NavigationPage(new MasterPage())
+            {
+                BarBackgroundColor = Color.FromHex("#8AAF5F"),
+                BarTextColor = Color.Snow
+            };
         }
 
         protected override void OnStart()

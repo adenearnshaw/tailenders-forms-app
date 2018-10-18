@@ -16,11 +16,15 @@ namespace Tailenders.ViewModels
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<MatchesPageViewModel>();
             SimpleIoc.Default.Register<ConversationPageViewModel>();
+            SimpleIoc.Default.Register<MenuPageViewModel>();
+            SimpleIoc.Default.Register<PodcastPageViewModel>();
 
         }
 
+        public MenuPageViewModel Menu => SimpleIoc.Default.GetInstance<MenuPageViewModel>();
         public MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
         public MatchesPageViewModel Matches => SimpleIoc.Default.GetInstance<MatchesPageViewModel>();
         public ConversationPageViewModel Conversation => SimpleIoc.Default.GetInstance<ConversationPageViewModel>();
+        public PodcastPageViewModel Podcast => SimpleIoc.Default.GetInstance<PodcastPageViewModel>();
     }
 }

@@ -1,12 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Tailenders.Views.PodcastPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+             x:Class="Tailenders.Views.PodcastPage"
+             Title="Tailenders"
+             BackgroundColor="#A0CA6F"
+             BindingContext="{Binding Podcast, Source={StaticResource Locator}}">
+    <ScrollView>
+        <StackLayout Padding="20,20,20,0">
+            <Label Text="This app is inspired by the brilliant Tailenders podcast."
+                   TextColor="Snow"
+                   Margin="0,0,0,20"/>
+            <Label Text="Listen to Greg, Felix and Jimmy's alternative look at cricket:"
+                   TextColor="Snow"
+                   Margin="0,0,0,10"/>
+            
+            <Image Source="apple_podcast_icon.png"
+                    HorizontalOptions="Start"
+                    HeightRequest="50"
+                    WidthRequest="206"
+                    Aspect="AspectFit">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding LaunchPodcastAppCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
         </StackLayout>
-    </ContentPage.Content>
+    </ScrollView>
 </ContentPage>
