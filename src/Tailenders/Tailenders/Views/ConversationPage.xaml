@@ -37,16 +37,20 @@
             <Grid.Effects>
                 <eff:TopPaddingWhenKeyboardAppearsEffect />
             </Grid.Effects>
-            <Entry
+            <Frame CornerRadius="8"
+                   BackgroundColor="Snow"
+                   Grid.Column="0"
+                   Margin="8,8,8,8"
+                   Padding="4,4,4,4">
+                <Entry
                 x:Name="EntryText"
                 Completed="Entry_Completed"
                 Focused="EntryText_Focused"
                 ReturnCommand="{Binding SubmitMessageCommand}"
                 ReturnCommandParameter="{Binding PendingMessage}"
                 Text="{Binding PendingMessage}"
-                Margin="4,4,4,4"
-                HeightRequest="30"
-            FontSize="Medium"/>
+            FontSize="Default"/>
+                </Frame>
             <!--<Button Grid.Column="1" 
                     Command="{Binding SubmitMessageCommand}"
                     CommandParameter="{Binding PendingMessage}"

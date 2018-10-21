@@ -15,14 +15,17 @@
     <PackageReference Include="Xam.Plugin.Iconize" Version="3.2.0.75" />
     <PackageReference Include="Xam.Plugin.Iconize.FontAwesome" Version="3.2.0.75" />
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
-    <PackageReference Include="Xamarin.Forms" Version="3.2.0.871581" />
+    <PackageReference Include="Xamarin.Forms" Version="3.3.0.912540" />
     <PackageReference Include="Xamarin.Essentials" Version="0.11.0-preview" />
+    <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\TransparentNavBar\" />
     <Folder Include="Controls\Messaging\" />
     <Folder Include="Converters\" />
     <Folder Include="Effects\" />
+    <Folder Include="Managers\" />
+    <Folder Include="Common\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Views\ConversationPage.xaml">

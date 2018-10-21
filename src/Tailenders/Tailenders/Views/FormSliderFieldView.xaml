@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views:BaseFormFieldView xmlns="http://xamarin.com/schemas/2014/forms"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                         xmlns:views="clr-namespace:Tailenders.Views"
+                         x:Class="Tailenders.Views.FormSliderFieldView"
+                         x:Name="this">
+     <StackLayout HorizontalOptions="Fill"
+                 VerticalOptions="StartAndExpand">
+        <Label Text="{Binding Label, Source={x:Reference this}}"
+               TextColor="Snow"
+               FontSize="Small"/>
+      <!--  <Grid>-->
+<!--            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Text="{Binding MinValue, Source={x:Reference this}}"
+                   TextColor="Snow"
+                   FontSize="Micro"/>
+            
+            <Label Grid.Row="0"
+                   Grid.Column="1"
+                   Text="{Binding MaxValue, Source={x:Reference this}}"
+                   TextColor="Snow"
+                   FontSize="Micro"/>-->
+            
+<!--            <Slider Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Minimum="18"
+                    Maximum="80"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="Transparent"
+                    MinimumTrackColor="Snow"
+                    MaximumTrackColor="Snow"
+                    ThumbColor="#333333"
+                    IsEnabled="{Binding IsReadonly, Source={x:Reference this}, Converter={StaticResource BooleanInverterConverter}}"/>-->
+  <!--      </Grid>-->
+        
+        <Label Text="{Binding ValidationMessage, Source={x:Reference this}}"
+               TextColor="#CE1414"
+               FontSize="Small"
+               IsVisible="{Binding IsValid, Source={x:Reference this}, Converter={StaticResource ValidationMessageVisibilityConverter}}"/>
+    </StackLayout>
+</views:BaseFormFieldView>

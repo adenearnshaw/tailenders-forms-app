@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Tailenders.ViewModels;assembly=Tailenders"
              x:Class="Tailenders.Views.SettingsPage"
+             BindingContext="{Binding Settings, Source={StaticResource Locator}}"
              Title="Search settings"
-             BackgroundColor="#A0CA6F">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+             BackgroundColor="#A0CA6F" xmlns:views="clr-namespace:Tailenders.Views">
+     <ScrollView VerticalScrollBarVisibility="Default">
+        <StackLayout x:DataType="vm:SettingsPageViewModel"
+                     Margin="20,20,20,20">
+            <views:FormSliderFieldView Label="Age"
+                                       MinValue="18"
+                                       CurrentValue="{Binding MinAge}"
+                                       MaxValue="80"
+                                       Margin="0,0,0,12"/>
+        
+            <!--<views:FormSliderFieldView MinValue="{Binding MinAge}"
+                                       CurrentValue="{Binding MaxAge}"
+                                       MaxValue="80"
+                                       Margin="0,0,0,12"/>-->
         </StackLayout>
-    </ContentPage.Content>
+    </ScrollView>
 </ContentPage>

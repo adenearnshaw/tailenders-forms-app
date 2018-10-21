@@ -1,4 +1,4 @@
-﻿using Tailenders.Controls.TransparentNavBar;
+﻿using Plugin.Iconize;
 using Tailenders.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,17 +11,20 @@ namespace Tailenders
         public App()
         {
             InitializeComponent();
-            Plugin.Iconize.Iconize
-                  .With(new Plugin.Iconize.Fonts.FontAwesomeRegularModule())
-                  .With(new Plugin.Iconize.Fonts.FontAwesomeBrandsModule())
-                  .With(new Plugin.Iconize.Fonts.FontAwesomeSolidModule());
+            Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeRegularModule())
+                   .With(new Plugin.Iconize.Fonts.FontAwesomeBrandsModule())
+                   .With(new Plugin.Iconize.Fonts.FontAwesomeSolidModule());
 
-            MainPage = new NavigationPage(new MasterPage())
+            Navigation = new IconNavigationPage(new MasterPage())
             {
                 BarBackgroundColor = Color.FromHex("#8AAF5F"),
                 BarTextColor = Color.Snow
             };
+
+            MainPage = Navigation;
         }
+
+        public NavigationPage Navigation { get; }
 
         protected override void OnStart()
         {

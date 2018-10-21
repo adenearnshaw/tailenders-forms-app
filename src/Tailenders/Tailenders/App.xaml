@@ -14,9 +14,13 @@
             <Style TargetType="StackLayout">
                 <Setter Property="Spacing" Value="0" />
             </Style>
+            <Style TargetType="Frame">
+                <Setter Property="HasShadow" Value="False" />
+            </Style>
             
             <converters:ItemTappedEventArgsToItemConverter x:Key="ItemTappedEventArgsToItemConverter" />
             <converters:BooleanInverterConverter x:Key="BooleanInverterConverter" />
+            <converters:ValidationMessageVisibilityConverter x:Key="ValidationMessageVisibilityConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

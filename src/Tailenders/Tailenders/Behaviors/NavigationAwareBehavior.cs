@@ -29,7 +29,7 @@ namespace Tailenders.Behaviors
                 return;
 
             var navigationParam = page.GetNavigationArgs();
-            navigationAwareContext.OnNavigatedToAsync(navigationParam);
+            navigationAwareContext.OnNavigatedTo(navigationParam);
         }
 
         private void PageOnDisappearing(object sender, EventArgs eventArgs)

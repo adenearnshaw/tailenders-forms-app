@@ -41,14 +41,16 @@
                                 WidthRequest="48"
                                 Clicked="MenuButtonClicked"
                                 Margin="0,0,0,16"
-                                Padding="0"/>
+                                Padding="0"
+                                BackgroundColor="Transparent"/>
 
             <Button Grid.Row="0"
                     Grid.Column="2"
                     TextColor="Snow"
                     Text="Partnerships"
                     Command="{Binding NavigateToPartnershipsCommand}" 
-                    Margin="0,0,0,16" />
+                    Margin="0,0,0,16" 
+                    BackgroundColor="Transparent"/>
 
             <Frame Grid.Row="1"
                    Grid.Column="0"

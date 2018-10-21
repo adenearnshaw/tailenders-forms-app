@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views:BaseFormFieldView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:views="clr-namespace:Tailenders.Views"
+             x:Class="Tailenders.Views.FormSwitchFieldView"
+    x:Name="this" >
+    <Grid HorizontalOptions="Fill"
+                 VerticalOptions="StartAndExpand">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0"
+               Text="{Binding Label, Source={x:Reference this}}"
+               TextColor="Snow"
+               FontSize="Small"
+               VerticalOptions="Center"/>
+        <Switch Grid.Column="1"
+                IsToggled="{Binding IsToggled, Source={x:Reference this}}"
+                OnColor="#333333"
+                VerticalOptions="Center"/>
+    </Grid>
+</views:BaseFormFieldView>

@@ -14,17 +14,18 @@
     </ContentPage.Behaviors>
 
     <Grid IsVisible="{Binding IsBusy, Converter={StaticResource BooleanInverterConverter}}">
-        <StackLayout IsVisible="{Binding HasNoMatches}"
+        <Frame IsVisible="{Binding HasNoMatches}"
                      HorizontalOptions="Center"
                      VerticalOptions="Center"
                      BackgroundColor="#F5F5F5"
                      Padding="12,12,12,12"
-                     Margin="32,32,32,32">
+                     Margin="32,32,32,32"
+               CornerRadius="8">
             <Label FontSize="Large"
                    HorizontalTextAlignment="Center"
                    Text="No partnerships yet. Keep swiping to find some."
                    TextColor="#181818" />
-        </StackLayout>
+        </Frame>
 
         <ListView x:Name="MatchResultsList"
                   IsVisible="{Binding HasMatches}"

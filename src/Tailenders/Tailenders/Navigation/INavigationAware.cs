@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
+
 namespace Tailenders.Navigation
 {
     public interface INavigationAware
     {
-        void OnNavigatedToAsync(object navigationParams);
+        void OnNavigatedTo(object navigationParams);
         void OnNavigatingFrom();
     }
 }

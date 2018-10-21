@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views:BaseFormFieldView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                         xmlns:views="clr-namespace:Tailenders.Views"
+             x:Class="Tailenders.Views.FormEditorFieldView"
+             x:Name="this">
+    <StackLayout HorizontalOptions="Fill"
+                 VerticalOptions="StartAndExpand">
+        <Label Text="{Binding Label, Source={x:Reference this}}"
+               TextColor="Snow"
+               FontSize="Small"/>
+        <Editor Text="{Binding Value, Source={x:Reference this}}"
+                BackgroundColor="Snow"
+                TextColor="#333333"
+                FontSize="Default"
+                AutoSize="TextChanges"
+                IsSpellCheckEnabled="true"
+                MaxLength="500"
+                HorizontalOptions="Fill"/>
+        <Label Text="{Binding ValidationMessage, Source={x:Reference this}}"
+               TextColor="#CE1414"
+               FontSize="Small"
+               IsVisible="{Binding IsValid, Source={x:Reference this}, Converter={StaticResource ValidationMessageVisibilityConverter}}"/>
+    </StackLayout>
+</views:BaseFormFieldView>

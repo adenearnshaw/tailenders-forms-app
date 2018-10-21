@@ -55,9 +55,9 @@ namespace Tailenders.ViewModels
 
         public ICommand SubmitMessageCommand { get; private set; }
 
-        public override void OnNavigatedToAsync(object navigationParams)
+        public override void OnNavigatedTo(object navigationParams)
         {
-            base.OnNavigatedToAsync(navigationParams);
+            base.OnNavigatedTo(navigationParams);
 
             _profileItem = navigationParams as ProfileItem;
 

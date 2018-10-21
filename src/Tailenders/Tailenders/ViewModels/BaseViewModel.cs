@@ -12,7 +12,7 @@ namespace Tailenders.ViewModels
             set => Set(ref _isBusy, value);
         }
 
-        public virtual void OnNavigatedToAsync(object navigationParams)
+        public virtual void OnNavigatedTo(object navigationParams)
         {
         }
 

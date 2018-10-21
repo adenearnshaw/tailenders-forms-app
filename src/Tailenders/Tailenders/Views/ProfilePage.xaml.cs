@@ -1,20 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using Tailenders.Common;
+using Tailenders.Navigation;
+using Tailenders.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Tailenders.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ProfilePage : ContentPage
 	{
 		public ProfilePage ()
 		{
-			InitializeComponent ();
-		}
-	}
+            InitializeComponent();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            MessagingCenter.Subscribe<ProfilePageViewModel>(this, MessageNames.NoPickPhotoSupport, (vm) =>
+            {
+                DisplayAlert("Can't select photo", "Selecting a photo doesn't appear to be not supported", "Ok");
+            });
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            MessagingCenter.Unsubscribe<ProfilePageViewModel>(this, MessageNames.NoPickPhotoSupport);
+        }
+    }
 }

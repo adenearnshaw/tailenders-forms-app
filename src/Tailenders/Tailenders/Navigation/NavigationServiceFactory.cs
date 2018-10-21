@@ -12,12 +12,12 @@ namespace Tailenders.Navigation
         {
             var navigationService = new FormsNavigationService();
 
+            navigationService.Configure(PageKeys.ConversationPage, typeof(ConversationPage));
             navigationService.Configure(PageKeys.HomePage, typeof(MainPage));
             navigationService.Configure(PageKeys.MatchesPage, typeof(MatchesPage));
-            navigationService.Configure(PageKeys.ConversationPage, typeof(ConversationPage));
+            navigationService.Configure(PageKeys.PodcastPage, typeof(PodcastPage));
             navigationService.Configure(PageKeys.ProfilePage, typeof(ProfilePage));
             navigationService.Configure(PageKeys.SearchSettingsPage, typeof(SettingsPage));
-            navigationService.Configure(PageKeys.PodcastPage, typeof(PodcastPage));
 
             return navigationService;
         }

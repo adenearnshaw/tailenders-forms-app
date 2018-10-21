@@ -1,18 +1,16 @@
-﻿using System;
-
+﻿
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
+using Xamarin.Forms;
 
 namespace Tailenders.Droid
 {
-    [Activity(Label = "Tailenders", 
-              Icon = "@mipmap/icon", 
-              Theme = "@style/MainTheme", 
-              MainLauncher = true, 
+    [Activity(Label = "Tailenders",
+              Icon = "@mipmap/icon",
+              Theme = "@style/MainTheme",
+              MainLauncher = true,
               ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
@@ -23,15 +21,21 @@ namespace Tailenders.Droid
 
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            Forms.SetFlags("FastRenderers_Experimental");
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Plugin.Permissions.PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
-
-    //public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
-    //{
-    //    Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-    //    base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-    //}
 }
+
+
+
+  
