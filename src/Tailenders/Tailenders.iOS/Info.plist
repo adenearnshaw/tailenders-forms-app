@@ -36,9 +36,8 @@
 	<string>0.0.1</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>iconize-fontawesome-regular.ttf</string>
-		<string>iconize-fontawesome-solid.ttf</string>
-		<string>iconize-fontawesome-brands.ttf</string>
+    <string>iconize-fontawesome-solid.ttf</string>
+    <string>iconize-fontawesome-solid.otf</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to the camera to take photos.</string>

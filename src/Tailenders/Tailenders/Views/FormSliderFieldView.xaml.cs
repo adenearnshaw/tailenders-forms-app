@@ -13,42 +13,54 @@ namespace Tailenders.Views
 
         public static readonly BindableProperty MinValueProperty = BindableProperty.Create(
            nameof(MinValue),
-           typeof(int),
+           typeof(float),
            typeof(FormSliderFieldView),
-           1,
+           1f,
            propertyChanging: (bindable, oldValue, newValue) =>
            {
                var ctrl = (FormSliderFieldView)bindable;
-               ctrl.MinValue = (int)newValue;
+               ctrl.MinValue = (float)newValue;
            },
            defaultBindingMode: BindingMode.OneWay);
-
-        public static readonly BindableProperty CurrentValueProperty = BindableProperty.Create(
-           nameof(CurrentValue),
-           typeof(int),
-           typeof(FormSliderFieldView),
-           50,
-           propertyChanging: (bindable, oldValue, newValue) =>
-           {
-               var ctrl = (FormSliderFieldView)bindable;
-               ctrl.CurrentValue = (int)newValue;
-           },
-           defaultBindingMode: BindingMode.OneWay);
-
+        
         public static readonly BindableProperty MaxValueProperty = BindableProperty.Create(
            nameof(MaxValue),
-           typeof(int),
+           typeof(float),
            typeof(FormSliderFieldView),
-           100,
+           100f,
            propertyChanging: (bindable, oldValue, newValue) =>
            {
                var ctrl = (FormSliderFieldView)bindable;
-               ctrl.MaxValue = (int)newValue;
+               ctrl.MaxValue = (float)newValue;
            },
            defaultBindingMode: BindingMode.OneWay);
 
-        private int _minValue;
-        public int MinValue
+        public static readonly BindableProperty LowerValueProperty = BindableProperty.Create(
+            nameof(LowerValue),
+            typeof(float),
+            typeof(FormSliderFieldView),
+            30f,
+            propertyChanging: (bindable, oldValue, newValue) =>
+            {
+                var ctrl = (FormSliderFieldView)bindable;
+                ctrl.LowerValue = (float)newValue;
+            },
+            defaultBindingMode: BindingMode.TwoWay);
+
+        public static readonly BindableProperty UpperValueProperty = BindableProperty.Create(
+            nameof(UpperValue),
+            typeof(float),
+            typeof(FormSliderFieldView),
+            60f,
+            propertyChanging: (bindable, oldValue, newValue) =>
+            {
+                var ctrl = (FormSliderFieldView)bindable;
+                ctrl.UpperValue = (float)newValue;
+            },
+            defaultBindingMode: BindingMode.TwoWay);
+
+        private float _minValue;
+        public float MinValue
         {
             get { return _minValue; }
             set
@@ -58,24 +70,37 @@ namespace Tailenders.Views
             }
         }
 
-        private int _currentValue;
-        public int CurrentValue
-        {
-            get { return _currentValue; }
-            set
-            {
-                _currentValue = value;
-                OnPropertyChanged();
-            }
-        }
+        
 
-        private int _maxValue;
-        public int MaxValue
+        private float _maxValue;
+        public float MaxValue
         {
             get { return _maxValue; }
             set
             {
                 _maxValue = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private float _lowerValue;
+        public float LowerValue
+        {
+            get { return _lowerValue; }
+            set
+            {
+                _lowerValue = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private float _upperValue;
+        public float UpperValue
+        {
+            get { return _upperValue; }
+            set
+            {
+                _upperValue = value;
                 OnPropertyChanged();
             }
         }

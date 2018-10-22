@@ -109,6 +109,12 @@ namespace Tailenders.Droid
 		public partial class Attribute
 		{
 			
+			// aapt resource value: 0x7f010174
+			public const int absoluteMaxValue = 2130772340;
+			
+			// aapt resource value: 0x7f010173
+			public const int absoluteMinValue = 2130772339;
+			
 			// aapt resource value: 0x7f01006b
 			public const int actionBarDivider = 2130772075;
 			
@@ -208,6 +214,12 @@ namespace Tailenders.Droid
 			// aapt resource value: 0x7f0100de
 			public const int actionViewClass = 2130772190;
 			
+			// aapt resource value: 0x7f010187
+			public const int activateOnDefaultValues = 2130772359;
+			
+			// aapt resource value: 0x7f01017d
+			public const int activeColor = 2130772349;
+			
 			// aapt resource value: 0x7f01008e
 			public const int activityChooserViewStyle = 2130772110;
 			
@@ -231,6 +243,9 @@ namespace Tailenders.Droid
 			
 			// aapt resource value: 0x7f0100da
 			public const int alphabeticModifiers = 2130772186;
+			
+			// aapt resource value: 0x7f010178
+			public const int alwaysActive = 2130772344;
 			
 			// aapt resource value: 0x7f0100d3
 			public const int arrowHeadLength = 2130772179;
@@ -270,6 +285,9 @@ namespace Tailenders.Droid
 			
 			// aapt resource value: 0x7f010117
 			public const int backgroundTintMode = 2130772247;
+			
+			// aapt resource value: 0x7f01017b
+			public const int barHeight = 2130772347;
 			
 			// aapt resource value: 0x7f0100d5
 			public const int barLength = 2130772181;
@@ -469,6 +487,9 @@ namespace Tailenders.Droid
 			// aapt resource value: 0x7f010031
 			public const int customNavigationLayout = 2130772017;
 			
+			// aapt resource value: 0x7f01017c
+			public const int defaultColor = 2130772348;
+			
 			// aapt resource value: 0x7f0100ed
 			public const int defaultQueryHint = 2130772205;
 			
@@ -658,6 +679,9 @@ namespace Tailenders.Droid
 			// aapt resource value: 0x7f010149
 			public const int insetForeground = 2130772297;
 			
+			// aapt resource value: 0x7f01017a
+			public const int internalPadding = 2130772346;
+			
 			// aapt resource value: 0x7f010024
 			public const int isLightTheme = 2130772004;
 			
@@ -754,11 +778,17 @@ namespace Tailenders.Droid
 			// aapt resource value: 0x7f010110
 			public const int logoDescription = 2130772240;
 			
+			// aapt resource value: 0x7f01018b
+			public const int materialUI = 2130772363;
+			
 			// aapt resource value: 0x7f01014b
 			public const int maxActionInlineWidth = 2130772299;
 			
 			// aapt resource value: 0x7f01010a
 			public const int maxButtonHeight = 2130772234;
+			
+			// aapt resource value: 0x7f010176
+			public const int maxThumbHidden = 2130772342;
 			
 			// aapt resource value: 0x7f0100d7
 			public const int measureWithLargestChild = 2130772183;
@@ -804,6 +834,9 @@ namespace Tailenders.Droid
 			
 			// aapt resource value: 0x7f010143
 			public const int menu = 2130772291;
+			
+			// aapt resource value: 0x7f010175
+			public const int minThumbHidden = 2130772341;
 			
 			// aapt resource value: 0x7f010045
 			public const int multiChoiceItemLayout = 2130772037;
@@ -934,6 +967,9 @@ namespace Tailenders.Droid
 			// aapt resource value: 0x7f0100d8
 			public const int showDividers = 2130772184;
 			
+			// aapt resource value: 0x7f010177
+			public const int showRangeLabels = 2130772343;
+			
 			// aapt resource value: 0x7f010101
 			public const int showText = 2130772225;
 			
@@ -978,6 +1014,12 @@ namespace Tailenders.Droid
 			
 			// aapt resource value: 0x7f010128
 			public const int statusBarScrim = 2130772264;
+			
+			// aapt resource value: 0x7f010188
+			public const int stepValue = 2130772360;
+			
+			// aapt resource value: 0x7f010189
+			public const int stepValueContinuously = 2130772361;
 			
 			// aapt resource value: 0x7f0100e5
 			public const int subMenuArrow = 2130772197;
@@ -1060,6 +1102,9 @@ namespace Tailenders.Droid
 			// aapt resource value: 0x7f010155
 			public const int tabTextColor = 2130772309;
 			
+			// aapt resource value: 0x7f01017e
+			public const int textAboveThumbsColor = 2130772350;
+			
 			// aapt resource value: 0x7f01004f
 			public const int textAllCaps = 2130772047;
 			
@@ -1096,11 +1141,38 @@ namespace Tailenders.Droid
 			// aapt resource value: 0x7f010098
 			public const int textColorSearchUrl = 2130772120;
 			
+			// aapt resource value: 0x7f01018a
+			public const int textSize = 2130772362;
+			
 			// aapt resource value: 0x7f010115
 			public const int theme = 2130772245;
 			
 			// aapt resource value: 0x7f0100d6
 			public const int thickness = 2130772182;
+			
+			// aapt resource value: 0x7f010181
+			public const int thumbDisabled = 2130772353;
+			
+			// aapt resource value: 0x7f01017f
+			public const int thumbNormal = 2130772351;
+			
+			// aapt resource value: 0x7f010180
+			public const int thumbPressed = 2130772352;
+			
+			// aapt resource value: 0x7f010182
+			public const int thumbShadow = 2130772354;
+			
+			// aapt resource value: 0x7f010186
+			public const int thumbShadowBlur = 2130772358;
+			
+			// aapt resource value: 0x7f010183
+			public const int thumbShadowColor = 2130772355;
+			
+			// aapt resource value: 0x7f010184
+			public const int thumbShadowXOffset = 2130772356;
+			
+			// aapt resource value: 0x7f010185
+			public const int thumbShadowYOffset = 2130772357;
 			
 			// aapt resource value: 0x7f0100fc
 			public const int thumbTextPadding = 2130772220;
@@ -1188,6 +1260,9 @@ namespace Tailenders.Droid
 			
 			// aapt resource value: 0x7f010140
 			public const int useCompatPadding = 2130772288;
+			
+			// aapt resource value: 0x7f010179
+			public const int valuesAboveThumbs = 2130772345;
 			
 			// aapt resource value: 0x7f0100f2
 			public const int voiceIcon = 2130772210;
@@ -4079,6 +4154,9 @@ namespace Tailenders.Droid
 			// aapt resource value: 0x7f0b0025
 			public const int abc_toolbar_collapse_description = 2131427365;
 			
+			// aapt resource value: 0x7f0b003c
+			public const int app_name = 2131427388;
+			
 			// aapt resource value: 0x7f0b0033
 			public const int appbar_scrolling_view_behavior = 2131427379;
 			
@@ -4087,6 +4165,12 @@ namespace Tailenders.Droid
 			
 			// aapt resource value: 0x7f0b0035
 			public const int character_counter_pattern = 2131427381;
+			
+			// aapt resource value: 0x7f0b003e
+			public const int demo_max_label = 2131427390;
+			
+			// aapt resource value: 0x7f0b003d
+			public const int demo_min_label = 2131427389;
 			
 			// aapt resource value: 0x7f0b0000
 			public const int mr_button_content_description = 2131427328;
@@ -6935,6 +7019,108 @@ namespace Tailenders.Droid
 			
 			// aapt resource value: 0
 			public const int PopupWindowBackgroundState_state_above_anchor = 0;
+			
+			public static int[] RangeSliderControl = new int[] {
+					2130772339,
+					2130772340,
+					2130772341,
+					2130772342,
+					2130772343,
+					2130772344,
+					2130772345,
+					2130772346,
+					2130772347,
+					2130772348,
+					2130772349,
+					2130772350,
+					2130772351,
+					2130772352,
+					2130772353,
+					2130772354,
+					2130772355,
+					2130772356,
+					2130772357,
+					2130772358,
+					2130772359,
+					2130772360,
+					2130772361,
+					2130772362,
+					2130772363};
+			
+			// aapt resource value: 1
+			public const int RangeSliderControl_absoluteMaxValue = 1;
+			
+			// aapt resource value: 0
+			public const int RangeSliderControl_absoluteMinValue = 0;
+			
+			// aapt resource value: 20
+			public const int RangeSliderControl_activateOnDefaultValues = 20;
+			
+			// aapt resource value: 10
+			public const int RangeSliderControl_activeColor = 10;
+			
+			// aapt resource value: 5
+			public const int RangeSliderControl_alwaysActive = 5;
+			
+			// aapt resource value: 8
+			public const int RangeSliderControl_barHeight = 8;
+			
+			// aapt resource value: 9
+			public const int RangeSliderControl_defaultColor = 9;
+			
+			// aapt resource value: 7
+			public const int RangeSliderControl_internalPadding = 7;
+			
+			// aapt resource value: 24
+			public const int RangeSliderControl_materialUI = 24;
+			
+			// aapt resource value: 3
+			public const int RangeSliderControl_maxThumbHidden = 3;
+			
+			// aapt resource value: 2
+			public const int RangeSliderControl_minThumbHidden = 2;
+			
+			// aapt resource value: 4
+			public const int RangeSliderControl_showRangeLabels = 4;
+			
+			// aapt resource value: 21
+			public const int RangeSliderControl_stepValue = 21;
+			
+			// aapt resource value: 22
+			public const int RangeSliderControl_stepValueContinuously = 22;
+			
+			// aapt resource value: 11
+			public const int RangeSliderControl_textAboveThumbsColor = 11;
+			
+			// aapt resource value: 23
+			public const int RangeSliderControl_textSize = 23;
+			
+			// aapt resource value: 14
+			public const int RangeSliderControl_thumbDisabled = 14;
+			
+			// aapt resource value: 12
+			public const int RangeSliderControl_thumbNormal = 12;
+			
+			// aapt resource value: 13
+			public const int RangeSliderControl_thumbPressed = 13;
+			
+			// aapt resource value: 15
+			public const int RangeSliderControl_thumbShadow = 15;
+			
+			// aapt resource value: 19
+			public const int RangeSliderControl_thumbShadowBlur = 19;
+			
+			// aapt resource value: 16
+			public const int RangeSliderControl_thumbShadowColor = 16;
+			
+			// aapt resource value: 17
+			public const int RangeSliderControl_thumbShadowXOffset = 17;
+			
+			// aapt resource value: 18
+			public const int RangeSliderControl_thumbShadowYOffset = 18;
+			
+			// aapt resource value: 6
+			public const int RangeSliderControl_valuesAboveThumbs = 6;
 			
 			public static int[] RecycleListView = new int[] {
 					2130772200,

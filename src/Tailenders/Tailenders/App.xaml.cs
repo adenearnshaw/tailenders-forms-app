@@ -11,9 +11,7 @@ namespace Tailenders
         public App()
         {
             InitializeComponent();
-            Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeRegularModule())
-                   .With(new Plugin.Iconize.Fonts.FontAwesomeBrandsModule())
-                   .With(new Plugin.Iconize.Fonts.FontAwesomeSolidModule());
+            Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeSolidModule());
 
             Navigation = new IconNavigationPage(new MasterPage())
             {

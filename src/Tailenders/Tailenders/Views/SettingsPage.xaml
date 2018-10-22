@@ -5,20 +5,17 @@
              x:Class="Tailenders.Views.SettingsPage"
              BindingContext="{Binding Settings, Source={StaticResource Locator}}"
              Title="Search settings"
-             BackgroundColor="#A0CA6F" xmlns:views="clr-namespace:Tailenders.Views">
-     <ScrollView VerticalScrollBarVisibility="Default">
+             BackgroundColor="#A0CA6F"
+             xmlns:views="clr-namespace:Tailenders.Views">
+    <ScrollView VerticalScrollBarVisibility="Default">
         <StackLayout x:DataType="vm:SettingsPageViewModel"
                      Margin="20,20,20,20">
             <views:FormSliderFieldView Label="Age"
                                        MinValue="18"
-                                       CurrentValue="{Binding MinAge}"
                                        MaxValue="80"
-                                       Margin="0,0,0,12"/>
-        
-            <!--<views:FormSliderFieldView MinValue="{Binding MinAge}"
-                                       CurrentValue="{Binding MaxAge}"
-                                       MaxValue="80"
-                                       Margin="0,0,0,12"/>-->
+                                       LowerValue="{Binding MinAge, Mode=TwoWay}"
+                                       UpperValue="{Binding MaxAge, Mode=TwoWay}"
+                                       Margin="0,0,0,12" />
         </StackLayout>
     </ScrollView>
 </ContentPage>
