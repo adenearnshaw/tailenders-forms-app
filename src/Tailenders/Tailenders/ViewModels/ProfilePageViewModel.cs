@@ -121,6 +121,13 @@ namespace Tailenders.ViewModels
             set => Set(ref _location, value);
         }
 
+        private string _searchShowIn;
+        public string SearchShowIn
+        {
+            get => _searchShowIn;
+            set => Set(ref _searchShowIn, value);
+        }
+
         private string _profilePic;
         public string ProfilePic
         {
@@ -153,6 +160,7 @@ namespace Tailenders.ViewModels
             SelectedPosition = "Long stop";
             Bio = "Ranked number 11 in the world for most dropped catches at my local school.";
             ProfilePic = "Tile5.png";
+            SearchShowIn = "Men";
             HasUnsavedChanges = false;
         }
 

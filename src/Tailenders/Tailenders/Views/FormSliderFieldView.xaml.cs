@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace Tailenders.Views
@@ -12,55 +12,43 @@ namespace Tailenders.Views
         }
 
         public static readonly BindableProperty MinValueProperty = BindableProperty.Create(
-           nameof(MinValue),
-           typeof(float),
-           typeof(FormSliderFieldView),
-           1f,
-           propertyChanging: (bindable, oldValue, newValue) =>
-           {
-               var ctrl = (FormSliderFieldView)bindable;
-               ctrl.MinValue = (float)newValue;
-           },
-           defaultBindingMode: BindingMode.OneWay);
-        
+            nameof(MinValue),
+            typeof(double),
+            typeof(FormSliderFieldView),
+            default(double),
+            propertyChanging: (bindable, oldValue, newValue) =>
+            {
+                var ctrl = (FormSliderFieldView)bindable;
+                ctrl.MinValue = (double)newValue;
+            },
+            defaultBindingMode: BindingMode.TwoWay);
+
         public static readonly BindableProperty MaxValueProperty = BindableProperty.Create(
-           nameof(MaxValue),
-           typeof(float),
-           typeof(FormSliderFieldView),
-           100f,
-           propertyChanging: (bindable, oldValue, newValue) =>
-           {
-               var ctrl = (FormSliderFieldView)bindable;
-               ctrl.MaxValue = (float)newValue;
-           },
-           defaultBindingMode: BindingMode.OneWay);
-
-        public static readonly BindableProperty LowerValueProperty = BindableProperty.Create(
-            nameof(LowerValue),
-            typeof(float),
+            nameof(MaxValue),
+            typeof(double),
             typeof(FormSliderFieldView),
-            30f,
+            default(double),
             propertyChanging: (bindable, oldValue, newValue) =>
             {
                 var ctrl = (FormSliderFieldView)bindable;
-                ctrl.LowerValue = (float)newValue;
+                ctrl.MaxValue = (double)newValue;
             },
             defaultBindingMode: BindingMode.TwoWay);
 
-        public static readonly BindableProperty UpperValueProperty = BindableProperty.Create(
-            nameof(UpperValue),
-            typeof(float),
+        public static readonly BindableProperty SliderValueProperty = BindableProperty.Create(
+            nameof(SliderValue),
+            typeof(double),
             typeof(FormSliderFieldView),
-            60f,
+            default(double),
             propertyChanging: (bindable, oldValue, newValue) =>
             {
                 var ctrl = (FormSliderFieldView)bindable;
-                ctrl.UpperValue = (float)newValue;
+                ctrl.SliderValue = (double)newValue;
             },
             defaultBindingMode: BindingMode.TwoWay);
 
-        private float _minValue;
-        public float MinValue
+        private double _minValue;
+        public double MinValue
         {
             get { return _minValue; }
             set
@@ -70,10 +58,8 @@ namespace Tailenders.Views
             }
         }
 
-        
-
-        private float _maxValue;
-        public float MaxValue
+        private double _maxValue;
+        public double MaxValue
         {
             get { return _maxValue; }
             set
@@ -83,26 +69,15 @@ namespace Tailenders.Views
             }
         }
 
-        private float _lowerValue;
-        public float LowerValue
+        private double _sliderValue;
+        public double SliderValue
         {
-            get { return _lowerValue; }
+            get { return _sliderValue; }
             set
             {
-                _lowerValue = value;
+                _sliderValue = value;
                 OnPropertyChanged();
             }
-        }
-
-        private float _upperValue;
-        public float UpperValue
-        {
-            get { return _upperValue; }
-            set
-            {
-                _upperValue = value;
-                OnPropertyChanged();
-            }
-        }
+        }       
     }
 }

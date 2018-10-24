@@ -7,15 +7,34 @@
              Title="Search settings"
              BackgroundColor="#A0CA6F"
              xmlns:views="clr-namespace:Tailenders.Views">
+
     <ScrollView VerticalScrollBarVisibility="Default">
         <StackLayout x:DataType="vm:SettingsPageViewModel"
                      Margin="20,20,20,20">
-            <views:FormSliderFieldView Label="Age"
+            <views:FormRangeSliderFieldView Label="Age"
                                        MinValue="18"
                                        MaxValue="80"
                                        LowerValue="{Binding MinAge, Mode=TwoWay}"
                                        UpperValue="{Binding MaxAge, Mode=TwoWay}"
                                        Margin="0,0,0,12" />
+            
+            <views:FormSliderFieldView Label="Search radius"
+                                       MaxValue="250"
+                                       MinValue="1"
+                                       SliderValue="{Binding SearchRadius, Mode=TwoWay}"
+                                       Margin="0,0,0,12" />
+            
+            <views:FormPickerFieldView Label="Search for"
+                                       Margin="0,0,0,12"
+                                       Value="{Binding SearchFor}">
+                <views:FormPickerFieldView.Options>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Men</x:String>
+                        <x:String>Women</x:String>
+                        <x:String>Both</x:String>
+                    </x:Array>
+                </views:FormPickerFieldView.Options>
+            </views:FormPickerFieldView>
         </StackLayout>
     </ScrollView>
 </ContentPage>

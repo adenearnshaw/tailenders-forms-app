@@ -111,6 +111,7 @@
     <Compile Include="CustomRenderers\CustomNavigationRenderer.cs" />
     <Compile Include="Effects\TopPaddingWhenKeyboardAppearsEffect.cs" />
     <BundleResource Include="Resources\iconize-fontawesome-solid.otf" />
+    <Compile Include="CustomRenderers\CustomPageRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

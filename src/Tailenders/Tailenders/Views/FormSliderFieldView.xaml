@@ -2,26 +2,22 @@
 <views:BaseFormFieldView xmlns="http://xamarin.com/schemas/2014/forms"
                          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
                          xmlns:views="clr-namespace:Tailenders.Views"
-                         xmlns:rangeSlider="clr-namespace:Tailenders.Controls.RangeSlider;assembly=Tailenders"
                          x:Class="Tailenders.Views.FormSliderFieldView"
                          x:Name="this">
      <StackLayout HorizontalOptions="Fill"
                  VerticalOptions="StartAndExpand">
         <Label Text="{Binding Label, Source={x:Reference this}}"
                TextColor="Snow"
-               FontSize="Small"/>
+               FontSize="Small"
+               Margin="0,0,0,6"/>
          
-        <rangeSlider:RangeSliderView MinimumValue="{Binding MinValue, Source={x:Reference this}}"
-                                     MaximumValue="{Binding MaxValue, Source={x:Reference this}}"
-                                     LowerValue="{Binding LowerValue, Source={x:Reference this}}"
-                                     UpperValue="{Binding UpperValue, Source={x:Reference this}}"
-                                     IsEnabled="{Binding IsReadonly, Source={x:Reference this}, Converter={StaticResource BooleanInverterConverter}}"
-                                     MaterialUI="True"
-                                     ActiveColor="#333333"
-                                     StepValue="1"
-                                     ShowTextAboveThumbs="True"
-                                     TextSize="Small"
-                                     BarHeight="40"/>
+        <Slider Maximum="250"
+                Minimum="1"
+                Value="{Binding SliderValue, Source={x:Reference this}}"
+                IsEnabled="{Binding IsReadonly, Source={x:Reference this}, Converter={StaticResource BooleanInverterConverter}}"
+                MinimumTrackColor="#333333"
+                MaximumTrackColor="Snow"
+                ThumbColor="Snow"/>
         
         <Label Text="{Binding ValidationMessage, Source={x:Reference this}}"
                TextColor="#CE1414"

@@ -1,4 +1,5 @@
 ﻿using Plugin.Iconize;
+using Tailenders.Controls.TransparentNavBar;
 using Tailenders.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,7 +17,7 @@ namespace Tailenders
             Navigation = new IconNavigationPage(new MasterPage())
             {
                 BarBackgroundColor = Color.FromHex("#8AAF5F"),
-                BarTextColor = Color.Snow
+                BarTextColor = Color.Snow                
             };
 
             MainPage = Navigation;
