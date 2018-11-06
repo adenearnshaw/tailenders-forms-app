@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tailenders.Models;
 
-namespace Tailenders.Data
+namespace Tailenders.Managers
 {
     public class MatchesManager
     {

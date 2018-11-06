@@ -1,11 +1,10 @@
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Tailenders.Data;
+using Tailenders.Managers;
 using Tailenders.Navigation;
-using Xamarin.Forms.Internals;
 
 namespace Tailenders.ViewModels
 {

@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using ImageCircle.Forms.Plugin.iOS;
+using Microsoft.Identity.Client;
 using UIKit;
 
 namespace Tailenders.iOS
@@ -22,8 +23,14 @@ namespace Tailenders.iOS
             global::Xamarin.Forms.Forms.Init();
             ImageCircleRenderer.Init();
             LoadApplication(new App());
-
+            App.UiParent = new UIParent(false);
             return base.FinishedLaunching(app, options);
+        }
+
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(url);
+            return true;
         }
     }
 }

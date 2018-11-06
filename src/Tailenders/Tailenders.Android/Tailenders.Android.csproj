@@ -75,6 +75,9 @@
     <PackageReference Include="Xam.Plugin.Media">
       <Version>4.0.1.5</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Identity.Client">
+      <Version>2.3.0-preview</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\BitmapUtil.cs" />
@@ -129,6 +132,7 @@
     <AndroidResource Include="Resources\drawable-ldpi\apple_podcast_icon.png" />
     <AndroidResource Include="Resources\drawable\Tile5.png" />
     <AndroidResource Include="Resources\xml\file_paths.xml" />
+    <AndroidResource Include="Resources\xml\auto_backup_rules.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\attrs.xml" />

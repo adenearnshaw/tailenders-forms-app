@@ -9,6 +9,7 @@ namespace Tailenders.Views
     {
         public LaunchPage()
         {
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
         }
     }

@@ -36,8 +36,8 @@
 	<string>0.0.1</string>
 	<key>UIAppFonts</key>
 	<array>
-    <string>iconize-fontawesome-solid.ttf</string>
-    <string>iconize-fontawesome-solid.otf</string>
+		<string>iconize-fontawesome-solid.ttf</string>
+		<string>iconize-fontawesome-solid.otf</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to the camera to take photos.</string>
@@ -47,5 +47,18 @@
 	<string>This app needs access to microphone.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>This app needs access to the photo gallery.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.adenearnshaw.tailenders</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>msal02bc7fa6-e227-4061-b303-28f10fca5756</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
