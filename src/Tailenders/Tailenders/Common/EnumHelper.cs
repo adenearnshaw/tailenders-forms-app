@@ -53,13 +53,13 @@ namespace Tailenders.Common
             var fieldInfo = value.GetType().GetField(value.ToString());
 
             var descriptionAttributes = fieldInfo.GetCustomAttributes(
-                typeof(DisplayNameAttribute), false) as DisplayNameAttribute[];
+                typeof(DescriptionAttribute), false) as DescriptionAttribute[];
 
-            if (descriptionAttributes == null) 
+            if (descriptionAttributes == null)
                 return string.Empty;
 
-            return (descriptionAttributes.Length > 0) 
-                ? descriptionAttributes[0].DisplayName 
+            return (descriptionAttributes.Length > 0)
+                ? descriptionAttributes[0].Description
                 : value.ToString();
         }
     }

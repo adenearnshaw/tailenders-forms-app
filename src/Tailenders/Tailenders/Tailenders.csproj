@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="MLToolkit.Forms.SwipeCardView" Version="1.2.0" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
+    <PackageReference Include="TailendersApi.Client" Version="0.0.2-alpha5" />
     <PackageReference Include="Xam.Plugin.Iconize" Version="3.2.0.75" />
     <PackageReference Include="Xam.Plugin.Iconize.FontAwesome" Version="3.2.0.75" />
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
@@ -19,7 +20,6 @@
     <PackageReference Include="Xamarin.Essentials" Version="0.11.0-preview" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
     <PackageReference Include="Microsoft.Identity.Client" Version="2.3.0-preview" />
-    <PackageReference Include="TailendersApi.Client" Version="0.0.2-alpha2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\TransparentNavBar\" />
@@ -31,36 +31,5 @@
     <Folder Include="Services\" />
     <Folder Include="Managers\Exceptions\" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Views\ConversationPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\MasterPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\MatchesPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\MenuPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\NavigationItemView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\PodcastPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\ProfilePage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\SettingsPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\FormSliderFieldView.xaml %28copy%29.cs">
-      <DependentUpon>Views\FormSliderFieldView.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
+
 </Project>
