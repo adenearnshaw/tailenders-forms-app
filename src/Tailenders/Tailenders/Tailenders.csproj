@@ -19,6 +19,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="0.11.0-preview" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
     <PackageReference Include="Microsoft.Identity.Client" Version="2.3.0-preview" />
+    <PackageReference Include="TailendersApi.Client" Version="0.0.2-alpha2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controls\TransparentNavBar\" />
@@ -28,6 +29,7 @@
     <Folder Include="Managers\" />
     <Folder Include="Common\" />
     <Folder Include="Services\" />
+    <Folder Include="Managers\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Views\ConversationPage.xaml">

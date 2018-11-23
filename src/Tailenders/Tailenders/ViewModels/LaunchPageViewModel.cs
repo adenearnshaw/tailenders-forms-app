@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight.Ioc;
 using Plugin.Iconize;
+using Tailenders.Managers;
+using Tailenders.Managers.Exceptions;
 using Tailenders.Services;
 using Tailenders.Views;
 using Xamarin.Forms;
@@ -10,7 +13,6 @@ namespace Tailenders.ViewModels
 {
     public class LaunchPageViewModel : BaseViewModel
     {
-
         public override void OnNavigatedTo(object navigationParams)
         {
             base.OnNavigatedTo(navigationParams);
@@ -21,28 +23,32 @@ namespace Tailenders.ViewModels
         {
             IsBusy = true;
 
-            //App.Locator = new ViewModelLocator();
-
+            var profileManager = SimpleIoc.Default.GetInstance<IProfileManager>();
             var token = await AuthenticationService.Instance.TryLogin();
-
             try
             {
-                if (!string.IsNullOrEmpty(token))
-                {
-                    //TODO Make a factory method
-                    Application.Current.MainPage = new IconNavigationPage(new MasterPage())
-                    {
-                        BarBackgroundColor = Color.FromHex("#8AAF5F"),
-                        BarTextColor = Color.Snow
-                    };
-                }
+                var userProfile = await profileManager.GetUserProfile();
+                Application.Current.MainPage = CreateNavigationPage(new MasterPage());
             }
-            catch(Exception ex)
+            catch (UserDoesntExistException)
             {
-                Debug.WriteLine(ex.Message);
+                Application.Current.MainPage = CreateNavigationPage(new NewProfilePage());
+            }
+            catch
+            {
+                Application.Current.MainPage = CreateNavigationPage(new ErrorPage());
             }
 
             IsBusy = false;
+        }
+
+        private IconNavigationPage CreateNavigationPage(Page basePage)
+        {
+            return new IconNavigationPage(basePage)
+            {
+                BarBackgroundColor = Color.FromHex("#8AAF5F"),
+                BarTextColor = Color.Snow
+            };
         }
     }
 }

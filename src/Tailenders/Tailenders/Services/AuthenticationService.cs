@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Identity.Client;
 using Tailenders.Common;
+using Tailenders.Data;
+using TailendersApi.Client;
 
 namespace Tailenders.Services
 {
@@ -15,6 +17,7 @@ namespace Tailenders.Services
         public static AuthenticationService Instance => _instance ?? (_instance = new AuthenticationService());
 
         private readonly PublicClientApplication _client;
+        private readonly CredentialsProvider _credentialsProvider;
 
         public AuthenticationService()
         {
@@ -25,6 +28,7 @@ namespace Tailenders.Services
                     RedirectUri = ADB2CConstants.RedirectUrl,
                     ValidateAuthority = false
                 };
+                _credentialsProvider = SimpleIoc.Default.GetInstance<ICredentialsProvider>() as CredentialsProvider;
             }
             catch (Exception ex)
             {
@@ -61,6 +65,10 @@ namespace Tailenders.Services
                 Debug.WriteLine(ex.Message);
             }
 
+            if (authResult != null)
+            {
+                _credentialsProvider.UpdateCredentials(authResult.UniqueId, authResult.AccessToken);
+            }
             return authResult?.AccessToken ?? string.Empty;
         }
     }

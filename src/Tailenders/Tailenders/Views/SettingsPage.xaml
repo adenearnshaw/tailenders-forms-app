@@ -18,23 +18,17 @@
                                        UpperValue="{Binding MaxAge, Mode=TwoWay}"
                                        Margin="0,0,0,12" />
             
-            <views:FormSliderFieldView Label="Search radius"
+            <!--<views:FormSliderFieldView Label="Search radius"
                                        MaxValue="250"
                                        MinValue="1"
                                        SliderValue="{Binding SearchRadius, Mode=TwoWay}"
-                                       Margin="0,0,0,12" />
+                                       Margin="0,0,0,12" />-->
             
             <views:FormPickerFieldView Label="Search for"
                                        Margin="0,0,0,12"
-                                       Value="{Binding SearchFor}">
-                <views:FormPickerFieldView.Options>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Men</x:String>
-                        <x:String>Women</x:String>
-                        <x:String>Both</x:String>
-                    </x:Array>
-                </views:FormPickerFieldView.Options>
-            </views:FormPickerFieldView>
+                                       Options="{Binding SearchCategories}"
+                                       Value="{Binding SearchFor}"/>
+               
         </StackLayout>
     </ScrollView>
 </ContentPage>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -7,6 +8,7 @@ using GalaSoft.MvvmLight.Command;
 using Plugin.Media;
 using Tailenders.Common;
 using Tailenders.Managers;
+using TailendersApi.Contracts;
 using Xamarin.Forms;
 
 namespace Tailenders.ViewModels
@@ -19,48 +21,33 @@ namespace Tailenders.ViewModels
         {
             _profileManager = profileManager;
 
-            Positions = new ObservableCollection<string>
-            {
-                "",
-                "Cover",
-                "Cow corner",
-                "Deep cover",
-                "Deep midwicket",
-                "Deep point",
-                "Fine leg",
-                "Gully", 
-                "Keeper", 
-                "Long leg",
-                "Long off",
-                "Long on",
-                "Long stop",
-                "Mid off",
-                "Mid on",
-                "Midwicket",
-                "Point",
-                "Short leg",
-                "Silly mid off",
-                "Silly mid on",
-                "Silly point",
-                "Slips",
-                "Square leg",
-                "Straight hit",
-                "Third man"
-            };
+            Positions = new ObservableCollection<EnumPickerOption>(EnumHelper<CricketPosition>.GetValues(CricketPosition.Cover)
+                                                                  .Select(v => new EnumPickerOption((int)v, EnumHelper<CricketPosition>.GetDisplayValue(v))));
+
+            SearchCategories = new ObservableCollection<EnumPickerOption>(EnumHelper<SearchCategory>.GetValues(SearchCategory.Men)
+                                                                  .Select(v => new EnumPickerOption((int)v, EnumHelper<SearchCategory>.GetDisplayValue(v))));
 
             SaveChangesCommand = new RelayCommand(async () => await SaveChanges());
             EditPictureCommand = new RelayCommand(async () => await EditPicture());
         }
 
-        private ObservableCollection<string> _positions;
-        public ObservableCollection<string> Positions
+        private ObservableCollection<EnumPickerOption> _searchCategories;
+        public ObservableCollection<EnumPickerOption> SearchCategories
+        {
+            get => _searchCategories;
+            set => Set(ref _searchCategories, value);
+        }
+
+
+        private ObservableCollection<EnumPickerOption> _positions;
+        public ObservableCollection<EnumPickerOption> Positions
         {
             get => _positions;
             set => Set(ref _positions, value);
         }
 
-        private string _selectedPosition;
-        public string SelectedPosition
+        private EnumPickerOption _selectedPosition;
+        public EnumPickerOption SelectedPosition
         {
             get => _selectedPosition;
             set
@@ -121,8 +108,8 @@ namespace Tailenders.ViewModels
             set => Set(ref _location, value);
         }
 
-        private string _searchShowIn;
-        public string SearchShowIn
+        private EnumPickerOption _searchShowIn;
+        public EnumPickerOption SearchShowIn
         {
             get => _searchShowIn;
             set => Set(ref _searchShowIn, value);
@@ -153,15 +140,15 @@ namespace Tailenders.ViewModels
         {
             base.OnNavigatedTo(navigationParams);
 
-            Name = "Aden";
-            Location = "Preston";
-            Age = "31";
-            ShowAge = true;
-            SelectedPosition = "Long stop";
-            Bio = "Ranked number 11 in the world for most dropped catches at my local school.";
-            ProfilePic = "Tile5.png";
-            SearchShowIn = "Men";
-            HasUnsavedChanges = false;
+            //Name = "Aden";
+            //Location = "Preston";
+            //Age = "31";
+            //ShowAge = true;
+            //SelectedPosition = "Long stop";
+            //Bio = "Ranked number 11 in the world for most dropped catches at my local school.";
+            //ProfilePic = "Tile5.png";
+            //SearchShowIn = "Men";
+            //HasUnsavedChanges = false;
         }
 
         public override void OnNavigatingFrom()
@@ -191,7 +178,11 @@ namespace Tailenders.ViewModels
             }
 
             var file = await CrossMedia.Current.PickPhotoAsync();
-            ProfilePic = file.Path;
+
+            IsBusy = true;
+            var updatedProfile = await _profileManager.UploadProfileImage(file);
+            ProfilePic = updatedProfile.Images.First().ImageUrl;
+            IsBusy = false;
         }
 
     }

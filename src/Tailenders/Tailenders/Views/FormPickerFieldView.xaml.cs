@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tailenders.Common;
 using Xamarin.Forms;
 
 namespace Tailenders.Views
@@ -13,19 +14,19 @@ namespace Tailenders.Views
 
         public static readonly BindableProperty OptionsProperty = BindableProperty.Create(
            nameof(Options),
-           typeof(IList<string>),
+           typeof(IList<EnumPickerOption>),
            typeof(FormPickerFieldView),
-            new List<string>(),
+            new List<EnumPickerOption>(),
            propertyChanging: (bindable, oldValue, newValue) =>
            {
                var ctrl = (FormPickerFieldView)bindable;
-               ctrl.Options = (IList<string>)newValue;
+               ctrl.Options = (IList<EnumPickerOption>)newValue;
            },
            defaultBindingMode: BindingMode.OneWay);
 
 
-        private IList<string> _options;
-        public IList<string> Options
+        private IList<EnumPickerOption> _options;
+        public IList<EnumPickerOption> Options
         {
             get { return _options; }
             set

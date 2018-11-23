@@ -14,7 +14,8 @@
                FontSize="Default"
                HorizontalOptions="Fill"
                ItemsSource="{Binding Options, Source={x:Reference this}}"
-                SelectedItem="{Binding Value, Source={x:Reference this}, Mode=TwoWay}"/>
+               ItemDisplayBinding="{Binding Text}"
+               SelectedItem="{Binding Value, Source={x:Reference this}, Mode=TwoWay}"/>
         <Label Text="{Binding ValidationMessage, Source={x:Reference this}}"
                TextColor="#CE1414"
                FontSize="Small"

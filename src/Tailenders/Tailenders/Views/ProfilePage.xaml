@@ -54,15 +54,8 @@
                                        Margin="0,0,0,12" />
             <views:FormPickerFieldView Label="Show in searches for"
                                        Margin="0,0,0,12"
-                                       Value="{Binding SearchShowIn}">
-                <views:FormPickerFieldView.Options>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Men</x:String>
-                        <x:String>Women</x:String>
-                        <x:String>Both</x:String>
-                    </x:Array>
-                </views:FormPickerFieldView.Options>
-            </views:FormPickerFieldView>
+                                       Options="{Binding SearchCategories}"
+                                       Value="{Binding SearchShowIn}"/>
             <views:FormEntryFieldView Label="Age" 
                                       Margin="0,0,0,12"
                                       Value="{Binding Age}"
@@ -70,8 +63,6 @@
             <views:FormSwitchFieldView Label="Show age?" 
                                        Margin="0,6,0,12"
                                        IsToggled="{Binding ShowAge}"/>
-            
-            
             <views:FormEntryFieldView Label="Location"
                                       Value="{Binding Location}"
                                       IsReadonly="true"

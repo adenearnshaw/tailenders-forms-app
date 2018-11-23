@@ -1,10 +1,24 @@
-﻿
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using Tailenders.Common;
+using TailendersApi.Contracts;
+
 namespace Tailenders.ViewModels
 {
     public class SettingsPageViewModel : BaseViewModel
     {
         public SettingsPageViewModel()
         {
+            SearchCategories = new ObservableCollection<EnumPickerOption>(EnumHelper<SearchCategory>.GetValues(SearchCategory.Men)
+                                                                  .Select(v => new EnumPickerOption((int)v, EnumHelper<SearchCategory>.GetDisplayValue(v))));
+
+        }
+
+        private ObservableCollection<EnumPickerOption> _searchCategories;
+        public ObservableCollection<EnumPickerOption> SearchCategories
+        {
+            get => _searchCategories;
+            set => Set(ref _searchCategories, value);
         }
 
         private float _minAge = 21f;
@@ -28,8 +42,8 @@ namespace Tailenders.ViewModels
             set => Set(ref _searchRadius, value);
         }
 
-        private string _searchFor = "Men";
-        public string SearchFor
+        private EnumPickerOption _searchFor;
+        public EnumPickerOption SearchFor
         {
             get => _searchFor;
             set => Set(ref _searchFor, value);

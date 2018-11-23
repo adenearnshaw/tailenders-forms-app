@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Tailenders.Views.ErrorPage"
+             Title="Error"
+             BackgroundColor="#A0CA6F">
+    <StackLayout HorizontalOptions="Center"
+                 Margin="0,40,0,0">
+        <Label Text="Something's gone wrong!"
+               TextColor="Snow"
+               FontSize="Medium"
+               HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"/>
+        <Button Margin="0,20,0,0"
+                Text="Send feedback"
+                TextColor="Snow"
+                BorderColor="Snow"
+                BackgroundColor="Transparent"
+                Clicked="SendFeedbackClicked"/>
+    </StackLayout>
+</ContentPage>

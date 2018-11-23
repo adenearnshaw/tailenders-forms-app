@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Tailenders.Views"
+             xmlns:vm="clr-namespace:Tailenders.ViewModels;assembly=Tailenders"
+             x:Class="Tailenders.Views.NewProfilePage"
+             BindingContext="{Binding NewProfile, Source={StaticResource Locator}}">
+    <ScrollView VerticalScrollBarVisibility="Default">
+        <StackLayout Margin="20,20,20,20">
+            <StackLayout BindingContext="{Binding ProfileVm}">
+                <views:FormEntryFieldView Label="Name"
+                                          Value="{Binding Name}"
+                                          Margin="0,0,0,12"/>
+                <views:FormEditorFieldView Label="Bio"
+                                           Value="{Binding Bio}"
+                                           Margin="0,0,0,12"/>
+                <views:FormPickerFieldView Label="Favourite position" 
+                                           Value="{Binding SelectedPosition}"
+                                           Options="{Binding Positions}"
+                                           Margin="0,0,0,12" />
+                <views:FormPickerFieldView Label="Show in searches for"
+                                           Margin="0,0,0,12"
+                                           Options="{Binding SearchCategories}"
+                                           Value="{Binding SearchShowIn}"/>
+                <views:FormEntryFieldView Label="Age" 
+                                          Margin="0,0,0,12"
+                                          Value="{Binding Age}"
+                                          Keyboard="Numeric" />
+                <views:FormSwitchFieldView Label="Show age?" 
+                                           Margin="0,6,0,12"
+                                           IsToggled="{Binding ShowAge}"/>
+                <views:FormEntryFieldView Label="Location"
+                                          Value="{Binding Location}"
+                                          IsReadonly="true"
+                                          Margin="0,0,0,12"/>
+            </StackLayout>
+                
+            <StackLayout BindingContext="{Binding SettingsVM}">
+                <views:FormRangeSliderFieldView Label="Show profiles Age"
+                                           MinValue="18"
+                                           MaxValue="80"
+                                           LowerValue="{Binding MinAge, Mode=TwoWay}"
+                                           UpperValue="{Binding MaxAge, Mode=TwoWay}"
+                                           Margin="0,0,0,12" />
+                
+                <views:FormPickerFieldView Label="I'm interested in..."
+                                           Margin="0,0,0,12"
+                                           Options="{Binding SearchCategories}"
+                                           Value="{Binding SearchFor}"/>
+            </StackLayout>
+            
+            <Button Text="Get started"
+                    HorizontalOptions="Fill"
+                    TextColor="Snow"
+                    BorderColor="Snow"
+                    Command="{Binding CreateProfileCommand}"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
