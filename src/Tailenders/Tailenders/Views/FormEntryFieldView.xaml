@@ -15,6 +15,8 @@
                FontSize="Default"
                HorizontalOptions="Fill"
                IsTextPredictionEnabled="true"
+               Placeholder="{Binding Hint, Source={x:Reference this}}"
+               PlaceholderColor="#9B9B9B"
                Keyboard="{Binding Keyboard, Source={x:Reference this}}"
                IsEnabled="{Binding IsReadonly, Source={x:Reference this}, Converter={StaticResource BooleanInverterConverter}}"/>
         <Label Text="{Binding ValidationMessage, Source={x:Reference this}}"

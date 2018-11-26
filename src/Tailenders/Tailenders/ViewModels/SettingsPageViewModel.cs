@@ -11,7 +11,7 @@ namespace Tailenders.ViewModels
         {
             SearchCategories = new ObservableCollection<EnumPickerOption>(EnumHelper<SearchCategory>.GetValues(SearchCategory.Men)
                                                                   .Select(v => new EnumPickerOption((int)v, EnumHelper<SearchCategory>.GetDisplayValue(v))));
-
+            SearchFor = SearchCategories.FirstOrDefault();
         }
 
         private ObservableCollection<EnumPickerOption> _searchCategories;

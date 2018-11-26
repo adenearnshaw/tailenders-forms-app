@@ -16,7 +16,7 @@ namespace Tailenders.Views
            nameof(Options),
            typeof(IList<EnumPickerOption>),
            typeof(FormPickerFieldView),
-            new List<EnumPickerOption>(),
+           new List<EnumPickerOption>(),
            propertyChanging: (bindable, oldValue, newValue) =>
            {
                var ctrl = (FormPickerFieldView)bindable;
@@ -24,16 +24,28 @@ namespace Tailenders.Views
            },
            defaultBindingMode: BindingMode.OneWay);
 
+        public static readonly BindableProperty SelectedOptionProperty = BindableProperty.Create(
+            nameof(SelectedOption),
+            typeof(EnumPickerOption),
+            typeof(FormPickerFieldView),
+            default(EnumPickerOption),
+            propertyChanging: (bindable, oldValue, newValue) =>
+            {
+                var ctrl = (FormPickerFieldView)bindable;
+                ctrl.SelectedOption = (EnumPickerOption)newValue;
+            },
+            defaultBindingMode: BindingMode.TwoWay);
 
-        private IList<EnumPickerOption> _options;
         public IList<EnumPickerOption> Options
         {
-            get { return _options; }
-            set
-            {
-                _options = value;
-                OnPropertyChanged();
-            }
+            get => (IList<EnumPickerOption>)base.GetValue(OptionsProperty);
+            set => base.SetValue(OptionsProperty, value);
+        }
+
+        public EnumPickerOption SelectedOption
+        {
+            get => (EnumPickerOption)base.GetValue(SelectedOptionProperty);
+            set => base.SetValue(SelectedOptionProperty, value);
         }
     }
 }

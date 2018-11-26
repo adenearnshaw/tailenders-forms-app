@@ -27,7 +27,7 @@
             <views:FormPickerFieldView Label="Search for"
                                        Margin="0,0,0,12"
                                        Options="{Binding SearchCategories}"
-                                       Value="{Binding SearchFor}"/>
+                                       SelectedOption="{Binding SearchFor}"/>
                
         </StackLayout>
     </ScrollView>

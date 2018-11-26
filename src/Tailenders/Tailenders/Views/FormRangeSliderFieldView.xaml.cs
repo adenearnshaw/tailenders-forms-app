@@ -57,49 +57,28 @@ namespace Tailenders.Views
             },
             defaultBindingMode: BindingMode.TwoWay);
 
-
-        private float _minValue;
         public float MinValue
         {
-            get { return _minValue; }
-            set
-            {
-                _minValue = value;
-                OnPropertyChanged();
-            }
+            get => (float)base.GetValue(MinValueProperty);
+            set => base.SetValue(MinValueProperty, value);
         }
 
-        private float _maxValue;
         public float MaxValue
         {
-            get { return _maxValue; }
-            set
-            {
-                _maxValue = value;
-                OnPropertyChanged();
-            }
+            get => (float)base.GetValue(MaxValueProperty);
+            set => base.SetValue(MaxValueProperty, value);
         }
 
-        private float _lowerValue;
         public float LowerValue
         {
-            get { return _lowerValue; }
-            set
-            {
-                _lowerValue = value;
-                OnPropertyChanged();
-            }
+            get => (float)base.GetValue(LowerValueProperty);
+            set => base.SetValue(LowerValueProperty, value);
         }
 
-        private float _upperValue;
         public float UpperValue
         {
-            get { return _upperValue; }
-            set
-            {
-                _upperValue = value;
-                OnPropertyChanged();
-            }
+            get => (float)base.GetValue(UpperValueProperty);
+            set => base.SetValue(UpperValueProperty, value);
         }
     }
 }

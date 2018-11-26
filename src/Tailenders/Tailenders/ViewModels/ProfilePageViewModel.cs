@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
@@ -23,19 +21,22 @@ namespace Tailenders.ViewModels
 
             Positions = new ObservableCollection<EnumPickerOption>(EnumHelper<CricketPosition>.GetValues(CricketPosition.Cover)
                                                                   .Select(v => new EnumPickerOption((int)v, EnumHelper<CricketPosition>.GetDisplayValue(v))));
+            SelectedPosition = Positions.FirstOrDefault();
 
-            SearchCategories = new ObservableCollection<EnumPickerOption>(EnumHelper<SearchCategory>.GetValues(SearchCategory.Men)
+            SearchShowCategories = new ObservableCollection<EnumPickerOption>(EnumHelper<SearchCategory>.GetValues(SearchCategory.Men)
                                                                   .Select(v => new EnumPickerOption((int)v, EnumHelper<SearchCategory>.GetDisplayValue(v))));
+            SearchShowIn = SearchShowCategories.FirstOrDefault();
+
 
             SaveChangesCommand = new RelayCommand(async () => await SaveChanges());
             EditPictureCommand = new RelayCommand(async () => await EditPicture());
         }
 
-        private ObservableCollection<EnumPickerOption> _searchCategories;
-        public ObservableCollection<EnumPickerOption> SearchCategories
+        private ObservableCollection<EnumPickerOption> _searchShowCategories;
+        public ObservableCollection<EnumPickerOption> SearchShowCategories
         {
-            get => _searchCategories;
-            set => Set(ref _searchCategories, value);
+            get => _searchShowCategories;
+            set => Set(ref _searchShowCategories, value);
         }
 
 
@@ -68,6 +69,13 @@ namespace Tailenders.ViewModels
             }
         }
 
+        private bool _isNameValid = true;
+        public bool IsNameValid
+        {
+            get => _isNameValid;
+            set => Set(ref _isNameValid, value);
+        }
+
         private string _age;
         public string Age
         {
@@ -79,7 +87,7 @@ namespace Tailenders.ViewModels
             }
         }
 
-        private bool _showAge;
+        private bool _showAge = true;
         public bool ShowAge
         {
             get => _showAge;
@@ -139,16 +147,6 @@ namespace Tailenders.ViewModels
         public override void OnNavigatedTo(object navigationParams)
         {
             base.OnNavigatedTo(navigationParams);
-
-            //Name = "Aden";
-            //Location = "Preston";
-            //Age = "31";
-            //ShowAge = true;
-            //SelectedPosition = "Long stop";
-            //Bio = "Ranked number 11 in the world for most dropped catches at my local school.";
-            //ProfilePic = "Tile5.png";
-            //SearchShowIn = "Men";
-            //HasUnsavedChanges = false;
         }
 
         public override void OnNavigatingFrom()

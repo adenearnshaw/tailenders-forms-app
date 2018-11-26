@@ -36,6 +36,9 @@ namespace Tailenders.ViewModels
 
         private async Task CreateProfile()
         {
+            if (!IsFormValid())
+                return;
+
             int.TryParse(ProfileVm.Age, out int age);
             var minAge = Convert.ToInt32(SettingsVm.MinAge);
             var maxAge = Convert.ToInt32(SettingsVm.MaxAge);
@@ -48,9 +51,9 @@ namespace Tailenders.ViewModels
                 ShowAge = ProfileVm.ShowAge,
                 Location = ProfileVm.Location,
                 Bio = ProfileVm.Bio,
-                FavouritePosition = ProfileVm.SelectedPosition.Value,
-                SearchShowInCategory = ProfileVm.SearchShowIn.Value,
-                SearchForCategory = SettingsVm.SearchFor.Value,
+                FavouritePosition = ProfileVm.SelectedPosition?.Value ?? 0,
+                SearchShowInCategory = ProfileVm.SearchShowIn?.Value ?? 0,
+                SearchForCategory = SettingsVm.SearchFor?.Value ?? 0,
                 SearchRadius = 30,
                 SearchMinAge = minAge,
                 SearchMaxAge = maxAge,
@@ -58,9 +61,18 @@ namespace Tailenders.ViewModels
                 UpdatedAt = DateTime.UtcNow
             };
 
+            return;
+
             await _profileManager.SaveUserProfile(profile, true);
 
             _navigationService.NavigateTo(PageKeys.HomePage, historyBehavior: NavigationHistoryBehavior.ClearHistory);
+        }
+
+        private bool IsFormValid()
+        {
+            ProfileVm.IsNameValid = !string.IsNullOrWhiteSpace(ProfileVm.Name);
+
+            return ProfileVm.IsNameValid;
         }
     }
 }

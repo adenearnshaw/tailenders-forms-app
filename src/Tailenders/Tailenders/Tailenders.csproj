@@ -24,7 +24,6 @@
   <ItemGroup>
     <Folder Include="Controls\TransparentNavBar\" />
     <Folder Include="Controls\Messaging\" />
-    <Folder Include="Converters\" />
     <Folder Include="Effects\" />
     <Folder Include="Managers\" />
     <Folder Include="Common\" />
