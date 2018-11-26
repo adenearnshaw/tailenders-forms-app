@@ -1,14 +1,21 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using Tailenders.Common;
+using Tailenders.Managers;
 using TailendersApi.Contracts;
 
 namespace Tailenders.ViewModels
 {
     public class SettingsPageViewModel : BaseViewModel
     {
-        public SettingsPageViewModel()
+        private readonly IProfileManager _profileManager;
+
+        public SettingsPageViewModel(IProfileManager profileManager)
         {
+            _profileManager = profileManager;
+
             SearchCategories = new ObservableCollection<EnumPickerOption>(EnumHelper<SearchCategory>.GetValues(SearchCategory.Men)
                                                                   .Select(v => new EnumPickerOption((int)v, EnumHelper<SearchCategory>.GetDisplayValue(v))));
             SearchFor = SearchCategories.FirstOrDefault();
@@ -47,6 +54,27 @@ namespace Tailenders.ViewModels
         {
             get => _searchFor;
             set => Set(ref _searchFor, value);
+        }
+
+        public override void OnNavigatedTo(object navigationParams)
+        {
+            base.OnNavigatedTo(navigationParams);
+
+            LoadSettings();
+        }
+
+        private async Task LoadSettings()
+        {
+            IsBusy = true;
+
+            var profile = await _profileManager.GetUserProfile();
+
+            MinAge = profile.SearchMinAge;
+            MaxAge = profile.SearchMaxAge;
+            SearchRadius = profile.SearchRadius;
+            SearchFor = SearchCategories.FirstOrDefault(c => c.Value == profile.SearchForCategory);
+
+            IsBusy = false;
         }
     }
 }

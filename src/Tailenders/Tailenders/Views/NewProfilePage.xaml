@@ -15,7 +15,7 @@
                 <Frame Padding="0"
                        Margin="0,0,0,12">
                     <Grid HeightRequest="200"
-                          BackgroundColor="Snow"
+                          BackgroundColor="#333333"
                           Padding="1,1,1,1">
                         <Image HorizontalOptions="Fill"
                                VerticalOptions="CenterAndExpand"
@@ -38,11 +38,13 @@
                                           Value="{Binding Name}"
                                           Hint="What's your name"
                                           Margin="0,0,0,12"
-                                          IsValid="True"
+                                          IsValid="{Binding IsNameValid}"
                                           ValidationMessage="Please enter your name" />
                 <views:FormEntryFieldView Label="Age"
                                           Margin="0,0,0,12"
                                           Value="{Binding Age}"
+                                          IsValid="{Binding IsAgeValid}"
+                                          ValidationMessage="Please enter your age"
                                           Hint="Your age"
                                           Keyboard="Numeric" />
                 <views:FormSwitchFieldView Label="Show age?"

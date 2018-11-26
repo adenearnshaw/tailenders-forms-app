@@ -69,11 +69,15 @@ namespace Tailenders.ViewModels
             }
         }
 
-        private bool _isNameValid = true;
-        public bool IsNameValid
+        private bool? _isNameValid = null;
+        public bool? IsNameValid
         {
             get => _isNameValid;
-            set => Set(ref _isNameValid, value);
+            set
+            {
+                Set(ref _isNameValid, value);
+                RaisePropertyChanged(nameof(IsNameValid));
+            }
         }
 
         private string _age;
@@ -84,6 +88,17 @@ namespace Tailenders.ViewModels
             {
                 Set(ref _age, value);
                 HasUnsavedChanges = true;
+            }
+        }
+
+        private bool? _isAgeValid = null;
+        public bool? IsAgeValid
+        {
+            get => _isAgeValid;
+            set
+            {
+                Set(ref _isAgeValid, value);
+                RaisePropertyChanged(nameof(IsAgeValid));
             }
         }
 
@@ -147,6 +162,8 @@ namespace Tailenders.ViewModels
         public override void OnNavigatedTo(object navigationParams)
         {
             base.OnNavigatedTo(navigationParams);
+
+            LoadProfile();
         }
 
         public override void OnNavigatingFrom()
@@ -154,6 +171,24 @@ namespace Tailenders.ViewModels
             base.OnNavigatingFrom();
 
             SaveChanges();
+        }
+
+        private async Task LoadProfile()
+        {
+            IsBusy = true;
+
+            var profile = await _profileManager.GetUserProfile();
+
+            Name = profile.Name;
+            Bio = profile.Bio;
+            ProfilePic = profile.Images.FirstOrDefault()?.ImageUrl ?? string.Empty;
+            Age = profile.Age.ToString();
+            ShowAge = profile.ShowAge;
+            Location = profile.Location;
+            SearchShowIn = SearchShowCategories.FirstOrDefault(c => c.Value == profile.SearchShowInCategory);
+            SelectedPosition = Positions.FirstOrDefault(p => p.Value == profile.FavouritePosition);
+
+            IsBusy = false;
         }
 
         private async Task SaveChanges()

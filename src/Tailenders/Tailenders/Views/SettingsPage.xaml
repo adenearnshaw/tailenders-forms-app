@@ -6,7 +6,12 @@
              BindingContext="{Binding Settings, Source={StaticResource Locator}}"
              Title="Search settings"
              BackgroundColor="#A0CA6F"
-             xmlns:views="clr-namespace:Tailenders.Views">
+             xmlns:views="clr-namespace:Tailenders.Views"
+             xmlns:behaviors="clr-namespace:Tailenders.Behaviors;assembly=Tailenders">
+
+    <ContentPage.Behaviors>
+        <behaviors:NavigationAwareBehavior />
+    </ContentPage.Behaviors>
 
     <ScrollView VerticalScrollBarVisibility="Default">
         <StackLayout x:DataType="vm:SettingsPageViewModel"

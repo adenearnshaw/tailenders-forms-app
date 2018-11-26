@@ -30,7 +30,7 @@ namespace Tailenders.ViewModels
             _navigationService = navigationService;
 
             ProfileVm = new ProfilePageViewModel(profileManager);
-            SettingsVm = new SettingsPageViewModel();
+            SettingsVm = new SettingsPageViewModel(profileManager);
 
             ProfileVm.EditPictureCommand = new RelayCommand(async () => await SelectPicture());
             CreateProfileCommand = new RelayCommand(async () => await CreateProfile());
@@ -43,10 +43,17 @@ namespace Tailenders.ViewModels
 
         private async Task CreateProfile()
         {
-            if (!IsFormValid())
+            int.TryParse(ProfileVm.Age, out int age);
+
+            if (!string.IsNullOrWhiteSpace(ProfileVm.Age) && age < 18)
+            {
+                MessagingCenter.Send(this, MessageNames.NotOldEnough);
+            }
+
+            if (!IsFormValid(age))
                 return;
 
-            int.TryParse(ProfileVm.Age, out int age);
+
             var minAge = Convert.ToInt32(SettingsVm.MinAge);
             var maxAge = Convert.ToInt32(SettingsVm.MaxAge);
 
@@ -68,19 +75,19 @@ namespace Tailenders.ViewModels
                 UpdatedAt = DateTime.UtcNow
             };
 
-            return;
-
             await _profileManager.SaveUserProfile(profile, true);
             await _profileManager.UploadProfileImage(_profilePhotoFile);
 
             _navigationService.NavigateTo(PageKeys.HomePage, historyBehavior: NavigationHistoryBehavior.ClearHistory);
         }
 
-        private bool IsFormValid()
+        private bool IsFormValid(int age)
         {
             ProfileVm.IsNameValid = !string.IsNullOrWhiteSpace(ProfileVm.Name);
+            ProfileVm.IsAgeValid = age >= 18;
 
-            return ProfileVm.IsNameValid;
+            return ProfileVm.IsNameValid.Value
+                && ProfileVm.IsAgeValid.Value;
         }
 
         private async Task SelectPicture()
@@ -90,14 +97,24 @@ namespace Tailenders.ViewModels
 
             await CrossMedia.Current.Initialize();
 
-            if (!CrossMedia.Current.IsPickPhotoSupported)
+            if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
+            {
+                _profilePhotoFile = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+                {
+                    DefaultCamera = CameraDevice.Front
+                });
+                ProfileVm.ProfilePic = _profilePhotoFile.Path;
+            }
+            else if (CrossMedia.Current.IsPickPhotoSupported)
+            {
+                _profilePhotoFile = await CrossMedia.Current.PickPhotoAsync();
+                ProfileVm.ProfilePic = _profilePhotoFile.Path;
+            }
+            else
             {
                 MessagingCenter.Send(this, MessageNames.NoPickPhotoSupport);
                 return;
             }
-
-            _profilePhotoFile = await CrossMedia.Current.PickPhotoAsync();
-            ProfileVm.ProfilePic = _profilePhotoFile.Path;
         }
     }
 }

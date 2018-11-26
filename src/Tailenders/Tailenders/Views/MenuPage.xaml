@@ -5,10 +5,16 @@
              xmlns:views="clr-namespace:Tailenders.Views;assembly=Tailenders"
              xmlns:iconize="clr-namespace:Plugin.Iconize;assembly=Plugin.Iconize"
              xmlns:vm="clr-namespace:Tailenders.ViewModels;assembly=Tailenders"
+             xmlns:behaviors="clr-namespace:Tailenders.Behaviors;assembly=Tailenders"
              x:Class="Tailenders.Views.MenuPage"
              Title="Tailenders"
              BackgroundColor="#A0CA6F" 
              BindingContext="{Binding Menu, Source={StaticResource Locator}}" >
+
+    <ContentPage.Behaviors>
+        <behaviors:NavigationAwareBehavior />
+    </ContentPage.Behaviors>
+
     <Grid x:DataType="vm:MenuPageViewModel"
           BackgroundColor="Transparent">
         <Grid.RowDefinitions>
@@ -24,12 +30,12 @@
                   VerticalOptions="CenterAndExpand">
                 <abstractions:CircleImage BorderColor="White"
                                           BorderThickness="2"
-                                          Source="Tile5.png"
+                                          Source="{Binding ProfilePic}"
                                           Aspect="AspectFit"
                                           WidthRequest="85"
                                           HeightRequest="85" />
                 <Label Margin="0,12,0,0"
-                       Text="Aden"
+                       Text="{Binding Name}"
                        TextColor="White"
                        FontSize="Large" 
                        VerticalOptions="Center"
