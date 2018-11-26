@@ -1,11 +1,15 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using GalaSoft.MvvmLight.Command;
+using Tailenders.Common;
 using Tailenders.Managers;
 using Tailenders.Navigation;
 using TailendersApi.Client;
 using TailendersApi.Contracts;
+using Xamarin.Forms;
 
 namespace Tailenders.ViewModels
 {
@@ -14,6 +18,8 @@ namespace Tailenders.ViewModels
         private readonly ICredentialsProvider _credentialsProvider;
         private readonly IProfileManager _profileManager;
         private readonly INavigationService _navigationService;
+
+        private MediaFile _profilePhotoFile;
 
         public NewProfilePageViewModel(ICredentialsProvider credentialsProvider,
                                        IProfileManager profileManager,
@@ -26,6 +32,7 @@ namespace Tailenders.ViewModels
             ProfileVm = new ProfilePageViewModel(profileManager);
             SettingsVm = new SettingsPageViewModel();
 
+            ProfileVm.EditPictureCommand = new RelayCommand(async () => await SelectPicture());
             CreateProfileCommand = new RelayCommand(async () => await CreateProfile());
         }
 
@@ -64,6 +71,7 @@ namespace Tailenders.ViewModels
             return;
 
             await _profileManager.SaveUserProfile(profile, true);
+            await _profileManager.UploadProfileImage(_profilePhotoFile);
 
             _navigationService.NavigateTo(PageKeys.HomePage, historyBehavior: NavigationHistoryBehavior.ClearHistory);
         }
@@ -73,6 +81,23 @@ namespace Tailenders.ViewModels
             ProfileVm.IsNameValid = !string.IsNullOrWhiteSpace(ProfileVm.Name);
 
             return ProfileVm.IsNameValid;
+        }
+
+        private async Task SelectPicture()
+        {
+            if (!CrossMedia.IsSupported)
+                return;
+
+            await CrossMedia.Current.Initialize();
+
+            if (!CrossMedia.Current.IsPickPhotoSupported)
+            {
+                MessagingCenter.Send(this, MessageNames.NoPickPhotoSupport);
+                return;
+            }
+
+            _profilePhotoFile = await CrossMedia.Current.PickPhotoAsync();
+            ProfileVm.ProfilePic = _profilePhotoFile.Path;
         }
     }
 }

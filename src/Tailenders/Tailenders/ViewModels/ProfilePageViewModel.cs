@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using GalaSoft.MvvmLight.Command;
+using Plugin.Media;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using GalaSoft.MvvmLight.Command;
-using Plugin.Media;
 using Tailenders.Common;
 using Tailenders.Managers;
 using TailendersApi.Contracts;
@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace Tailenders.ViewModels
 {
-	public class ProfilePageViewModel : BaseViewModel
+    public class ProfilePageViewModel : BaseViewModel
     {
         private readonly IProfileManager _profileManager;
 
@@ -141,8 +141,8 @@ namespace Tailenders.ViewModels
             set => Set(ref _hasUnsavedChanges, value);
         }
 
-        public ICommand SaveChangesCommand { get; set; }
-        public ICommand EditPictureCommand { get; set; }
+        public ICommand SaveChangesCommand { get; private set; }
+        public ICommand EditPictureCommand { get; internal set; }
 
         public override void OnNavigatedTo(object navigationParams)
         {
