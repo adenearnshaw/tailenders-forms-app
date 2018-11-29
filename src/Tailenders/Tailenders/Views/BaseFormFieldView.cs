@@ -69,55 +69,34 @@ namespace Tailenders.Views
            },
            defaultBindingMode: BindingMode.OneWay);
 
-        private string _value;
         public string Value
         {
-            get { return _value; }
-            set
-            {
-                _value = value;
-                OnPropertyChanged();
-            }
+            get => (string)base.GetValue(ValueProperty);
+            set => base.SetValue(ValueProperty, value);
         }
-        private string _label;
+
         public string Label
         {
-            get { return _label; }
-            set
-            {
-                _label = value;
-                OnPropertyChanged();
-            }
+            get => (string)base.GetValue(LabelProperty);
+            set => base.SetValue(LabelProperty, value);
         }
-        private string _validationMessage;
+
         public string ValidationMessage
         {
-            get { return _validationMessage; }
-            set
-            {
-                _validationMessage = value;
-                OnPropertyChanged();
-            }
+            get => (string)base.GetValue(ValidationMessageProperty);
+            set => base.SetValue(ValidationMessageProperty, value);
         }
-        private bool? _isValid;
+
         public bool? IsValid
         {
-            get { return _isValid; }
-            set
-            {
-                _isValid = value;
-                OnPropertyChanged();
-            }
+            get => (bool?)base.GetValue(IsValidProperty);
+            set => base.SetValue(IsValidProperty, value);
         }
-        private bool _isReadonly;
+
         public bool IsReadonly
         {
-            get { return _isReadonly; }
-            set
-            {
-                _isReadonly = value;
-                OnPropertyChanged();
-            }
+            get => (bool)base.GetValue(IsReadonlyProperty);
+            set => base.SetValue(IsReadonlyProperty, value);
         }
     }
 }

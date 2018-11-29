@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using GalaSoft.MvvmLight;
 using Tailenders.Models;
+using TailendersApi.Contracts;
 
 namespace Tailenders.ViewModels
 {
@@ -9,6 +11,16 @@ namespace Tailenders.ViewModels
         public CardItemViewModel(ProfileItem profileItem)
         {
             Data = profileItem;
+        }
+
+        public CardItemViewModel(SearchProfile profile)
+        {
+            Data = new ProfileItem(profile.Name, 
+                                   profile.Age.ToString(), 
+                                   profile.Location, 
+                                   profile.Images
+                                          .OrderByDescending(i => i.UpdatedAt)
+                                          .FirstOrDefault()?.ImageUrl ?? "te_avatar_default.jpg");
         }
 
         public ProfileItem Data { get; }

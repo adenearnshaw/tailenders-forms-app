@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tailenders.Common;
 using Xamarin.Forms;
 
 namespace Tailenders.Views
@@ -13,26 +14,38 @@ namespace Tailenders.Views
 
         public static readonly BindableProperty OptionsProperty = BindableProperty.Create(
            nameof(Options),
-           typeof(IList<string>),
+           typeof(IList<EnumPickerOption>),
            typeof(FormPickerFieldView),
-            new List<string>(),
+           new List<EnumPickerOption>(),
            propertyChanging: (bindable, oldValue, newValue) =>
            {
                var ctrl = (FormPickerFieldView)bindable;
-               ctrl.Options = (IList<string>)newValue;
+               ctrl.Options = (IList<EnumPickerOption>)newValue;
            },
            defaultBindingMode: BindingMode.OneWay);
 
-
-        private IList<string> _options;
-        public IList<string> Options
-        {
-            get { return _options; }
-            set
+        public static readonly BindableProperty SelectedOptionProperty = BindableProperty.Create(
+            nameof(SelectedOption),
+            typeof(EnumPickerOption),
+            typeof(FormPickerFieldView),
+            default(EnumPickerOption),
+            propertyChanging: (bindable, oldValue, newValue) =>
             {
-                _options = value;
-                OnPropertyChanged();
-            }
+                var ctrl = (FormPickerFieldView)bindable;
+                ctrl.SelectedOption = (EnumPickerOption)newValue;
+            },
+            defaultBindingMode: BindingMode.TwoWay);
+
+        public IList<EnumPickerOption> Options
+        {
+            get => (IList<EnumPickerOption>)base.GetValue(OptionsProperty);
+            set => base.SetValue(OptionsProperty, value);
+        }
+
+        public EnumPickerOption SelectedOption
+        {
+            get => (EnumPickerOption)base.GetValue(SelectedOptionProperty);
+            set => base.SetValue(SelectedOptionProperty, value);
         }
     }
 }

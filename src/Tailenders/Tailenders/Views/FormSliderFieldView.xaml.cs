@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Tailenders.Views
 {
@@ -47,37 +45,22 @@ namespace Tailenders.Views
             },
             defaultBindingMode: BindingMode.TwoWay);
 
-        private double _minValue;
         public double MinValue
         {
-            get { return _minValue; }
-            set
-            {
-                _minValue = value;
-                OnPropertyChanged();
-            }
+            get => (double)base.GetValue(MinValueProperty);
+            set => base.SetValue(MinValueProperty, value);
         }
 
-        private double _maxValue;
         public double MaxValue
         {
-            get { return _maxValue; }
-            set
-            {
-                _maxValue = value;
-                OnPropertyChanged();
-            }
+            get => (double)base.GetValue(MaxValueProperty);
+            set => base.SetValue(MaxValueProperty, value);
         }
 
-        private double _sliderValue;
         public double SliderValue
         {
-            get { return _sliderValue; }
-            set
-            {
-                _sliderValue = value;
-                OnPropertyChanged();
-            }
-        }       
+            get => (double)base.GetValue(SliderValueProperty);
+            set => base.SetValue(SliderValueProperty, value);
+        }
     }
 }

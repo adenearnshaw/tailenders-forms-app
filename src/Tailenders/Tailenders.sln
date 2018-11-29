@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tailenders.Android", "Taile
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tailenders.iOS", "Tailenders.iOS\Tailenders.iOS.csproj", "{8A735136-D640-4F1F-8E2C-BDB6A678CF33}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tailenders", "Tailenders\Tailenders.csproj", "{EB3465EC-65C8-4768-A92C-890479D2D858}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tailenders", "Tailenders\Tailenders.csproj", "{EB3465EC-65C8-4768-A92C-890479D2D858}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

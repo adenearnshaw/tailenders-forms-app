@@ -1,6 +1,7 @@
 ﻿using Tailenders.Common;
 using Tailenders.Navigation;
 using Tailenders.ViewModels;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,7 +21,10 @@ namespace Tailenders.Views
 
             MessagingCenter.Subscribe<ProfilePageViewModel>(this, MessageNames.NoPickPhotoSupport, (vm) =>
             {
-                DisplayAlert("Can't select photo", "Selecting a photo doesn't appear to be not supported", "Ok");
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert("Can't select photo", "Selecting a photo doesn't appear to be not supported", "Ok");
+                });
             });
         }
 

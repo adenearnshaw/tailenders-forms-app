@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<views:BaseFormFieldView xmlns="http://xamarin.com/schemas/2014/forms" 
-                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+<views:BaseFormFieldView xmlns="http://xamarin.com/schemas/2014/forms"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                          xmlns:views="clr-namespace:Tailenders.Views"
                          x:Class="Tailenders.Views.FormPickerFieldView"
                          x:Name="this">
-        <StackLayout HorizontalOptions="Fill"
+    <StackLayout HorizontalOptions="Fill"
                  VerticalOptions="StartAndExpand">
         <Label Text="{Binding Label, Source={x:Reference this}}"
                TextColor="Snow"
-               FontSize="Small"/>
+               FontSize="Small" />
         <Picker BackgroundColor="Snow"
-               TextColor="#333333"
-               FontSize="Default"
-               HorizontalOptions="Fill"
-               ItemsSource="{Binding Options, Source={x:Reference this}}"
-                SelectedItem="{Binding Value, Source={x:Reference this}, Mode=TwoWay}"/>
+                TextColor="#333333"
+                FontSize="Default"
+                HorizontalOptions="Fill"
+                ItemsSource="{Binding Options, Source={x:Reference this}}"
+                ItemDisplayBinding="{Binding Text}"
+                SelectedItem="{Binding SelectedOption, Source={x:Reference this}, Mode=TwoWay}" />
         <Label Text="{Binding ValidationMessage, Source={x:Reference this}}"
                TextColor="#CE1414"
                FontSize="Small"
-               IsVisible="{Binding IsValid, Source={x:Reference this}, Converter={StaticResource ValidationMessageVisibilityConverter}}"/>
+               IsVisible="{Binding IsValid, Source={x:Reference this}, Converter={StaticResource ValidationMessageVisibilityConverter}}" />
     </StackLayout>
 </views:BaseFormFieldView>

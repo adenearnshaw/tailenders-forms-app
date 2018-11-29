@@ -4,6 +4,15 @@
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<application android:label="Tailenders" android:icon="@mipmap/icon">
+        <activity android:name="microsoft.identity.client.BrowserTabActivity" 
+                  android:fullBackupContent="@xml/auto_backup_rules">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="msal02bc7fa6-e227-4061-b303-28f10fca5756" android:host="auth" />
+            </intent-filter>
+        </activity>
         <provider android:name="android.support.v4.content.FileProvider" 
                 android:authorities="${applicationId}.fileprovider" 
                 android:exported="false" 

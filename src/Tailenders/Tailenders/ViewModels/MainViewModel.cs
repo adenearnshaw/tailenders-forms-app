@@ -1,21 +1,24 @@
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Tailenders.Data;
+using Tailenders.Managers;
 using Tailenders.Navigation;
-using Xamarin.Forms.Internals;
 
 namespace Tailenders.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
+        private readonly IPairingsManager _pairingsManager;
 
-        public MainViewModel(INavigationService navigationService)
+        public MainViewModel(INavigationService navigationService,
+                             IPairingsManager pairingsManager)
         {
             _navigationService = navigationService;
+            _pairingsManager = pairingsManager;
 
             CardItems = new ObservableCollection<CardItemViewModel>();
             CardItems.CollectionChanged += (sender, e) =>
@@ -24,7 +27,7 @@ namespace Tailenders.ViewModels
                 RaisePropertyChanged(nameof(HasNoProfilesToView));
             };
 
-            SearchAgainCommand = new RelayCommand(ReloadData);
+            SearchAgainCommand = new RelayCommand(async() => await ReloadData());
             ProfileLikedCommand = new RelayCommand<int>(OnProfileLiked);
             ProfileDiscardedCommand = new RelayCommand<int>(OnProfileDisliked);
             NavigateToPartnershipsCommand = new RelayCommand(NavigateToPartnerships);
@@ -51,9 +54,9 @@ namespace Tailenders.ViewModels
         public ICommand FinishedSwipingCommand { get; private set; }
         public ICommand NavigateToPartnershipsCommand { get; private set; }
 
-        private void ReloadData()
+        private async Task ReloadData()
         {
-            var data = ProfileRetriever.Instance.GetProfilesAsCards().OrderByDescending(p => p.MatchedAt);
+            var data = await _pairingsManager.SearchForPairings();
 
             CardItems.Clear();
             foreach (var card in data)
@@ -78,13 +81,13 @@ namespace Tailenders.ViewModels
 
         private void AddNewProfileItem(int itemIndex)
         {
-            var elementIndex = itemIndex % 5;
-            var data = ProfileRetriever.Instance.GetProfilesAsCards().ElementAtOrDefault(elementIndex);
+            //var elementIndex = itemIndex % 5;
+            //var data = ProfileRetriever.Instance.GetProfilesAsCards().ElementAtOrDefault(elementIndex);
 
-            if (data != null)
-            {
-                CardItems.Add(new CardItemViewModel(data));
-            }
+            //if (data != null)
+            //{
+            //    CardItems.Add(new CardItemViewModel(data));
+            //}
         }
 
         private void NavigateToPartnerships()

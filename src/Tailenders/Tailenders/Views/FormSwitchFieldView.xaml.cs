@@ -21,15 +21,10 @@ namespace Tailenders.Views
             },
             defaultBindingMode: BindingMode.TwoWay);
 
-        private bool _isToggled;
         public bool IsToggled
         {
-            get { return _isToggled; }
-            set
-            {
-                _isToggled = value;
-                OnPropertyChanged();
-            }
+            get => (bool)base.GetValue(IsToggledProperty);
+            set => base.SetValue(IsToggledProperty, value);
         }
     }
 }

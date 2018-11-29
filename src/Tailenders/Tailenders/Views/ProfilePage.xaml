@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:behaviors="clr-namespace:Tailenders.Behaviors"
              xmlns:iconize="clr-namespace:Plugin.Iconize;assembly=Plugin.Iconize"
              xmlns:vm="clr-namespace:Tailenders.ViewModels;assembly=Tailenders"
              xmlns:views="clr-namespace:Tailenders.Views;assembly=Tailenders"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="Tailenders.Views.ProfilePage"
              BindingContext="{Binding Profile, Source={StaticResource Locator}}"
              Title="My profile"
-             BackgroundColor="#A0CA6F" >
+             BackgroundColor="#A0CA6F">
 
     <ContentPage.Behaviors>
         <behaviors:NavigationAwareBehavior />
     </ContentPage.Behaviors>
-    
+
     <ScrollView VerticalScrollBarVisibility="Default">
         <StackLayout x:DataType="vm:ProfilePageViewModel"
                      Margin="20,20,20,20"
@@ -21,62 +21,54 @@
                      VerticalOptions="StartAndExpand">
             <Frame Padding="0"
                    Margin="0,0,0,12">
-            <Grid HeightRequest="200"
-                  BackgroundColor="Snow"
-                  Padding="1,1,1,1">
-                <Image HorizontalOptions="Fill"
-                       VerticalOptions="CenterAndExpand"
-                       Aspect="AspectFill"
-                       BackgroundColor="#333333"
-                       Source="{Binding ProfilePic}"/>
-                <iconize:IconButton Text="fas-pen"
-                                    TextColor="Snow"
-                                    FontSize="Large"
-                                    BackgroundColor="Transparent"
-                                    HorizontalOptions="End"
-                                    VerticalOptions="Start"
-                                    Margin="0"
-                                    Padding="8"
-                                    WidthRequest="50"
-                                    Command="{Binding EditPictureCommand}"/>
-            </Grid>
+                <Grid HeightRequest="200"
+                      BackgroundColor="Snow"
+                      Padding="1,1,1,1">
+                    <ffimageloading:CachedImage HorizontalOptions="Fill"
+                                                VerticalOptions="CenterAndExpand"
+                                                Aspect="AspectFill"
+                                                BackgroundColor="#333333"
+                                                Source="{Binding ProfilePic}" 
+                                                CacheDuration="30"/>
+                    <iconize:IconButton Text="fas-pen"
+                                        TextColor="Snow"
+                                        FontSize="Large"
+                                        BackgroundColor="Transparent"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Start"
+                                        Margin="0"
+                                        Padding="8"
+                                        WidthRequest="50"
+                                        Command="{Binding EditPictureCommand}" />
+                </Grid>
             </Frame>
-            
+
             <views:FormEntryFieldView Label="Name"
                                       Value="{Binding Name}"
-                                      Margin="0,0,0,12"/>
+                                      Margin="0,0,0,12" />
             <views:FormEditorFieldView Label="Bio"
                                        Value="{Binding Bio}"
-                                       Margin="0,0,0,12"/>
-            <views:FormPickerFieldView Label="Favourite position" 
-                                       Value="{Binding SelectedPosition}"
+                                       Margin="0,0,0,12" />
+            <views:FormPickerFieldView Label="Favourite position"
+                                       SelectedOption="{Binding SelectedPosition}"
                                        Options="{Binding Positions}"
                                        Margin="0,0,0,12" />
             <views:FormPickerFieldView Label="Show in searches for"
                                        Margin="0,0,0,12"
-                                       Value="{Binding SearchShowIn}">
-                <views:FormPickerFieldView.Options>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Men</x:String>
-                        <x:String>Women</x:String>
-                        <x:String>Both</x:String>
-                    </x:Array>
-                </views:FormPickerFieldView.Options>
-            </views:FormPickerFieldView>
-            <views:FormEntryFieldView Label="Age" 
+                                       Options="{Binding SearchShowCategories}"
+                                       SelectedOption="{Binding SearchShowIn}" />
+            <views:FormEntryFieldView Label="Age"
                                       Margin="0,0,0,12"
                                       Value="{Binding Age}"
                                       Keyboard="Numeric" />
-            <views:FormSwitchFieldView Label="Show age?" 
+            <views:FormSwitchFieldView Label="Show age?"
                                        Margin="0,6,0,12"
-                                       IsToggled="{Binding ShowAge}"/>
-            
-            
+                                       IsToggled="{Binding ShowAge}" />
             <views:FormEntryFieldView Label="Location"
                                       Value="{Binding Location}"
                                       IsReadonly="true"
-                                      Margin="0,0,0,12"/>
+                                      Margin="0,0,0,12" />
         </StackLayout>
-    
+
     </ScrollView>
 </ContentPage>

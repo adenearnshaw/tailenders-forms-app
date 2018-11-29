@@ -6,7 +6,12 @@
              BindingContext="{Binding Settings, Source={StaticResource Locator}}"
              Title="Search settings"
              BackgroundColor="#A0CA6F"
-             xmlns:views="clr-namespace:Tailenders.Views">
+             xmlns:views="clr-namespace:Tailenders.Views"
+             xmlns:behaviors="clr-namespace:Tailenders.Behaviors;assembly=Tailenders">
+
+    <ContentPage.Behaviors>
+        <behaviors:NavigationAwareBehavior />
+    </ContentPage.Behaviors>
 
     <ScrollView VerticalScrollBarVisibility="Default">
         <StackLayout x:DataType="vm:SettingsPageViewModel"
@@ -18,23 +23,17 @@
                                        UpperValue="{Binding MaxAge, Mode=TwoWay}"
                                        Margin="0,0,0,12" />
             
-            <views:FormSliderFieldView Label="Search radius"
+            <!--<views:FormSliderFieldView Label="Search radius"
                                        MaxValue="250"
                                        MinValue="1"
                                        SliderValue="{Binding SearchRadius, Mode=TwoWay}"
-                                       Margin="0,0,0,12" />
+                                       Margin="0,0,0,12" />-->
             
             <views:FormPickerFieldView Label="Search for"
                                        Margin="0,0,0,12"
-                                       Value="{Binding SearchFor}">
-                <views:FormPickerFieldView.Options>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Men</x:String>
-                        <x:String>Women</x:String>
-                        <x:String>Both</x:String>
-                    </x:Array>
-                </views:FormPickerFieldView.Options>
-            </views:FormPickerFieldView>
+                                       Options="{Binding SearchCategories}"
+                                       SelectedOption="{Binding SearchFor}"/>
+               
         </StackLayout>
     </ScrollView>
 </ContentPage>

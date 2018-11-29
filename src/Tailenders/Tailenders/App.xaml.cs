@@ -1,5 +1,5 @@
-﻿using Plugin.Iconize;
-using Tailenders.Controls.TransparentNavBar;
+﻿using Microsoft.Identity.Client;
+using Plugin.Iconize;
 using Tailenders.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,30 +14,10 @@ namespace Tailenders
             InitializeComponent();
             Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeSolidModule());
 
-            Navigation = new IconNavigationPage(new MasterPage())
-            {
-                BarBackgroundColor = Color.FromHex("#8AAF5F"),
-                BarTextColor = Color.Snow                
-            };
-
-            MainPage = Navigation;
+            MainPage = new LaunchPage();
         }
 
-        public NavigationPage Navigation { get; }
-
-        protected override void OnStart()
-        {
-            // Handle when your app starts
-        }
-
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
-
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
-        }
+        //public static ViewModelLocator Locator { get; set; }
+        public static UIParent UiParent = null;
     }
 }

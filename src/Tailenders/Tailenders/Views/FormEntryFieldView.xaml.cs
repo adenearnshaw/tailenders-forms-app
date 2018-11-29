@@ -21,15 +21,28 @@ namespace Tailenders.Views
             },
             defaultBindingMode: BindingMode.TwoWay);
 
-        private Keyboard _keyboard;
+        public static readonly BindableProperty HintProperty = BindableProperty.Create(
+            nameof(Hint),
+            typeof(string),
+            typeof(FormEntryFieldView),
+            string.Empty,
+            propertyChanging: (bindable, oldValue, newValue) =>
+            {
+                var ctrl = (FormEntryFieldView)bindable;
+                ctrl.Hint = (string)newValue;
+            },
+            defaultBindingMode: BindingMode.OneWay);
+
         public Keyboard Keyboard
         {
-            get { return _keyboard; }
-            set
-            {
-                _keyboard = value;
-                OnPropertyChanged();
-            }
+            get => (Keyboard)base.GetValue(KeyboardProperty);
+            set => base.SetValue(KeyboardProperty, value);
+        }
+
+        public string Hint
+        {
+            get => (string)base.GetValue(HintProperty);
+            set => base.SetValue(HintProperty, value);
         }
     }
 }

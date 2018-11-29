@@ -12,6 +12,8 @@
         <Editor Text="{Binding Value, Source={x:Reference this}}"
                 BackgroundColor="Snow"
                 TextColor="#333333"
+                Placeholder="{Binding Hint, Source={x:Reference this}}"
+                PlaceholderColor="#9B9B9B"
                 FontSize="Default"
                 AutoSize="TextChanges"
                 IsSpellCheckEnabled="true"

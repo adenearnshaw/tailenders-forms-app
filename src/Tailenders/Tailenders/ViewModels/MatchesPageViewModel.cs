@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Tailenders.Data;
+using Tailenders.Managers;
 using Tailenders.Navigation;
 
 namespace Tailenders.ViewModels
