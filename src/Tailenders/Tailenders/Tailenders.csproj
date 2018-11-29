@@ -12,10 +12,11 @@
   <ItemGroup>
     <PackageReference Include="MLToolkit.Forms.SwipeCardView" Version="1.2.0" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
-    <PackageReference Include="TailendersApi.Client" Version="0.0.2-alpha5" />
+    <PackageReference Include="TailendersApi.Client" Version="0.0.2-alpha8" />
     <PackageReference Include="Xam.Plugin.Iconize" Version="3.2.0.75" />
     <PackageReference Include="Xam.Plugin.Iconize.FontAwesome" Version="3.2.0.75" />
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.4.859" />
     <PackageReference Include="Xamarin.Forms" Version="3.3.0.912540" />
     <PackageReference Include="Xamarin.Essentials" Version="0.11.0-preview" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />

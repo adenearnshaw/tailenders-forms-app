@@ -37,7 +37,6 @@ namespace Tailenders.ViewModels
             SimpleIoc.Default.Register<PodcastPageViewModel>();
             SimpleIoc.Default.Register<ProfilePageViewModel>();
             SimpleIoc.Default.Register<SettingsPageViewModel>();
-
         }
 
         public ConversationPageViewModel Conversation => SimpleIoc.Default.GetInstance<ConversationPageViewModel>();

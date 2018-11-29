@@ -34,7 +34,7 @@ namespace Tailenders.ViewModels
             {
                 Application.Current.MainPage = CreateNavigationPage(new NewProfilePage());
             }
-            catch
+            catch (Exception ex)
             {
                 Application.Current.MainPage = CreateNavigationPage(new ErrorPage());
             }

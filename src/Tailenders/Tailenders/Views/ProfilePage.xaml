@@ -4,6 +4,7 @@
              xmlns:iconize="clr-namespace:Plugin.Iconize;assembly=Plugin.Iconize"
              xmlns:vm="clr-namespace:Tailenders.ViewModels;assembly=Tailenders"
              xmlns:views="clr-namespace:Tailenders.Views;assembly=Tailenders"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="Tailenders.Views.ProfilePage"
              BindingContext="{Binding Profile, Source={StaticResource Locator}}"
              Title="My profile"
@@ -23,11 +24,12 @@
                 <Grid HeightRequest="200"
                       BackgroundColor="Snow"
                       Padding="1,1,1,1">
-                    <Image HorizontalOptions="Fill"
-                           VerticalOptions="CenterAndExpand"
-                           Aspect="AspectFill"
-                           BackgroundColor="#333333"
-                           Source="{Binding ProfilePic}" />
+                    <ffimageloading:CachedImage HorizontalOptions="Fill"
+                                                VerticalOptions="CenterAndExpand"
+                                                Aspect="AspectFill"
+                                                BackgroundColor="#333333"
+                                                Source="{Binding ProfilePic}" 
+                                                CacheDuration="30"/>
                     <iconize:IconButton Text="fas-pen"
                                         TextColor="Snow"
                                         FontSize="Large"

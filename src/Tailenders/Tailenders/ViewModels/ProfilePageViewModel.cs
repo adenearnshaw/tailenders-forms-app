@@ -1,7 +1,10 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using System;
+using GalaSoft.MvvmLight.Command;
 using Plugin.Media;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tailenders.Common;
@@ -181,7 +184,7 @@ namespace Tailenders.ViewModels
 
             Name = profile.Name;
             Bio = profile.Bio;
-            ProfilePic = profile.Images.FirstOrDefault()?.ImageUrl ?? string.Empty;
+            ProfilePic = profile.Images.OrderByDescending(i => i.UpdatedAt).FirstOrDefault()?.ImageUrl ?? string.Empty;
             Age = profile.Age.ToString();
             ShowAge = profile.ShowAge;
             Location = profile.Location;
@@ -212,10 +215,17 @@ namespace Tailenders.ViewModels
 
             var file = await CrossMedia.Current.PickPhotoAsync();
 
-            IsBusy = true;
-            var updatedProfile = await _profileManager.UploadProfileImage(file);
-            ProfilePic = updatedProfile.Images.First().ImageUrl;
-            IsBusy = false;
+            try
+            {
+                IsBusy = true;
+                var updatedProfile = await _profileManager.UploadProfileImage(file);
+                ProfilePic = updatedProfile.Images.First().ImageUrl;
+                IsBusy = false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
 
     }

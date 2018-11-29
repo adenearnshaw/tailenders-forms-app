@@ -22,6 +22,8 @@ namespace Tailenders.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             ImageCircleRenderer.Init();
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
+
             LoadApplication(new App());
             App.UiParent = new UIParent(false);
             return base.FinishedLaunching(app, options);

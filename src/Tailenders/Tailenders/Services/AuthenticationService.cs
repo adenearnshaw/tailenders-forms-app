@@ -71,5 +71,15 @@ namespace Tailenders.Services
             }
             return authResult?.AccessToken ?? string.Empty;
         }
+
+        public async Task TryLogout()
+        {
+            IEnumerable<IAccount> accounts = await _client.GetAccountsAsync();
+
+            foreach (var account in accounts)
+            {
+                await _client.RemoveAsync(account);
+            }
+        }
     }
 }

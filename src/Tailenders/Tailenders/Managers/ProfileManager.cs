@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
 using TailendersApi.Client;
 using TailendersApi.Contracts;
 using Tailenders.Managers.Exceptions;
@@ -66,10 +68,19 @@ namespace Tailenders.Managers
 
         public async Task<Profile> UploadProfileImage(MediaFile mediaFile)
         {
-            var result = await _profileImageUploader.UploadImage(mediaFile.GetStreamWithImageRotatedForExternalStorage());
-            _userProfile.Images.Add(result);
+            try
+            {
+                var fileName = $"{Guid.NewGuid()}{Path.GetExtension(mediaFile.Path)}";
+                var result = await _profileImageUploader.UploadImage(fileName, mediaFile.GetStreamWithImageRotatedForExternalStorage());
+                _userProfile.Images.Add(result);
 
-            return _userProfile;
+                return _userProfile;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

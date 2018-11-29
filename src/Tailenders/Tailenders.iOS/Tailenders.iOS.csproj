@@ -211,6 +211,9 @@
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle">
       <Version>3.0.0.5</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Forms">
+      <Version>2.4.4.859</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.3.0.912540" />
     <PackageReference Include="Xamarin.Essentials">
       <Version>0.11.0-preview</Version>
@@ -230,17 +233,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\te_avatar_felix.png" />
-    <BundleResource Include="Resources\te_avatar_greg.png" />
-    <BundleResource Include="Resources\te_avatar_jimmy.png" />
-    <BundleResource Include="Resources\te_avatar_mattchin.png" />
-    <BundleResource Include="Resources\te_avatar_michael.png" />
     <BundleResource Include="Resources\page_background%403x.png" />
     <BundleResource Include="Resources\page_background%402x.png" />
     <BundleResource Include="Resources\page_background.png" />
     <BundleResource Include="Resources\iTunesArtwork%403x.png" />
     <BundleResource Include="Resources\te_splash_logo.png" />
-    <BundleResource Include="Resources\Tile5.png" />
     <BundleResource Include="Resources\apple_podcast_icon%403x.png" />
     <BundleResource Include="Resources\apple_podcast_icon%402x.png" />
     <BundleResource Include="Resources\apple_podcast_icon.png" />
@@ -249,9 +246,8 @@
     <BundleResource Include="Resources\menu.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\aden_avatar.png" />
+    <BundleResource Include="Resources\te_avatar_default.jpg" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <BundleResource Include="Resources\slider-default-handle-disabled.png" />
   </ItemGroup>

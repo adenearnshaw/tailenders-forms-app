@@ -5,6 +5,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Tailenders.Managers;
 using Tailenders.Navigation;
+using Tailenders.Services;
 
 namespace Tailenders.ViewModels
 {
@@ -22,6 +23,7 @@ namespace Tailenders.ViewModels
             ShowPodcastPageCommand = new RelayCommand(() => _navigationService.NavigateTo(PageKeys.PodcastPage));
             ShowProfilePageCommand = new RelayCommand(() => _navigationService.NavigateTo(PageKeys.ProfilePage));
             ShowSettingsPageCommand = new RelayCommand(() => _navigationService.NavigateTo(PageKeys.SearchSettingsPage));
+            LogoutCommand = new RelayCommand(async () => await Logout());
         }
 
         private string _name;
@@ -41,6 +43,7 @@ namespace Tailenders.ViewModels
         public ICommand ShowProfilePageCommand { get; }
         public ICommand ShowSettingsPageCommand { get; }
         public ICommand ShowPodcastPageCommand { get; }
+        public ICommand LogoutCommand { get; }
 
         public override void OnNavigatedTo(object navigationParams)
         {
@@ -52,7 +55,12 @@ namespace Tailenders.ViewModels
         {
             var profile = await _profileManager.GetUserProfile();
             Name = profile.Name;
-            ProfilePic = profile.Images.FirstOrDefault()?.ImageUrl ?? string.Empty;
+            ProfilePic = profile.Images.OrderByDescending(i => i.UpdatedAt).FirstOrDefault()?.ImageUrl ?? string.Empty;
+        }
+
+        private async Task Logout()
+        {
+            await AuthenticationService.Instance.TryLogout();
         }
     }
 }

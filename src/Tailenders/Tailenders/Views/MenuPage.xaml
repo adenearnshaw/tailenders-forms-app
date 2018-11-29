@@ -20,6 +20,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="220" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Frame BackgroundColor="#8AAF5F"
                HasShadow="false"
@@ -31,7 +32,7 @@
                 <abstractions:CircleImage BorderColor="White"
                                           BorderThickness="2"
                                           Source="{Binding ProfilePic}"
-                                          Aspect="AspectFit"
+                                          Aspect="AspectFill"
                                           WidthRequest="85"
                                           HeightRequest="85" />
                 <Label Margin="0,12,0,0"
@@ -62,5 +63,11 @@
                                       Icon="fas-podcast"
                                       Command="{Binding ShowPodcastPageCommand}" />
         </StackLayout>
+        <Button Grid.Row="2"
+                Text="Logout"
+                TextColor="#FF3E3E"
+                FontAttributes="Bold"
+                Margin="20,0,0,20"
+                Command="{Binding LogoutCommand}"/>
     </Grid>
 </ContentPage>
