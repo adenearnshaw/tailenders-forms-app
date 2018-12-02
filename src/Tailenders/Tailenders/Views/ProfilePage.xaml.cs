@@ -1,5 +1,4 @@
 ﻿using Tailenders.Common;
-using Tailenders.Navigation;
 using Tailenders.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -8,10 +7,10 @@ using Xamarin.Forms.Xaml;
 namespace Tailenders.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ProfilePage : ContentPage
-	{
-		public ProfilePage ()
-		{
+    public partial class ProfilePage : ContentPage
+    {
+        public ProfilePage ()
+        {
             InitializeComponent();
         }
 

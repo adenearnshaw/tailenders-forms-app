@@ -30,6 +30,7 @@ namespace Tailenders.ViewModels
 
             //ViewModels
             SimpleIoc.Default.Register<ConversationPageViewModel>();
+            SimpleIoc.Default.Register<LoginPageViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<MatchesPageViewModel>();
             SimpleIoc.Default.Register<MenuPageViewModel>();
@@ -40,6 +41,7 @@ namespace Tailenders.ViewModels
         }
 
         public ConversationPageViewModel Conversation => SimpleIoc.Default.GetInstance<ConversationPageViewModel>();
+        public LoginPageViewModel Login => SimpleIoc.Default.GetInstance<LoginPageViewModel>();
         public MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
         public MatchesPageViewModel Matches => SimpleIoc.Default.GetInstance<MatchesPageViewModel>();
         public MenuPageViewModel Menu => SimpleIoc.Default.GetInstance<MenuPageViewModel>();

@@ -37,6 +37,30 @@ namespace Tailenders.Services
 
         }
 
+        public async Task<bool> TrySilentLogin()
+        {
+            AuthenticationResult authResult = null;
+            IEnumerable<IAccount> accounts = await _client.GetAccountsAsync();
+
+            try
+            {
+
+                IAccount firstAccount = accounts.FirstOrDefault();
+                authResult = await _client.AcquireTokenSilentAsync(ADB2CConstants.Scopes, firstAccount);
+
+                if (authResult != null)
+                {
+                    _credentialsProvider.UpdateCredentials(authResult.UniqueId, authResult.AccessToken);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return authResult != null;
+        }
+
         public async Task<string> TryLogin()
         {
             AuthenticationResult authResult = null;

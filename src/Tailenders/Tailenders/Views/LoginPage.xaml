@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Class="Tailenders.Views.LoginPage"
+             BackgroundColor="#A0CA6F"
+             BindingContext="{Binding Login, Source={StaticResource Locator}}">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="Center"
+                     VerticalOptions="Center">
+            <ff:CachedImage Source="te_splash_logo.png"
+                            HeightRequest="130"
+                            WidthRequest="130"
+                            Margin="0,0,0,20"/>
+            <Label Text="Welcome to Tailenders"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   TextColor="Snow"
+                   FontSize="Large"
+                   Margin="0,0,0,10"/>
+            <Label Text="Login to get started"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   FontSize="Medium"
+                   TextColor="Snow"
+                   Margin="0,0,0,40" />
+
+            <Button Text="Login"
+                    TextColor="#A0CA6F"
+                    BackgroundColor="Snow"
+                    CornerRadius="4"
+                    HorizontalOptions="Center"
+                    WidthRequest="100"
+                    Command="{Binding TryLoginCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

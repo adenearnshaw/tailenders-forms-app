@@ -1,0 +1,65 @@
+﻿<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tailenders.Views.IndicatorOverlay"
+             x:Name="IndicatorOverlayRoot"
+             Style="{StaticResource IndicatorOverlayViewStyle}"
+             IsVisible="False">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <OnPlatform x:Key="IndicatorOverlayBackgroundColor"
+                        x:TypeArguments="Color">
+                <On Platform="Android, iOS"
+                    Value="#66000000" />
+            </OnPlatform>
+            <OnPlatform x:Key="IndicatorOverlayForegroundColor"
+                        x:TypeArguments="Color">
+                <On Platform="Android, iOS"
+                    Value="Snow" />
+            </OnPlatform>
+            <Style x:Key="IndicatorOverlayViewStyle"
+                   TargetType="StackLayout">
+                <Setter Property="HorizontalOptions"
+                        Value="Fill" />
+                <Setter Property="VerticalOptions"
+                        Value="Fill" />
+                <Setter Property="BackgroundColor"
+                        Value="{StaticResource IndicatorOverlayBackgroundColor}" />
+            </Style>
+            <Style x:Key="IndicatorOverlayLayoutStyle"
+                   TargetType="StackLayout">
+                <Setter Property="HorizontalOptions"
+                        Value="Center" />
+                <Setter Property="VerticalOptions"
+                        Value="Center" />
+            </Style>
+            <Style x:Key="IndicatorOverlayLabelStyle"
+                   TargetType="Label">
+                <Setter Property="HorizontalTextAlignment"
+                        Value="Center" />
+                <Setter Property="HorizontalOptions"
+                        Value="Center" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource IndicatorOverlayForegroundColor}" />
+            </Style>
+
+            <!-- Other styles -->
+            <Style x:Key="IndicatorOverlayActivityIndicatorStyle"
+                   TargetType="ActivityIndicator">
+                <Setter Property="HorizontalOptions"
+                        Value="Center" />
+                <Setter Property="Color"
+                        Value="{StaticResource IndicatorOverlayForegroundColor}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <StackLayout BindingContext="{x:Reference IndicatorOverlayRoot}"
+                 Style="{StaticResource IndicatorOverlayLayoutStyle}">
+        <ActivityIndicator IsRunning="{Binding IsActive}"
+                           Style="{StaticResource IndicatorOverlayActivityIndicatorStyle}"
+                           AutomationId="IndicatorOverlay_Spinner" />
+        <Label Text="{Binding OverlayText}"
+               Style="{StaticResource IndicatorOverlayLabelStyle}"
+               AutomationId="IndicatorOverlay_Text" />
+    </StackLayout>
+</ContentView>

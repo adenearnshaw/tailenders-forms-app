@@ -26,7 +26,7 @@ namespace Tailenders.Views
                 };
                 await Email.ComposeAsync(message);
             }
-            catch (FeatureNotSupportedException fbsEx)
+            catch (FeatureNotSupportedException)
             {
                 // Email is not supported on this device
                 MainThread.BeginInvokeOnMainThread(() =>
@@ -34,7 +34,7 @@ namespace Tailenders.Views
                     DisplayAlert("Email not supported", "To send feedback, please add an email account", "Ok");
                 });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Some other exception occurred
             }

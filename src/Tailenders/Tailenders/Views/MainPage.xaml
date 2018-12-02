@@ -4,6 +4,8 @@
              xmlns:swipeCardView="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
              xmlns:viewmodels="clr-namespace:Tailenders.ViewModels"
              xmlns:iconize="clr-namespace:Plugin.Iconize;assembly=Plugin.Iconize"
+             xmlns:views="clr-namespace:Tailenders.Views;assembly=Tailenders"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="Tailenders.Views.MainPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
     <!--<ContentPage.ToolbarItems>
@@ -91,7 +93,9 @@
                                IsClippedToBounds="True"
                                Padding="0">
                             <Grid>
-                                <Image Source="{Binding PhotoUrl}"
+                                <ff:CachedImage Source="{Binding PhotoUrl}"
+                                                ErrorPlaceholder="te_avatar_default.jpg"
+                                                LoadingPlaceholder="te_avatar_default.jpg"
                                        HorizontalOptions="Fill"
                                        VerticalOptions="Fill"
                                        Aspect="AspectFill" />
@@ -114,5 +118,7 @@
                 </swipeCardView:SwipeCardView.ItemTemplate>
             </swipeCardView:SwipeCardView>
         </Grid>
+        
+        <views:IndicatorOverlay x:Name="IsBusyIndicator" />
     </Grid>
 </ContentPage>

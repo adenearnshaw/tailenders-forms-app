@@ -46,6 +46,10 @@
             <views:FormEntryFieldView Label="Name"
                                       Value="{Binding Name}"
                                       Margin="0,0,0,12" />
+            <views:FormEntryFieldView Label="Location"
+                                      Value="{Binding Location}"
+                                      IsReadonly="true"
+                                      Margin="0,0,0,12" />
             <views:FormEditorFieldView Label="Bio"
                                        Value="{Binding Bio}"
                                        Margin="0,0,0,12" />
@@ -53,10 +57,6 @@
                                        SelectedOption="{Binding SelectedPosition}"
                                        Options="{Binding Positions}"
                                        Margin="0,0,0,12" />
-            <views:FormPickerFieldView Label="Show in searches for"
-                                       Margin="0,0,0,12"
-                                       Options="{Binding SearchShowCategories}"
-                                       SelectedOption="{Binding SearchShowIn}" />
             <views:FormEntryFieldView Label="Age"
                                       Margin="0,0,0,12"
                                       Value="{Binding Age}"
@@ -64,10 +64,10 @@
             <views:FormSwitchFieldView Label="Show age?"
                                        Margin="0,6,0,12"
                                        IsToggled="{Binding ShowAge}" />
-            <views:FormEntryFieldView Label="Location"
-                                      Value="{Binding Location}"
-                                      IsReadonly="true"
-                                      Margin="0,0,0,12" />
+            <views:FormPickerFieldView Label="Gender"
+                                       Margin="0,0,0,12"
+                                       Options="{Binding Genders}"
+                                       SelectedOption="{Binding SelectedGender}" />
         </StackLayout>
 
     </ScrollView>

@@ -18,5 +18,11 @@ namespace Tailenders.Views
         {
             MenuClicked?.Invoke(this, e);
         }
+
+        public void SetIsBusyOverlay(bool isActive, string message)
+        {
+            this.IsBusyIndicator.IsActive = isActive;
+            this.IsBusyIndicator.OverlayText = message;
+        }
     }
 }

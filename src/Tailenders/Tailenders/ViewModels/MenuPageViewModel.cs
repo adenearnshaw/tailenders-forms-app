@@ -61,6 +61,7 @@ namespace Tailenders.ViewModels
         private async Task Logout()
         {
             await AuthenticationService.Instance.TryLogout();
+            _navigationService.NavigateTo(PageKeys.LoginPage, null, NavigationHistoryBehavior.ClearHistory);
         }
     }
 }

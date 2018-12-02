@@ -1,4 +1,7 @@
-﻿using Microsoft.Identity.Client;
+﻿using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.Identity.Client;
 using Plugin.Iconize;
 using Tailenders.Views;
 using Xamarin.Forms;
@@ -19,5 +22,12 @@ namespace Tailenders
 
         //public static ViewModelLocator Locator { get; set; }
         public static UIParent UiParent = null;
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            AppCenter.Start("ios=d2272fc1-1aea-46a7-b426-6a6a4124bbee;", typeof(Analytics), typeof(Crashes));
+        }
     }
 }

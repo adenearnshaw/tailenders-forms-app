@@ -13,7 +13,9 @@ namespace Tailenders.Navigation
             var navigationService = new FormsNavigationService();
 
             navigationService.Configure(PageKeys.ConversationPage, typeof(ConversationPage));
+            navigationService.Configure(PageKeys.LoginPage, typeof(LoginPage));
             navigationService.Configure(PageKeys.HomePage, typeof(MainPage));
+            navigationService.Configure(PageKeys.MasterPage, typeof(MasterPage));
             navigationService.Configure(PageKeys.MatchesPage, typeof(MatchesPage));
             navigationService.Configure(PageKeys.PodcastPage, typeof(PodcastPage));
             navigationService.Configure(PageKeys.ProfilePage, typeof(ProfilePage));

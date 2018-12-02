@@ -26,20 +26,20 @@ namespace Tailenders.ViewModels
                                                                   .Select(v => new EnumPickerOption((int)v, EnumHelper<CricketPosition>.GetDisplayValue(v))));
             SelectedPosition = Positions.FirstOrDefault();
 
-            SearchShowCategories = new ObservableCollection<EnumPickerOption>(EnumHelper<SearchCategory>.GetValues(SearchCategory.Men)
+            Genders = new ObservableCollection<EnumPickerOption>(EnumHelper<SearchCategory>.GetValues(Gender.Male)
                                                                   .Select(v => new EnumPickerOption((int)v, EnumHelper<SearchCategory>.GetDisplayValue(v))));
-            SearchShowIn = SearchShowCategories.FirstOrDefault();
+            SelectedGender = Genders.FirstOrDefault();
 
 
             SaveChangesCommand = new RelayCommand(async () => await SaveChanges());
             EditPictureCommand = new RelayCommand(async () => await EditPicture());
         }
 
-        private ObservableCollection<EnumPickerOption> _searchShowCategories;
-        public ObservableCollection<EnumPickerOption> SearchShowCategories
+        private ObservableCollection<EnumPickerOption> _genders;
+        public ObservableCollection<EnumPickerOption> Genders
         {
-            get => _searchShowCategories;
-            set => Set(ref _searchShowCategories, value);
+            get => _genders;
+            set => Set(ref _genders, value);
         }
 
 
@@ -134,11 +134,11 @@ namespace Tailenders.ViewModels
             set => Set(ref _location, value);
         }
 
-        private EnumPickerOption _searchShowIn;
-        public EnumPickerOption SearchShowIn
+        private EnumPickerOption _selectedGender;
+        public EnumPickerOption SelectedGender
         {
-            get => _searchShowIn;
-            set => Set(ref _searchShowIn, value);
+            get => _selectedGender;
+            set => Set(ref _selectedGender, value);
         }
 
         private string _profilePic;
@@ -188,7 +188,7 @@ namespace Tailenders.ViewModels
             Age = profile.Age.ToString();
             ShowAge = profile.ShowAge;
             Location = profile.Location;
-            SearchShowIn = SearchShowCategories.FirstOrDefault(c => c.Value == profile.SearchShowInCategory);
+            SelectedGender = Genders.FirstOrDefault(c => c.Value == profile.Gender);
             SelectedPosition = Positions.FirstOrDefault(p => p.Value == profile.FavouritePosition);
 
             IsBusy = false;

@@ -68,6 +68,7 @@
                 TextColor="#FF3E3E"
                 FontAttributes="Bold"
                 Margin="20,0,0,20"
-                Command="{Binding LogoutCommand}"/>
+                Command="{Binding LogoutCommand}"
+                Clicked="LogoutButtonClicked"/>
     </Grid>
 </ContentPage>

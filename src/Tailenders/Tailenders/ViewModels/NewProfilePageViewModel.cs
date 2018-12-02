@@ -4,9 +4,11 @@ using Plugin.Media.Abstractions;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Plugin.Iconize;
 using Tailenders.Common;
 using Tailenders.Managers;
 using Tailenders.Navigation;
+using Tailenders.Views;
 using TailendersApi.Client;
 using TailendersApi.Contracts;
 using Xamarin.Forms;
@@ -66,7 +68,7 @@ namespace Tailenders.ViewModels
                 Location = ProfileVm.Location,
                 Bio = ProfileVm.Bio,
                 FavouritePosition = ProfileVm.SelectedPosition?.Value ?? 0,
-                SearchShowInCategory = ProfileVm.SearchShowIn?.Value ?? 0,
+                Gender = ProfileVm.SelectedGender?.Value ?? 0,
                 SearchForCategory = SettingsVm.SearchFor?.Value ?? 0,
                 SearchRadius = 30,
                 SearchMinAge = minAge,
@@ -78,7 +80,7 @@ namespace Tailenders.ViewModels
             await _profileManager.SaveUserProfile(profile, true);
             await _profileManager.UploadProfileImage(_profilePhotoFile);
 
-            _navigationService.NavigateTo(PageKeys.HomePage, historyBehavior: NavigationHistoryBehavior.ClearHistory);
+            Application.Current.MainPage = CreateNavigationPage(new MasterPage());
         }
 
         private bool IsFormValid(int age)
@@ -115,6 +117,15 @@ namespace Tailenders.ViewModels
                 MessagingCenter.Send(this, MessageNames.NoPickPhotoSupport);
                 return;
             }
+        }
+
+        private IconNavigationPage CreateNavigationPage(Page basePage)
+        {
+            return new IconNavigationPage(basePage)
+            {
+                BarBackgroundColor = Color.FromHex("#8AAF5F"),
+                BarTextColor = Color.Snow
+            };
         }
     }
 }

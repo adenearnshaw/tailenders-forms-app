@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Ioc;
 using Plugin.Iconize;
@@ -23,21 +22,46 @@ namespace Tailenders.ViewModels
         {
             IsBusy = true;
 
-            var profileManager = SimpleIoc.Default.GetInstance<IProfileManager>();
-            var token = await AuthenticationService.Instance.TryLogin();
-            try
+            var isLoginSuccessful = await AuthenticationService.Instance.TrySilentLogin();
+
+            if (isLoginSuccessful)
             {
-                var userProfile = await profileManager.GetUserProfile();
-                Application.Current.MainPage = CreateNavigationPage(new MasterPage());
+                try
+                {
+                    var profileManager = SimpleIoc.Default.GetInstance<IProfileManager>();
+                    await profileManager.GetUserProfile();
+                    Application.Current.MainPage = CreateNavigationPage(new MasterPage());
+                }
+                catch (UserDoesntExistException)
+                {
+                    Application.Current.MainPage = CreateNavigationPage(new NewProfilePage());
+                }
+                catch (Exception ex)
+                {
+                    Application.Current.MainPage = CreateNavigationPage(new ErrorPage());
+                }
             }
-            catch (UserDoesntExistException)
+            else
             {
-                Application.Current.MainPage = CreateNavigationPage(new NewProfilePage());
+                Application.Current.MainPage = new LoginPage();
             }
-            catch (Exception ex)
-            {
-                Application.Current.MainPage = CreateNavigationPage(new ErrorPage());
-            }
+
+
+            //var profileManager = SimpleIoc.Default.GetInstance<IProfileManager>();
+            //var token = await AuthenticationService.Instance.TryLogin();
+            //try
+            //{
+            //    var userProfile = await profileManager.GetUserProfile();
+            //    Application.Current.MainPage = CreateNavigationPage(new MasterPage());
+            //}
+            //catch (UserDoesntExistException)
+            //{
+            //    Application.Current.MainPage = CreateNavigationPage(new NewProfilePage());
+            //}
+            //catch (Exception ex)
+            //{
+            //    Application.Current.MainPage = CreateNavigationPage(new ErrorPage());
+            //}
 
             IsBusy = false;
         }
