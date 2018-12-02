@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
-using Tailenders.Data;
+using MLToolkit.Forms.SwipeCardView.Core;
 using Tailenders.Managers;
 using Tailenders.Navigation;
 
@@ -21,33 +21,42 @@ namespace Tailenders.ViewModels
             _pairingsManager = pairingsManager;
 
             CardItems = new ObservableCollection<CardItemViewModel>();
-            CardItems.CollectionChanged += (sender, e) =>
-            {
-                RaisePropertyChanged(nameof(HasProfilesToView));
-                RaisePropertyChanged(nameof(HasNoProfilesToView));
-            };
+            Threshold = (uint)(App.ScreenWidth / 3);
 
-            SearchAgainCommand = new RelayCommand(async() => await ReloadData());
-            ProfileLikedCommand = new RelayCommand<int>(OnProfileLiked);
-            ProfileDiscardedCommand = new RelayCommand<int>(OnProfileDisliked);
+            CardSwipedCommand = new RelayCommand<SwipedCardEventArgs>(CardSwiped);
+            SearchAgainCommand = new RelayCommand(async () => await ReloadData());
+            ProfileLikedCommand = new RelayCommand<CardItemViewModel>(OnProfileLiked);
+            ProfileDiscardedCommand = new RelayCommand<CardItemViewModel>(OnProfileDisliked);
             NavigateToPartnershipsCommand = new RelayCommand(NavigateToPartnerships);
 
             ReloadData();
         }
-        
-        private bool _hasProfilesToView;
-        public bool HasProfilesToView
+
+        private uint _threshold;
+        public uint Threshold
         {
-            get
+            get => _threshold;
+            set => Set(ref _threshold, value);
+        }
+
+        public bool HasProfilesToView => _topItem != null;
+        public bool HasNoProfilesToView => _topItem == null;
+
+        private CardItemViewModel _topItem;
+        public CardItemViewModel TopItem
+        {
+            get => _topItem;
+            set
             {
-                _hasProfilesToView = CardItems.Any();
-                return _hasProfilesToView;
+                Set(ref _topItem, value);
+                RaisePropertyChanged(nameof(HasProfilesToView));
+                RaisePropertyChanged(nameof(HasNoProfilesToView));
             }
         }
-        public bool HasNoProfilesToView => !_hasProfilesToView;
 
         public ObservableCollection<CardItemViewModel> CardItems { get; set; }
 
+        public ICommand CardSwipedCommand { get; private set; }
         public ICommand ProfileDiscardedCommand { get; private set; }
         public ICommand ProfileLikedCommand { get; private set; }
         public ICommand SearchAgainCommand { get; private set; }
@@ -66,17 +75,15 @@ namespace Tailenders.ViewModels
             RaisePropertyChanged(nameof(CardItems));
         }
 
-        private void OnProfileLiked(int itemIndex)
+        private void OnProfileLiked(CardItemViewModel item)
         {
-            var likedProfile = CardItems.ElementAt(itemIndex);
-            MatchesManager.Instance.AddProfileToMatches(likedProfile.Data);
-
-            AddNewProfileItem(itemIndex);
+            MatchesManager.Instance.AddProfileToMatches(item.Data);
+            //AddNewProfileItem(itemIndex);
         }
 
-        private void OnProfileDisliked(int itemIndex)
+        private void OnProfileDisliked(CardItemViewModel item)
         {
-            AddNewProfileItem(itemIndex);
+            //AddNewProfileItem(itemIndex);
         }
 
         private void AddNewProfileItem(int itemIndex)
@@ -93,6 +100,18 @@ namespace Tailenders.ViewModels
         private void NavigateToPartnerships()
         {
             _navigationService.NavigateTo(PageKeys.MatchesPage);
+        }
+
+        private void CardSwiped(SwipedCardEventArgs args)
+        {
+            if (args.Direction == SwipeCardDirection.Left)
+            {
+                OnProfileDisliked((CardItemViewModel)args.Item);
+            }
+            else if (args.Direction == SwipeCardDirection.Right)
+            {
+                OnProfileLiked((CardItemViewModel)args.Item);
+            }
         }
     }
 }

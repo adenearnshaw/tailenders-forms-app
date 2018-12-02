@@ -22,6 +22,8 @@ namespace Tailenders
 
         //public static ViewModelLocator Locator { get; set; }
         public static UIParent UiParent = null;
+        public static double ScreenHeight;
+        public static double ScreenWidth;
 
         protected override void OnStart()
         {

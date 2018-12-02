@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
+using Microsoft.AppCenter.Crashes;
 using Plugin.Iconize;
 using Tailenders.Managers;
 using Tailenders.Managers.Exceptions;
@@ -43,6 +44,7 @@ namespace Tailenders.ViewModels
             }
             catch (Exception ex)
             {
+                Crashes.TrackError(ex);
                 Application.Current.MainPage = CreateNavigationPage(new ErrorPage());
             }
             

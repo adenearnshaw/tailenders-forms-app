@@ -28,13 +28,14 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            
+
             <iconize:IconButton Grid.Row="0"
                                 Grid.Column="0"
                                 Text="fas-bars"
@@ -44,28 +45,27 @@
                                 Clicked="MenuButtonClicked"
                                 Margin="0,0,0,16"
                                 Padding="0"
-                                BackgroundColor="Transparent"/>
+                                BackgroundColor="Transparent" />
 
             <Button Grid.Row="0"
                     Grid.Column="2"
                     TextColor="Snow"
                     Text="Partnerships"
-                    Command="{Binding NavigateToPartnershipsCommand}" 
-                    Margin="0,0,0,0" 
+                    Command="{Binding NavigateToPartnershipsCommand}"
+                    Margin="0,0,0,0"
                     FontSize="Medium"
-                    BackgroundColor="Transparent"/>
+                    BackgroundColor="Transparent" />
 
             <Frame Grid.Row="1"
                    Grid.Column="0"
                    Grid.ColumnSpan="3"
                    CornerRadius="4"
-                   IsVisible="False"
+                   IsVisible="{Binding HasNoProfilesToView}"
                    IsClippedToBounds="True"
                    HorizontalOptions="Center"
                    VerticalOptions="Center">
                 <StackLayout BackgroundColor="Snow"
-                             Padding="10,10,10,10"
-                             IsVisible="{Binding HasNoProfilesToView}">
+                             Padding="10,10,10,10">
                     <Label Text="You're out!"
                            HorizontalTextAlignment="Center"
                            FontSize="Large"
@@ -82,43 +82,108 @@
             <swipeCardView:SwipeCardView Grid.Row="1"
                                          Grid.Column="0"
                                          Grid.ColumnSpan="3"
+                                         x:Name="SwipeCardView"
                                          ItemsSource="{Binding CardItems}"
+                                         TopItem="{Binding TopItem}"
                                          HorizontalOptions="FillAndExpand"
                                          VerticalOptions="FillAndExpand"
-                                         SwipedLeftCommand="{Binding ProfileDiscardedCommand}"
-                                         SwipedRightCommand="{Binding ProfileLikedCommand}">
+                                         SwipedCommand="{Binding CardSwipedCommand}"
+                                         Threshold="{Binding Threshold}"
+                                         SupportedSwipeDirections="Left, Right"
+                                         SupportedDraggingDirections="Left, Right">
                 <swipeCardView:SwipeCardView.ItemTemplate>
                     <DataTemplate x:DataType="viewmodels:CardItemViewModel">
-                        <Frame CornerRadius="0"
-                               IsClippedToBounds="True"
-                               Padding="0">
-                            <Grid>
-                                <ff:CachedImage Source="{Binding PhotoUrl}"
-                                                ErrorPlaceholder="te_avatar_default.jpg"
-                                                LoadingPlaceholder="te_avatar_default.jpg"
-                                       HorizontalOptions="Fill"
-                                       VerticalOptions="Fill"
-                                       Aspect="AspectFill" />
-                                <StackLayout HorizontalOptions="Fill"
-                                             VerticalOptions="End"
-                                             BackgroundColor="#65000000"
-                                             Padding="12,12,12,12">
-                                    <Label Text="{Binding Description}"
-                                           TextColor="Snow"
-                                           FontSize="Large"
+                        <StackLayout HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="FillAndExpand">
+                            <Frame CornerRadius="10"
+                                   Padding="0"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="FillAndExpand">
+                                <AbsoluteLayout>
+                                    <ff:CachedImage Source="{Binding PhotoUrl}"
+                                                    ErrorPlaceholder="te_avatar_default.jpg"
+                                                    LoadingPlaceholder="te_avatar_default.jpg"
+                                                    Aspect="AspectFill"
+                                                    AbsoluteLayout.LayoutBounds=".5,0.5,1,1"
+                                                    AbsoluteLayout.LayoutFlags="All" />
+                                    <Frame x:Name="LikeFrame"
+                                           BorderColor="#63DD99"
+                                           BackgroundColor="Transparent"
+                                           Padding="0"
+                                           CornerRadius="20"
+                                           AbsoluteLayout.LayoutBounds="0.1,.1, 150, 50"
+                                           AbsoluteLayout.LayoutFlags="PositionProportional"
+                                           Rotation="-20"
+                                           Opacity="0">
+                                        <Label x:Name="LikeText"
+                                               Text="LIKE"
+                                               TextColor="#63DD99"
+                                               BackgroundColor="Transparent"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"
+                                               VerticalOptions="CenterAndExpand"
+                                               FontSize="32" />
+                                    </Frame>
+                                    <Frame x:Name="NopeFrame"
+                                           BorderColor="#FF6A4F"
+                                           BackgroundColor="Transparent"
+                                           Padding="0"
+                                           CornerRadius="20"
+                                           AbsoluteLayout.LayoutBounds="0.9,.1, 150, 50"
+                                           AbsoluteLayout.LayoutFlags="PositionProportional"
+                                           Rotation="20"
+                                           Opacity="0">
+                                        <Label Text="NOPE"
+                                               TextColor="#FF6A4F"
+                                               BackgroundColor="Transparent"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"
+                                               VerticalOptions="CenterAndExpand"
+                                               FontSize="32"/>
+                                    </Frame>
+                                    <Label FontSize="Large"
                                            FontAttributes="Bold"
-                                           Margin="0,0,0,4" />
-                                    <Label Text="{Binding Location}"
-                                           TextColor="Snow"
-                                           FontSize="Medium" />
-                                </StackLayout>
-                            </Grid>
-                        </Frame>
+                                           TextColor="White"
+                                           Text="{Binding Description}"
+                                           AbsoluteLayout.LayoutBounds="0.1,0.95, 150, 30"
+                                           AbsoluteLayout.LayoutFlags="PositionProportional"/>
+                                </AbsoluteLayout>
+                            </Frame>
+                        </StackLayout>
                     </DataTemplate>
                 </swipeCardView:SwipeCardView.ItemTemplate>
             </swipeCardView:SwipeCardView>
+
+            <StackLayout Grid.Row="2"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="3"
+                         Orientation="Horizontal"
+                         HorizontalOptions="Center"
+                         Padding="10, 10, 10, 20"
+                         Spacing="50">
+                <StackLayout>
+                    <Button x:Name="nopeButton"
+                            Image="ic_tinder_nope.png"
+                            Clicked="OnDislikeClicked"
+                            WidthRequest="60"
+                            HeightRequest="60"
+                            CornerRadius="30"
+                            BackgroundColor="White"
+                            Scale="1" />
+                </StackLayout>
+                <StackLayout>
+                    <Button x:Name="likeButton"
+                            Image="ic_tinder_like.png"
+                            Clicked="OnLikeClicked"
+                            WidthRequest="60"
+                            HeightRequest="60"
+                            CornerRadius="30"
+                            BackgroundColor="White"
+                            Scale="1" />
+                </StackLayout>
+            </StackLayout>
         </Grid>
-        
+
         <views:IndicatorOverlay x:Name="IsBusyIndicator" />
     </Grid>
 </ContentPage>

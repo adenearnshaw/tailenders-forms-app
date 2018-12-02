@@ -58,10 +58,10 @@
                                            Value="{Binding Bio}"
                                            Hint="Write a little something about yourself"
                                            Margin="0,0,0,12" />
-                <views:FormPickerFieldView Label="Show in searches for"
+                <views:FormPickerFieldView Label="Gender"
                                            Margin="0,0,0,12"
-                                           Options="{Binding SearchShowCategories}"
-                                           SelectedOption="{Binding SearchShowIn}" />
+                                           Options="{Binding Genders}"
+                                           SelectedOption="{Binding SelectedGender}" />
                 <views:FormEntryFieldView Label="Location"
                                           Value="{Binding Location}"
                                           Hint="Your location"
