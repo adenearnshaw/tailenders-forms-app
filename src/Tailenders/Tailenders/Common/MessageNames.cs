@@ -4,11 +4,13 @@
     {
         public static string NoPickPhotoSupport => MessageName.NoPickPhotoSupport.ToString();
         public static string NotOldEnough => MessageName.NotOldEnough.ToString();
+        public static string ProfileMatch => MessageName.ProfileMatch.ToString();
 
         enum MessageName
         {
             NoPickPhotoSupport,
-            NotOldEnough
+            NotOldEnough,
+            ProfileMatch
         }
     }
 }

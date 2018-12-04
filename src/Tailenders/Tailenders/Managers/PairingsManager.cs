@@ -9,6 +9,7 @@ namespace Tailenders.Managers
     public interface IPairingsManager
     {
         Task<List<SearchProfile>> SearchForPairings();
+        Task<MatchResult> SendPairingDecision(string profileId, PairingDecision decision);
     }
 
     public class PairingsManager : IPairingsManager
@@ -24,6 +25,12 @@ namespace Tailenders.Managers
         {
             var results = await _pairingsRetriever.SearchForProfiles();
             return results.ToList();
+        }
+
+        public async Task<MatchResult> SendPairingDecision(string profileId, PairingDecision decision)
+        {
+            var isMatch = await _pairingsRetriever.SendPairDecision(profileId, decision);
+            return isMatch;
         }
     }
 }

@@ -3,9 +3,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using MLToolkit.Forms.SwipeCardView.Core;
+using MvvmHelpers;
+using Tailenders.Common;
 using Tailenders.Managers;
 using Tailenders.Navigation;
+using TailendersApi.Contracts;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace Tailenders.ViewModels
 {
@@ -14,22 +20,22 @@ namespace Tailenders.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IPairingsManager _pairingsManager;
 
+        private int _numberOfCardsSwiped;
+
         public MainViewModel(INavigationService navigationService,
                              IPairingsManager pairingsManager)
         {
             _navigationService = navigationService;
             _pairingsManager = pairingsManager;
 
-            CardItems = new ObservableCollection<CardItemViewModel>();
+            CardItems = new ObservableRangeCollection<CardItemViewModel>();
             Threshold = (uint)(App.ScreenWidth / 3);
 
             CardSwipedCommand = new RelayCommand<SwipedCardEventArgs>(CardSwiped);
-            SearchAgainCommand = new RelayCommand(async () => await ReloadData());
-            ProfileLikedCommand = new RelayCommand<CardItemViewModel>(OnProfileLiked);
-            ProfileDiscardedCommand = new RelayCommand<CardItemViewModel>(OnProfileDisliked);
+            SearchAgainCommand = new RelayCommand(async () => await RetrievePairings());
             NavigateToPartnershipsCommand = new RelayCommand(NavigateToPartnerships);
 
-            ReloadData();
+            LoadData();
         }
 
         private uint _threshold;
@@ -39,62 +45,35 @@ namespace Tailenders.ViewModels
             set => Set(ref _threshold, value);
         }
 
-        public bool HasProfilesToView => _topItem != null;
-        public bool HasNoProfilesToView => _topItem == null;
+        private bool _hasProfilesToView;
+        public bool HasProfilesToView
 
-        private CardItemViewModel _topItem;
-        public CardItemViewModel TopItem
         {
-            get => _topItem;
-            set
-            {
-                Set(ref _topItem, value);
-                RaisePropertyChanged(nameof(HasProfilesToView));
-                RaisePropertyChanged(nameof(HasNoProfilesToView));
-            }
+            get => _hasProfilesToView;
+            set => Set(ref _hasProfilesToView, value);
         }
 
-        public ObservableCollection<CardItemViewModel> CardItems { get; set; }
+        private bool _hasNoProfilesToView;
+        public bool HasNoProfilesToView
+    {
+            get => _hasNoProfilesToView;
+            set => Set(ref _hasNoProfilesToView, value);
+        }
+
+        public ObservableRangeCollection<CardItemViewModel> CardItems { get; set; }
 
         public ICommand CardSwipedCommand { get; private set; }
-        public ICommand ProfileDiscardedCommand { get; private set; }
-        public ICommand ProfileLikedCommand { get; private set; }
         public ICommand SearchAgainCommand { get; private set; }
-        public ICommand FinishedSwipingCommand { get; private set; }
         public ICommand NavigateToPartnershipsCommand { get; private set; }
 
-        private async Task ReloadData()
+        private async Task LoadData()
         {
             var data = await _pairingsManager.SearchForPairings();
 
+            _numberOfCardsSwiped = 0;
             CardItems.Clear();
-            foreach (var card in data)
-            {
-                CardItems.Add(new CardItemViewModel(card));
-            }
+            CardItems.AddRange(data.Select(sp => new CardItemViewModel(sp)));
             RaisePropertyChanged(nameof(CardItems));
-        }
-
-        private void OnProfileLiked(CardItemViewModel item)
-        {
-            MatchesManager.Instance.AddProfileToMatches(item.Data);
-            //AddNewProfileItem(itemIndex);
-        }
-
-        private void OnProfileDisliked(CardItemViewModel item)
-        {
-            //AddNewProfileItem(itemIndex);
-        }
-
-        private void AddNewProfileItem(int itemIndex)
-        {
-            //var elementIndex = itemIndex % 5;
-            //var data = ProfileRetriever.Instance.GetProfilesAsCards().ElementAtOrDefault(elementIndex);
-
-            //if (data != null)
-            //{
-            //    CardItems.Add(new CardItemViewModel(data));
-            //}
         }
 
         private void NavigateToPartnerships()
@@ -104,14 +83,50 @@ namespace Tailenders.ViewModels
 
         private void CardSwiped(SwipedCardEventArgs args)
         {
-            if (args.Direction == SwipeCardDirection.Left)
+            var swipedItem = args.Item as CardItemViewModel;
+            if (swipedItem == null)
+                return;
+
+            _numberOfCardsSwiped++;
+            var matchDecision = args.Direction == SwipeCardDirection.Right
+                ? PairingDecision.Liked
+                : PairingDecision.NotLiked;
+
+            CheckPairing(swipedItem.ProfileId, matchDecision);
+            RetrievePairings();
+
+            HasMorePairingsAvailable();
+        }
+
+        private async void CheckPairing(string pairedProfileId, PairingDecision decision)
+        {
+            var result = await _pairingsManager.SendPairingDecision(pairedProfileId, decision);
+
+            if (result.IsMatch)
             {
-                OnProfileDisliked((CardItemViewModel)args.Item);
+                MessagingCenter.Instance.Send(this, MessageNames.ProfileMatch);
             }
-            else if (args.Direction == SwipeCardDirection.Right)
+        }
+
+        private async Task RetrievePairings()
+        {
+            if (CardItems.Count - _numberOfCardsSwiped <= 5)
             {
-                OnProfileLiked((CardItemViewModel)args.Item);
+                var data = await _pairingsManager.SearchForPairings();
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    CardItems.AddRange(data.Select(sp => new CardItemViewModel(sp)));
+                    HasMorePairingsAvailable();
+                });
             }
+        }
+
+        private void HasMorePairingsAvailable()
+        {
+            var hasMorePairings = CardItems.Count > _numberOfCardsSwiped;
+
+            HasProfilesToView = hasMorePairings;
+            HasNoProfilesToView = !hasMorePairings;
         }
     }
 }

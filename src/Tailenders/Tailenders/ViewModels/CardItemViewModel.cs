@@ -1,38 +1,31 @@
-using System;
 using System.Linq;
 using GalaSoft.MvvmLight;
-using Tailenders.Models;
 using TailendersApi.Contracts;
 
 namespace Tailenders.ViewModels
 {
     public class CardItemViewModel : ViewModelBase
     {
-        public CardItemViewModel(ProfileItem profileItem)
-        {
-            Data = profileItem;
-        }
-
         public CardItemViewModel(SearchProfile profile)
         {
-            Data = new ProfileItem(profile.Name, 
-                                   profile.Age.ToString(), 
-                                   profile.Location, 
-                                   profile.Images
-                                          .OrderByDescending(i => i.UpdatedAt)
-                                          .FirstOrDefault()?.ImageUrl ?? "te_avatar_default.jpg");
+            ProfileId = profile.Id;
+            Name = profile.Name;
+            Age = profile.Age.ToString();
+            Location = profile.Location;
+            PhotoUrl = profile.Images
+                    .OrderByDescending(i => i.UpdatedAt)
+                    .FirstOrDefault()?.ImageUrl ?? "te_avatar_default.jpg";
         }
 
-        public ProfileItem Data { get; }
-        
-        public string Name => Data.Name;
-        public string Age => Data.Age;
-        public string Location => Data.Location;
-        public string PhotoUrl => Data.PhotoUrl;
+        public string ProfileId { get; }
+        public string Name { get; }
+        public string Age { get; }
+        public string Location { get; }
+        public string PhotoUrl { get; }
 
         public string Description
         {
-            get 
+            get
             {
                 var description = Name;
                 if (!string.IsNullOrWhiteSpace(Age))

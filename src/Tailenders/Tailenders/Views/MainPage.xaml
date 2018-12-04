@@ -84,7 +84,6 @@
                                          Grid.ColumnSpan="3"
                                          x:Name="SwipeCardView"
                                          ItemsSource="{Binding CardItems}"
-                                         TopItem="{Binding TopItem}"
                                          HorizontalOptions="FillAndExpand"
                                          VerticalOptions="FillAndExpand"
                                          SwipedCommand="{Binding CardSwipedCommand}"

@@ -99,17 +99,13 @@ namespace Tailenders.ViewModels
 
             await CrossMedia.Current.Initialize();
 
-            if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
+            if (CrossMedia.Current.IsPickPhotoSupported)
             {
-                _profilePhotoFile = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+                _profilePhotoFile = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
                 {
-                    DefaultCamera = CameraDevice.Front
+                    ModalPresentationStyle = MediaPickerModalPresentationStyle.OverFullScreen,
+                    CompressionQuality = 75
                 });
-                ProfileVm.ProfilePic = _profilePhotoFile.Path;
-            }
-            else if (CrossMedia.Current.IsPickPhotoSupported)
-            {
-                _profilePhotoFile = await CrossMedia.Current.PickPhotoAsync();
                 ProfileVm.ProfilePic = _profilePhotoFile.Path;
             }
             else
