@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Tailenders.ViewModels;assembly=Tailenders"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Class="Tailenders.Views.ProfileView">
+      <Grid x:DataType="vm:MatchItemViewModel">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="200"/>
+              <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+
+        <ff:CachedImage Grid.Column="0"
+                        Grid.Row="0"
+                        HeightRequest="200"
+                        WidthRequest="200"
+                        Source="{Binding ProfileUrl}" />
+          <Label Grid.Column="1"
+                 Grid.Row="0" 
+                 Text="{Binding Age}" />
+      </Grid>
+  
+</ContentView>

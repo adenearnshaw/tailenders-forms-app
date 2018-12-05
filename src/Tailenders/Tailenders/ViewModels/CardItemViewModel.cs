@@ -6,6 +6,8 @@ namespace Tailenders.ViewModels
 {
     public class CardItemViewModel : ViewModelBase
     {
+        private bool _showAge;
+
         public CardItemViewModel(SearchProfile profile)
         {
             ProfileId = profile.Id;
@@ -15,6 +17,7 @@ namespace Tailenders.ViewModels
             PhotoUrl = profile.Images
                     .OrderByDescending(i => i.UpdatedAt)
                     .FirstOrDefault()?.ImageUrl ?? "te_avatar_default.jpg";
+            _showAge = profile.Age != 0;
         }
 
         public string ProfileId { get; }
@@ -22,13 +25,13 @@ namespace Tailenders.ViewModels
         public string Age { get; }
         public string Location { get; }
         public string PhotoUrl { get; }
-
+        
         public string Description
         {
             get
             {
                 var description = Name;
-                if (!string.IsNullOrWhiteSpace(Age))
+                if (_showAge && !string.IsNullOrWhiteSpace(Age))
                 {
                     description += $", {Age}";
                 }

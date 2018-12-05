@@ -1,9 +1,7 @@
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using MLToolkit.Forms.SwipeCardView.Core;
 using MvvmHelpers;
 using Tailenders.Common;
@@ -102,7 +100,7 @@ namespace Tailenders.ViewModels
         {
             var result = await _pairingsManager.SendPairingDecision(pairedProfileId, decision);
 
-            if (result.IsMatch)
+            if (result != null && result.IsMatch)
             {
                 MessagingCenter.Instance.Send(this, MessageNames.ProfileMatch);
             }
@@ -113,6 +111,7 @@ namespace Tailenders.ViewModels
             if (CardItems.Count - _numberOfCardsSwiped <= 5)
             {
                 var data = await _pairingsManager.SearchForPairings();
+                //TODO Remove duplicates
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     CardItems.AddRange(data.Select(sp => new CardItemViewModel(sp)));

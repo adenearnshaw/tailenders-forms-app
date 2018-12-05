@@ -1,38 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Tailenders.Models;
+using TailendersApi.Client;
+using TailendersApi.Contracts;
 
 namespace Tailenders.Managers
 {
+    public interface IMatchesManager
+    {
+        Task<IReadOnlyCollection<MatchDetail>> GetMatches();
+    }
+
     public class MatchesManager
     {
-        private static MatchesManager _instance;
-        public static MatchesManager Instance => _instance ?? (_instance = new MatchesManager());
+        private readonly IMatchesClient _matchesClient;
 
-        public MatchesManager()
+        public MatchesManager(IMatchesClient matchesClient)
         {
-            _matches = new List<ProfileItem>();
+            _matchesClient = matchesClient;
+            _matches = new List<MatchDetail>();
         }
 
-        private List<ProfileItem> _matches;
-        public IReadOnlyCollection<ProfileItem> GetMatches()
+        private List<MatchDetail> _matches;
+
+        public async Task<IReadOnlyCollection<MatchDetail>> GetMatches()
         {
+            _matches = await _matchesClient.GetMatches();
+
             return _matches;
         }
 
-        public void AddProfileToMatches(ProfileItem profile)
-        {
-            profile.MatchedAt = DateTime.UtcNow;
-            _matches.Add(profile);
-        }
-
-        public void UpdateProfileItem(ProfileItem profile)
-        {
-            _matches.Remove(_matches.First(p => p.Id == profile.Id));
-            _matches.Add(profile);
-        }
 
         public Task LoadSavedData()
         {

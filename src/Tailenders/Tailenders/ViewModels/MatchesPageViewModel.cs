@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using Tailenders.Data;
@@ -11,13 +12,16 @@ namespace Tailenders.ViewModels
     public class MatchesPageViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
+        private readonly IMatchesManager _matchesManager;
 
-        public MatchesPageViewModel(INavigationService navigationService)
+        public MatchesPageViewModel(INavigationService navigationService,
+                                    IMatchesManager matchesManager)
         {
             _navigationService = navigationService;
+            _matchesManager = matchesManager;
 
             Matches = new ObservableCollection<MatchItemViewModel>();
-            RefreshDataCommand = new RelayCommand(RefreshMatches);
+            RefreshDataCommand = new RelayCommand(async() => await RefreshMatches());
             NavigateToConversationCommand = new RelayCommand<MatchItemViewModel>(NavigateToConversation);
         }
 
@@ -44,17 +48,17 @@ namespace Tailenders.ViewModels
             RefreshMatches();
         }
 
-        private void RefreshMatches()
+        private async Task RefreshMatches()
         {
             IsBusy = true;
 
-            var userMatches = MatchesManager.Instance.GetMatches();
+            var userMatches = await _matchesManager.GetMatches();
 
             Matches.Clear();
 
-            foreach (var profileItem in userMatches)
+            foreach (var matchDetail in userMatches)
             {
-                var matchItemVm = new MatchItemViewModel(profileItem);
+                var matchItemVm = new MatchItemViewModel(matchDetail);
                 Matches.Add(matchItemVm);
             }
             RaisePropertyChanged(nameof(Matches));
@@ -65,7 +69,8 @@ namespace Tailenders.ViewModels
 
         private void NavigateToConversation(MatchItemViewModel match)
         {
-            _navigationService.NavigateTo(PageKeys.ConversationPage, match.Data);
+            _navigationService.NavigateTo(PageKeys.MatchDetailPage, match);
+            //_navigationService.NavigateTo(PageKeys.ConversationPage, null);
         }
     }
 }

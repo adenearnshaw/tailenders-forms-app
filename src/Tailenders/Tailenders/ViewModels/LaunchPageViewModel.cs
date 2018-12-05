@@ -48,23 +48,6 @@ namespace Tailenders.ViewModels
                 Application.Current.MainPage = new LoginPage();
             }
 
-
-            //var profileManager = SimpleIoc.Default.GetInstance<IProfileManager>();
-            //var token = await AuthenticationService.Instance.TryLogin();
-            //try
-            //{
-            //    var userProfile = await profileManager.GetUserProfile();
-            //    Application.Current.MainPage = CreateNavigationPage(new MasterPage());
-            //}
-            //catch (UserDoesntExistException)
-            //{
-            //    Application.Current.MainPage = CreateNavigationPage(new NewProfilePage());
-            //}
-            //catch (Exception ex)
-            //{
-            //    Application.Current.MainPage = CreateNavigationPage(new ErrorPage());
-            //}
-
             IsBusy = false;
         }
 

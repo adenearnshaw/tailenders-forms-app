@@ -1,6 +1,8 @@
 using System;
 using MLToolkit.Forms.SwipeCardView.Core;
+using Tailenders.Common;
 using Tailenders.ViewModels;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 // using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
@@ -15,6 +17,25 @@ namespace Tailenders.Views
             InitializeComponent();
             //On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
             SwipeCardView.Dragging += OnDragging;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            MessagingCenter.Subscribe<MainViewModel>(this, MessageNames.ProfileMatch, (vm) =>
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert("New partnership!", "You've matched with someone, click Partnersips to see.", "Ok");
+                });
+            });
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            MessagingCenter.Unsubscribe<MainViewModel>(this, MessageNames.ProfileMatch);
         }
 
         private void MenuButtonClicked(object sender, EventArgs e)

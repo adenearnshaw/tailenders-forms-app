@@ -20,9 +20,10 @@ namespace Tailenders.ViewModels
             var clientSettings = new ClientSettings("https://tailendersapi-uat.azurewebsites.net/");
             SimpleIoc.Default.Register<IClientSettings>(() => clientSettings);
             SimpleIoc.Default.Register<ICredentialsProvider, CredentialsProvider>();
-            SimpleIoc.Default.Register<IPairingsRetriever, PairingsRetriever>();
+            SimpleIoc.Default.Register<IMatchesClient, MatchesClient>();
+            SimpleIoc.Default.Register<IPairingsClient, PairingsClient>();
             SimpleIoc.Default.Register<IProfileImageUploader, ProfileImageUploader>();
-            SimpleIoc.Default.Register<IProfilesRetriever, ProfilesRetriever>();
+            SimpleIoc.Default.Register<IProfilesClient, ProfilesClient>();
 
             //Managers
             SimpleIoc.Default.Register<IPairingsManager, PairingsManager>();
@@ -32,6 +33,7 @@ namespace Tailenders.ViewModels
             SimpleIoc.Default.Register<ConversationPageViewModel>();
             SimpleIoc.Default.Register<LoginPageViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<MatchDetailPageViewModel>();
             SimpleIoc.Default.Register<MatchesPageViewModel>();
             SimpleIoc.Default.Register<MenuPageViewModel>();
             SimpleIoc.Default.Register<NewProfilePageViewModel>();
@@ -43,6 +45,7 @@ namespace Tailenders.ViewModels
         public ConversationPageViewModel Conversation => SimpleIoc.Default.GetInstance<ConversationPageViewModel>();
         public LoginPageViewModel Login => SimpleIoc.Default.GetInstance<LoginPageViewModel>();
         public MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
+        public MatchDetailPageViewModel MatchDetail => SimpleIoc.Default.GetInstance<MatchDetailPageViewModel>();
         public MatchesPageViewModel Matches => SimpleIoc.Default.GetInstance<MatchesPageViewModel>();
         public MenuPageViewModel Menu => SimpleIoc.Default.GetInstance<MenuPageViewModel>();
         public NewProfilePageViewModel NewProfile => SimpleIoc.Default.GetInstance<NewProfilePageViewModel>();

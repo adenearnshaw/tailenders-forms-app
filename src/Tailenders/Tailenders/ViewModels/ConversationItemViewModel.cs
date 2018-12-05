@@ -1,16 +1,15 @@
 ﻿using System;
 using GalaSoft.MvvmLight;
-using Tailenders.Models;
 
 namespace Tailenders.ViewModels
 {
     public class ConversationItemViewModel : ViewModelBase
     {
-        public ConversationItemViewModel(ConversationItem item)
+        public ConversationItemViewModel()
         {
-            Message = item.Message;
-            IsOutgoing = item.IsOutgoing;
-            TimeStamp = item.TimeStamp;
+            Message = "";
+            IsOutgoing = false;
+            TimeStamp = DateTime.UtcNow;
         }
 
         public string Message { get; set; }

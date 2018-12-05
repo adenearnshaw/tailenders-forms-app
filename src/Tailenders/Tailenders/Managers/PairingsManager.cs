@@ -14,22 +14,22 @@ namespace Tailenders.Managers
 
     public class PairingsManager : IPairingsManager
     {
-        private readonly IPairingsRetriever _pairingsRetriever;
+        private readonly IPairingsClient _pairingsClient;
 
-        public PairingsManager(IPairingsRetriever pairingsRetriever)
+        public PairingsManager(IPairingsClient pairingsClient)
         {
-            _pairingsRetriever = pairingsRetriever;
+            _pairingsClient = pairingsClient;
         }
 
         public async Task<List<SearchProfile>> SearchForPairings()
         {
-            var results = await _pairingsRetriever.SearchForProfiles();
+            var results = await _pairingsClient.SearchForProfiles();
             return results.ToList();
         }
 
         public async Task<MatchResult> SendPairingDecision(string profileId, PairingDecision decision)
         {
-            var isMatch = await _pairingsRetriever.SendPairDecision(profileId, decision);
+            var isMatch = await _pairingsClient.SendPairDecision(profileId, decision);
             return isMatch;
         }
     }

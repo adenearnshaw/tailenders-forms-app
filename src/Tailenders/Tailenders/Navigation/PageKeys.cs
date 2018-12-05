@@ -7,6 +7,7 @@
         public static string HomePage => PageKey.Home.ToString();
         public static string LoginPage => PageKey.Login.ToString();
         public static string MasterPage => PageKey.Master.ToString();
+        public static string MatchDetailPage => PageKey.MatchDetail.ToString();
         public static string MatchesPage => PageKey.Matches.ToString();
         public static string NewProfilePage => PageKey.NewProfile.ToString();
         public static string PodcastPage => PageKey.Podcast.ToString();
@@ -22,6 +23,7 @@
             Home,
             Login,
             Master,
+            MatchDetail,
             Matches,
             NewProfile,
             Podcast,

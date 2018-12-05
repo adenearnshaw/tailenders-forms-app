@@ -18,15 +18,15 @@ namespace Tailenders.Managers
 
     public class ProfileManager : IProfileManager
     {
-        private readonly IProfilesRetriever _profilesRetriever;
+        private readonly IProfilesClient _profilesClient;
         private readonly IProfileImageUploader _profileImageUploader;
 
         private Profile _userProfile;
 
-        public ProfileManager(IProfilesRetriever profilesRetriever,
+        public ProfileManager(IProfilesClient profilesClient,
                               IProfileImageUploader profileImageUploader)
         {
-            _profilesRetriever = profilesRetriever;
+            _profilesClient = profilesClient;
             _profileImageUploader = profileImageUploader;
         }
 
@@ -37,7 +37,7 @@ namespace Tailenders.Managers
                 return _userProfile;
             }
 
-            var userProfile = await _profilesRetriever.GetProfile();
+            var userProfile = await _profilesClient.GetProfile();
 
             _userProfile = userProfile ?? throw new UserDoesntExistException();
             return _userProfile;
@@ -48,11 +48,11 @@ namespace Tailenders.Managers
             Profile updatedProfile = null;
             if (isNewProfile)
             {
-                updatedProfile = await _profilesRetriever.CreateProfile(unsavedProfile);
+                updatedProfile = await _profilesClient.CreateProfile(unsavedProfile);
             }
             else
             {
-                updatedProfile = await _profilesRetriever.UpdateProfile(unsavedProfile);
+                updatedProfile = await _profilesClient.UpdateProfile(unsavedProfile);
             }
 
             _userProfile = updatedProfile;
@@ -62,7 +62,7 @@ namespace Tailenders.Managers
 
         public async Task DeleteUserProfile()
         {
-            await _profilesRetriever.DeleteProfile();
+            await _profilesClient.DeleteProfile();
             _userProfile = null;
         }
 
