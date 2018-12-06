@@ -24,7 +24,7 @@ namespace Tailenders.Managers
         public async Task<List<SearchProfile>> SearchForPairings()
         {
             var results = await _pairingsClient.SearchForProfiles();
-            return results.ToList();
+            return results?.ToList();
         }
 
         public async Task<MatchResult> SendPairingDecision(string profileId, PairingDecision decision)

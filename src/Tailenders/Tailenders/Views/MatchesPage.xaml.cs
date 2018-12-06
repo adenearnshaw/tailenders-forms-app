@@ -5,16 +5,16 @@ using NavigationPage = Xamarin.Forms.NavigationPage;
 
 namespace Tailenders.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MatchesPage : ContentPage
-	{
-		public MatchesPage ()
-		{
-		    NavigationPage.SetHasNavigationBar(this, true);
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MatchesPage : ContentPage
+    {
+        public MatchesPage ()
+        {
+            NavigationPage.SetHasNavigationBar(this, true);
             InitializeComponent();
             NavigationPage.SetBackButtonTitle(this, "Back");
 
             On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
         }
-	}
+    }
 }

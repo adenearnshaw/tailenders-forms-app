@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -29,7 +31,7 @@ namespace Tailenders.ViewModels
             CardItems = new ObservableRangeCollection<CardItemViewModel>();
             Threshold = (uint)(App.ScreenWidth / 3);
 
-            CardSwipedCommand = new RelayCommand<SwipedCardEventArgs>(CardSwiped);
+            CardSwipedCommand = new RelayCommand<SwipedCardEventArgs>(async (args) => await CardSwiped(args));
             SearchAgainCommand = new RelayCommand(async () => await RetrievePairings());
             NavigateToPartnershipsCommand = new RelayCommand(NavigateToPartnerships);
 
@@ -53,7 +55,7 @@ namespace Tailenders.ViewModels
 
         private bool _hasNoProfilesToView;
         public bool HasNoProfilesToView
-    {
+        {
             get => _hasNoProfilesToView;
             set => Set(ref _hasNoProfilesToView, value);
         }
@@ -68,18 +70,31 @@ namespace Tailenders.ViewModels
         {
             var data = await _pairingsManager.SearchForPairings();
 
-            _numberOfCardsSwiped = 0;
             CardItems.Clear();
-            CardItems.AddRange(data.Select(sp => new CardItemViewModel(sp)));
-            RaisePropertyChanged(nameof(CardItems));
+            _numberOfCardsSwiped = CardItems.Count;
+
+            if (data != null)
+            {
+                CardItems.AddRange(data.Select(sp => new CardItemViewModel(sp)));
+                RaisePropertyChanged(nameof(CardItems));
+            }
+
+            HasMorePairingsAvailable();
         }
 
         private void NavigateToPartnerships()
         {
-            _navigationService.NavigateTo(PageKeys.MatchesPage);
+            try
+            {
+                _navigationService.NavigateTo(PageKeys.MatchesPage);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
 
-        private void CardSwiped(SwipedCardEventArgs args)
+        private async Task CardSwiped(SwipedCardEventArgs args)
         {
             var swipedItem = args.Item as CardItemViewModel;
             if (swipedItem == null)
@@ -90,13 +105,13 @@ namespace Tailenders.ViewModels
                 ? PairingDecision.Liked
                 : PairingDecision.NotLiked;
 
-            CheckPairing(swipedItem.ProfileId, matchDecision);
-            RetrievePairings();
+            await CheckPairing(swipedItem.ProfileId, matchDecision);
+            await RetrievePairings();
 
-            HasMorePairingsAvailable();
+
         }
 
-        private async void CheckPairing(string pairedProfileId, PairingDecision decision)
+        private async Task CheckPairing(string pairedProfileId, PairingDecision decision)
         {
             var result = await _pairingsManager.SendPairingDecision(pairedProfileId, decision);
 
@@ -108,16 +123,23 @@ namespace Tailenders.ViewModels
 
         private async Task RetrievePairings()
         {
-            if (CardItems.Count - _numberOfCardsSwiped <= 5)
+            IsBusy = true;
+            if (CardItems.Count - _numberOfCardsSwiped <= 0)
             {
                 var data = await _pairingsManager.SearchForPairings();
-                //TODO Remove duplicates
-                MainThread.BeginInvokeOnMainThread(() =>
+                if (data != null)
                 {
-                    CardItems.AddRange(data.Select(sp => new CardItemViewModel(sp)));
-                    HasMorePairingsAvailable();
-                });
+                    //TODO Remove duplicates
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        CardItems.AddRange(data.Select(sp => new CardItemViewModel(sp)));
+                        HasMorePairingsAvailable();
+                    });
+                }
             }
+
+            HasMorePairingsAvailable();
+            IsBusy = false;
         }
 
         private void HasMorePairingsAvailable()

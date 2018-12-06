@@ -10,7 +10,7 @@ namespace Tailenders.Managers
         Task<IReadOnlyCollection<MatchDetail>> GetMatches();
     }
 
-    public class MatchesManager
+    public class MatchesManager : IMatchesManager
     {
         private readonly IMatchesClient _matchesClient;
 
@@ -25,7 +25,6 @@ namespace Tailenders.Managers
         public async Task<IReadOnlyCollection<MatchDetail>> GetMatches()
         {
             _matches = await _matchesClient.GetMatches();
-
             return _matches;
         }
 

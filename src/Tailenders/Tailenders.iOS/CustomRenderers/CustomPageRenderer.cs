@@ -11,7 +11,7 @@ namespace Tailenders.iOS.CustomRenderers
         public override void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
-            var navctrl = this.ViewController.NavigationController;
+            var navctrl = this.ViewController?.NavigationController;
 
             if (navctrl?.InteractivePopGestureRecognizer != null)
                 navctrl.InteractivePopGestureRecognizer.Enabled = false;

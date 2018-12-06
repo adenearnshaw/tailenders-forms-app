@@ -26,6 +26,7 @@ namespace Tailenders.ViewModels
             SimpleIoc.Default.Register<IProfilesClient, ProfilesClient>();
 
             //Managers
+            SimpleIoc.Default.Register<IMatchesManager, MatchesManager>();
             SimpleIoc.Default.Register<IPairingsManager, PairingsManager>();
             SimpleIoc.Default.Register<IProfileManager, ProfileManager>();
 

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
-using Tailenders.Data;
+using MvvmHelpers;
 using Tailenders.Managers;
 using Tailenders.Navigation;
 
@@ -20,7 +20,7 @@ namespace Tailenders.ViewModels
             _navigationService = navigationService;
             _matchesManager = matchesManager;
 
-            Matches = new ObservableCollection<MatchItemViewModel>();
+            Matches = new ObservableRangeCollection<MatchItemViewModel>();
             RefreshDataCommand = new RelayCommand(async() => await RefreshMatches());
             NavigateToConversationCommand = new RelayCommand<MatchItemViewModel>(NavigateToConversation);
         }
@@ -37,7 +37,7 @@ namespace Tailenders.ViewModels
         }
         public bool HasNoMatches => !_hasMatches;
 
-        public ObservableCollection<MatchItemViewModel> Matches { get; set; }
+        public ObservableRangeCollection<MatchItemViewModel> Matches { get; set; }
 
         public ICommand RefreshDataCommand { get; private set; }
         public ICommand NavigateToConversationCommand { get; private set; }
@@ -56,12 +56,12 @@ namespace Tailenders.ViewModels
 
             Matches.Clear();
 
-            foreach (var matchDetail in userMatches)
+            if (userMatches != null)
             {
-                var matchItemVm = new MatchItemViewModel(matchDetail);
-                Matches.Add(matchItemVm);
+                Matches.AddRange(userMatches.Select(m => new MatchItemViewModel(m)));
+                RaisePropertyChanged(nameof(Matches));
             }
-            RaisePropertyChanged(nameof(Matches));
+
             HasMatches = Matches.Any();
             
             IsBusy = false;

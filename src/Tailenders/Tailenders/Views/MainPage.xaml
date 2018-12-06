@@ -83,6 +83,7 @@
                                          Grid.Column="0"
                                          Grid.ColumnSpan="3"
                                          x:Name="SwipeCardView"
+                                         IsVisible="{Binding HasProfilesToView}"
                                          ItemsSource="{Binding CardItems}"
                                          HorizontalOptions="FillAndExpand"
                                          VerticalOptions="FillAndExpand"
@@ -153,9 +154,10 @@
                 </swipeCardView:SwipeCardView.ItemTemplate>
             </swipeCardView:SwipeCardView>
 
-            <StackLayout Grid.Row="2"
+            <!--<StackLayout Grid.Row="2"
                          Grid.Column="0"
                          Grid.ColumnSpan="3"
+                         IsVisible="{Binding HasProfilesToView}"
                          Orientation="Horizontal"
                          HorizontalOptions="Center"
                          Padding="10, 10, 10, 20"
@@ -180,9 +182,9 @@
                             BackgroundColor="White"
                             Scale="1" />
                 </StackLayout>
-            </StackLayout>
+            </StackLayout>-->
         </Grid>
 
-        <views:IndicatorOverlay x:Name="IsBusyIndicator" />
+        <views:IndicatorOverlay x:Name="IsBusyIndicator" IsActive="{Binding IsBusy}" />
     </Grid>
 </ContentPage>
