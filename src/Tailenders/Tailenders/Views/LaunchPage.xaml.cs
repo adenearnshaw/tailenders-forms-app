@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Tailenders.Views
 {
@@ -11,6 +8,7 @@ namespace Tailenders.Views
         {
             NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
+            NavigationPage.SetBackButtonTitle(this, "Cancel");
         }
     }
 }

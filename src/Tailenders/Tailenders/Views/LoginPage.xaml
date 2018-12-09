@@ -27,7 +27,8 @@
 
             <Button Style="{StaticResource WhiteButtonStyle}"
                     Text="Login"
-                    Command="{Binding TryLoginCommand}"/>
+                    Command="{Binding TryLoginCommand}"
+                    WidthRequest="120" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using TailendersApi.Client;
 using TailendersApi.Contracts;
-using Tailenders.Managers.Exceptions;
 using Plugin.Media.Abstractions;
 using Tailenders.Services;
 
@@ -41,7 +40,7 @@ namespace Tailenders.Managers
 
             var userProfile = await _profilesClient.GetProfile();
 
-            _userProfile = userProfile ?? throw new UserDoesntExistException();
+            _userProfile = userProfile ?? throw new NullReferenceException();
             return _userProfile;
         }
 

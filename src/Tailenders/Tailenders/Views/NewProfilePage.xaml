@@ -4,9 +4,10 @@
              xmlns:views="clr-namespace:Tailenders.Views"
              xmlns:vm="clr-namespace:Tailenders.ViewModels;assembly=Tailenders"
              xmlns:iconize="clr-namespace:Plugin.Iconize;assembly=Plugin.Iconize"
+             xmlns:inputkit="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
              x:Class="Tailenders.Views.NewProfilePage"
              BindingContext="{Binding NewProfile, Source={StaticResource Locator}}"
-             BackgroundColor="#A0CA6F"
+             BackgroundColor="{StaticResource ThemeColorGreen}"
              Title="Create your profile">
 
     <ScrollView VerticalScrollBarVisibility="Default">
@@ -23,7 +24,7 @@
                                BackgroundColor="#333333"
                                Source="{Binding ProfilePic}" />
                         <iconize:IconButton Text="fas-pen"
-                                            TextColor="Snow"
+                                            TextColor="{StaticResource ThemeColorWhite}"
                                             FontSize="Large"
                                             BackgroundColor="Transparent"
                                             HorizontalOptions="End"
@@ -69,7 +70,7 @@
                                           Margin="0,0,0,12" />
                 <views:FormEditorFieldView Label="Contact details*"
                                            Value="{Binding ContactDetails}" />
-                <Label TextColor="Snow"
+                <Label TextColor="{StaticResource ThemeColorWhite}"
                        FontSize="Small"
                        HorizontalOptions="Fill"
                        Text="*Your details won't be shared with a match until you explicitly allow it"
@@ -79,7 +80,7 @@
             <StackLayout BindingContext="{Binding SettingsVm}">
                 <Label Text="Search settings"
                        FontSize="Medium"
-                       TextColor="Snow"
+                       TextColor="{StaticResource ThemeColorWhite}"
                        Margin="0,24,0,12" />
                 <views:FormPickerFieldView Label="I'm interested in..."
                                            Margin="0,0,0,12"
@@ -93,10 +94,44 @@
                                                 Margin="0,0,0,12" />
             </StackLayout>
 
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Fill"
+                         VerticalOptions="StartAndExpand"
+                         Margin="0,0,0,12">
+                <inputkit:CheckBox Type="Check"
+                                   IsChecked="{Binding HasAgreedToTerms}" />
+                <Label TextColor="{StaticResource ThemeColorWhite}"
+                       VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="Start"
+                       HorizontalTextAlignment="Start">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Checking this box indicates that you agree to both the " />
+                            <Span TextDecorations="Underline"
+                                  Text="Terms &amp; Conditions ">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding AboutVm.ShowTermsCommand}" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                            <Span Text="and the "/>
+                            <Span TextDecorations="Underline"
+                                  Text="Privacy Policy ">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding AboutVm.ShowPrivacyCommand}" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                            <Span Text="of this app" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+
+
             <Button Text="Get started"
                     HorizontalOptions="Fill"
-                    TextColor="Snow"
-                    BorderColor="Snow"
+                    TextColor="{StaticResource ThemeColorWhite}"
+                    BorderColor="{StaticResource ThemeColorWhite}"
+                    IsEnabled="{Binding CanCreateProfile}"
                     Command="{Binding CreateProfileCommand}" />
         </StackLayout>
     </ScrollView>

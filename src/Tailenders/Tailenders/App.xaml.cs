@@ -31,5 +31,14 @@ namespace Tailenders
 
             AppCenter.Start("ios=d2272fc1-1aea-46a7-b426-6a6a4124bbee;", typeof(Analytics), typeof(Crashes));
         }
+
+        public static NavigationPage CreateNavigationPage(Page basePage)
+        {
+            return new IconNavigationPage(basePage)
+            {
+                BarBackgroundColor = Color.FromHex("#8AAF5F"),
+                BarTextColor = Color.Snow
+            };
+        }
     }
 }

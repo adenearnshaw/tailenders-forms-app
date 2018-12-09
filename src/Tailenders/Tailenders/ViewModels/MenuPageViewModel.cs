@@ -5,6 +5,8 @@ using GalaSoft.MvvmLight.Command;
 using Tailenders.Managers;
 using Tailenders.Navigation;
 using Tailenders.Services;
+using Tailenders.Views;
+using Xamarin.Forms;
 
 namespace Tailenders.ViewModels
 {
@@ -62,7 +64,7 @@ namespace Tailenders.ViewModels
         private async Task Logout()
         {
             await AuthenticationService.Instance.TryLogout();
-            _navigationService.NavigateTo(PageKeys.LoginPage, null, NavigationHistoryBehavior.ClearHistory);
+            Application.Current.MainPage = App.CreateNavigationPage(new LoginPage());
         }
     }
 }

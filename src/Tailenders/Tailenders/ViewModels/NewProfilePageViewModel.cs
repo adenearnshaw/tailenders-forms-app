@@ -4,7 +4,6 @@ using Plugin.Media.Abstractions;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Plugin.Iconize;
 using Tailenders.Common;
 using Tailenders.Managers;
 using Tailenders.Navigation;
@@ -33,6 +32,7 @@ namespace Tailenders.ViewModels
 
             ProfileVm = new ProfilePageViewModel(profileManager, navigationService);
             SettingsVm = new SettingsPageViewModel(profileManager);
+            AboutVm = new AboutPageViewModel();
 
             ProfileVm.EditPictureCommand = new RelayCommand(async () => await SelectPicture());
             CreateProfileCommand = new RelayCommand(async () => await CreateProfile());
@@ -40,6 +40,26 @@ namespace Tailenders.ViewModels
 
         public ProfilePageViewModel ProfileVm { get; }
         public SettingsPageViewModel SettingsVm { get; }
+        public AboutPageViewModel AboutVm { get; }
+
+        private bool _canCreateProfile = false;
+        public bool CanCreateProfile
+        {
+            get => _canCreateProfile;
+            set => Set(ref _canCreateProfile, value);
+        }
+
+        private bool _hasAgreedToTerms = false;
+        public bool HasAgreedToTerms
+        {
+            get => _hasAgreedToTerms;
+            set
+            {
+                Set(ref _hasAgreedToTerms, value);
+                CanCreateProfile = IsFormValid();
+            }
+        }
+
 
         public ICommand CreateProfileCommand { get; private set; }
 
@@ -80,16 +100,20 @@ namespace Tailenders.ViewModels
             await _profileManager.SaveUserProfile(profile, true);
             await _profileManager.UploadProfileImage(_profilePhotoFile);
 
-            Application.Current.MainPage = CreateNavigationPage(new MasterPage());
+            Application.Current.MainPage = App.CreateNavigationPage(new MasterPage());
         }
 
-        private bool IsFormValid(int age)
+        private bool IsFormValid(int age = 0)
         {
+            if (age == 0)
+                int.TryParse(ProfileVm.Age, out age);
+
             ProfileVm.IsNameValid = !string.IsNullOrWhiteSpace(ProfileVm.Name);
             ProfileVm.IsAgeValid = age >= 18;
 
             return ProfileVm.IsNameValid.Value
-                && ProfileVm.IsAgeValid.Value;
+                && ProfileVm.IsAgeValid.Value
+                && HasAgreedToTerms;
         }
 
         private async Task SelectPicture()
@@ -111,17 +135,7 @@ namespace Tailenders.ViewModels
             else
             {
                 MessagingCenter.Send(this, MessageNames.NoPickPhotoSupport);
-                return;
             }
-        }
-
-        private IconNavigationPage CreateNavigationPage(Page basePage)
-        {
-            return new IconNavigationPage(basePage)
-            {
-                BarBackgroundColor = Color.FromHex("#8AAF5F"),
-                BarTextColor = Color.Snow
-            };
         }
     }
 }
