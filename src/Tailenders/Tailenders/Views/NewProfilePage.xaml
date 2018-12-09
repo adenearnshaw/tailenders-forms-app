@@ -67,6 +67,13 @@
                                           Hint="Your location"
                                           IsReadonly="false"
                                           Margin="0,0,0,12" />
+                <views:FormEditorFieldView Label="Contact details*"
+                                           Value="{Binding ContactDetails}" />
+                <Label TextColor="Snow"
+                       FontSize="Small"
+                       HorizontalOptions="Fill"
+                       Text="*Your details won't be shared with a match until you explicitly allow it"
+                       Margin="0,0,0,12" />
             </StackLayout>
 
             <StackLayout BindingContext="{Binding SettingsVm}">

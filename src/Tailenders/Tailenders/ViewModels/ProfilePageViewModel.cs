@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using GalaSoft.MvvmLight.Command;
 using Plugin.Media;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.AppCenter.Crashes;
 using Tailenders.Common;
 using Tailenders.Managers;
+using Tailenders.Navigation;
 using TailendersApi.Contracts;
 using Xamarin.Forms;
 
@@ -17,22 +19,26 @@ namespace Tailenders.ViewModels
     public class ProfilePageViewModel : BaseViewModel
     {
         private readonly IProfileManager _profileManager;
+        private readonly INavigationService _navigationService;
 
-        public ProfilePageViewModel(IProfileManager profileManager)
+        public ProfilePageViewModel(IProfileManager profileManager, INavigationService navigationService)
         {
             _profileManager = profileManager;
+            _navigationService = navigationService;
 
             Positions = new ObservableCollection<EnumPickerOption>(EnumHelper<CricketPosition>.GetValues(CricketPosition.Cover)
                                                                   .Select(v => new EnumPickerOption((int)v, EnumHelper<CricketPosition>.GetDisplayValue(v))));
             SelectedPosition = Positions.FirstOrDefault();
 
-            Genders = new ObservableCollection<EnumPickerOption>(EnumHelper<SearchCategory>.GetValues(Gender.Male)
-                                                                  .Select(v => new EnumPickerOption((int)v, EnumHelper<SearchCategory>.GetDisplayValue(v))));
+            Genders = new ObservableCollection<EnumPickerOption>(EnumHelper<Gender>.GetValues(Gender.Male)
+                                                                  .Select(v => new EnumPickerOption((int)v, EnumHelper<Gender>.GetDisplayValue(v))));
             SelectedGender = Genders.FirstOrDefault();
 
 
             SaveChangesCommand = new RelayCommand(async () => await SaveChanges());
             EditPictureCommand = new RelayCommand(async () => await EditPicture());
+            NavigateToDeleteProfileCommand = new RelayCommand(NavigateToDeleteProfile);
+            ResetPasswordCommand = new RelayCommand(async () => await ResetPassword());
         }
 
         private ObservableCollection<EnumPickerOption> _genders;
@@ -152,6 +158,17 @@ namespace Tailenders.ViewModels
             }
         }
 
+        private string _contactDetails;
+        public string ContactDetails
+        {
+            get => _contactDetails;
+            set
+            {
+                Set(ref _contactDetails, value);
+                HasUnsavedChanges = true;
+            }
+        }
+
         private bool _hasUnsavedChanges;
         public bool HasUnsavedChanges
         {
@@ -159,8 +176,17 @@ namespace Tailenders.ViewModels
             set => Set(ref _hasUnsavedChanges, value);
         }
 
+        private bool _isSavingInProgress;
+        public bool IsSavingInProgress
+        {
+            get => _isSavingInProgress;
+            set => Set(ref _isSavingInProgress, value);
+        }
+
         public ICommand SaveChangesCommand { get; private set; }
         public ICommand EditPictureCommand { get; internal set; }
+        public ICommand NavigateToDeleteProfileCommand { get; private set; }
+        public ICommand ResetPasswordCommand { get; private set; }
 
         public override void OnNavigatedTo(object navigationParams)
         {
@@ -173,7 +199,7 @@ namespace Tailenders.ViewModels
         {
             base.OnNavigatingFrom();
 
-            SaveChanges();
+            //SaveChanges();
         }
 
         private async Task LoadProfile()
@@ -190,14 +216,47 @@ namespace Tailenders.ViewModels
             Location = profile.Location;
             SelectedGender = Genders.FirstOrDefault(c => c.Value == profile.Gender);
             SelectedPosition = Positions.FirstOrDefault(p => p.Value == profile.FavouritePosition);
-
+            ContactDetails = profile.ContactDetails;
+            HasUnsavedChanges = false;
             IsBusy = false;
         }
 
         private async Task SaveChanges()
         {
-            //TODO await ProfileManager.UpdateProfile(updatedProfile);
-            HasUnsavedChanges = false;
+            IsSavingInProgress = true;
+            try
+            {
+                var profile = await _profileManager.GetUserProfile();
+
+                int.TryParse(Age, out int age);
+
+                profile.Name = Name;
+                profile.Age = age;
+                profile.ShowAge = ShowAge;
+                profile.Location = Location;
+                profile.Bio = Bio;
+                profile.FavouritePosition = SelectedPosition?.Value ?? 0;
+                profile.Gender = SelectedGender?.Value ?? 0;
+                profile.ContactDetails = ContactDetails;
+                profile.UpdatedAt = DateTime.UtcNow;
+
+                await Task.WhenAll(new List<Task>
+                {
+                    _profileManager.SaveUserProfile(profile),
+                    Task.Delay(500)
+                });
+
+                HasUnsavedChanges = false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Crashes.TrackError(e);
+            }
+            finally
+            {
+                IsSavingInProgress = false;
+            }
         }
 
         private async Task EditPicture()
@@ -228,5 +287,14 @@ namespace Tailenders.ViewModels
             }
         }
 
+        private void NavigateToDeleteProfile()
+        {
+            _navigationService.NavigateTo(PageKeys.DeleteProfilePage);
+        }
+
+        private async Task ResetPassword()
+        {
+            await _profileManager.RequestPasswordReset();
+        }
     }
 }

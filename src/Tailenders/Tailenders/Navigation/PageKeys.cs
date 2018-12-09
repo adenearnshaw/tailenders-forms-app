@@ -3,6 +3,7 @@
     public static class PageKeys
     {
         public static string ConversationPage => PageKey.Conversation.ToString();
+        public static string DeleteProfilePage => PageKey.DeleteProfile.ToString();
         public static string ErrorPage => PageKey.Error.ToString();
         public static string HomePage => PageKey.Home.ToString();
         public static string LoginPage => PageKey.Login.ToString();
@@ -19,6 +20,7 @@
         enum PageKey
         {
             Conversation,
+            DeleteProfile,
             Error,
             Home,
             Login,

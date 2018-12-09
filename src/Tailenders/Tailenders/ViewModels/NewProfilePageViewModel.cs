@@ -31,7 +31,7 @@ namespace Tailenders.ViewModels
             _profileManager = profileManager;
             _navigationService = navigationService;
 
-            ProfileVm = new ProfilePageViewModel(profileManager);
+            ProfileVm = new ProfilePageViewModel(profileManager, navigationService);
             SettingsVm = new SettingsPageViewModel(profileManager);
 
             ProfileVm.EditPictureCommand = new RelayCommand(async () => await SelectPicture());

@@ -5,6 +5,7 @@ using TailendersApi.Client;
 using TailendersApi.Contracts;
 using Tailenders.Managers.Exceptions;
 using Plugin.Media.Abstractions;
+using Tailenders.Services;
 
 namespace Tailenders.Managers
 {
@@ -14,6 +15,7 @@ namespace Tailenders.Managers
         Task<Profile> SaveUserProfile(Profile unsavedProfile, bool isNewProfile = false);
         Task DeleteUserProfile();
         Task<Profile> UploadProfileImage(MediaFile mediaFile);
+        Task RequestPasswordReset();
     }
 
     public class ProfileManager : IProfileManager
@@ -81,6 +83,11 @@ namespace Tailenders.Managers
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public async Task RequestPasswordReset()
+        {
+            await AuthenticationService.Instance.TryResetPassword();
         }
     }
 }

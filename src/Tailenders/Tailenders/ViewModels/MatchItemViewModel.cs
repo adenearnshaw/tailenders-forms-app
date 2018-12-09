@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Tailenders.Common;
 using TailendersApi.Contracts;
 
 namespace Tailenders.ViewModels
@@ -21,8 +22,13 @@ namespace Tailenders.ViewModels
             MatchedAt = detail.MatchedAt.ToLocalTime().ToString("D");
             Bio = detail.MatchedProfile.Bio;
             Age = detail.MatchedProfile.Age.ToString();
+            ShowAge = detail.MatchedProfile.ShowAge;
+            FavouritePosition 
+                = EnumHelper<CricketPosition>.GetDisplayValue((CricketPosition)detail.MatchedProfile.FavouritePosition);
             Location = detail.MatchedProfile.Location;
             ContactDetails = detail.MatchedProfile.ContactDetails;
+
+            MatchDetail = detail;
         }
 
         public string Id { get; }
@@ -31,7 +37,12 @@ namespace Tailenders.ViewModels
         public string MatchedAt { get; }
         public string Bio { get; }
         public string Age { get; }
+        public bool ShowAge { get; }
+        public string FavouritePosition { get; }
         public string Location { get; }
         public string ContactDetails { get; }
+        public bool HasContactDetails => !string.IsNullOrWhiteSpace(ContactDetails);
+
+        public MatchDetail MatchDetail { get; }
     }
 }

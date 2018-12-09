@@ -35,6 +35,14 @@
     <Folder Include="Managers\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\DeleteProfilePage.xaml.cs">
+      <DependentUpon>DeleteProfilePage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Views\DeleteProfilePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\IndicatorOverlay.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

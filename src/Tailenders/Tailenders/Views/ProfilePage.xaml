@@ -8,67 +8,100 @@
              x:Class="Tailenders.Views.ProfilePage"
              BindingContext="{Binding Profile, Source={StaticResource Locator}}"
              Title="My profile"
-             BackgroundColor="#A0CA6F">
+             BackgroundColor="{StaticResource ThemeColorGreen}">
 
     <ContentPage.Behaviors>
         <behaviors:NavigationAwareBehavior />
     </ContentPage.Behaviors>
 
-    <ScrollView VerticalScrollBarVisibility="Default">
-        <StackLayout x:DataType="vm:ProfilePageViewModel"
-                     Margin="20,20,20,20"
-                     HorizontalOptions="Fill"
-                     VerticalOptions="StartAndExpand">
-            <Frame Padding="0"
-                   Margin="0,0,0,12">
-                <Grid HeightRequest="200"
-                      BackgroundColor="Snow"
-                      Padding="1,1,1,1">
-                    <ffimageloading:CachedImage HorizontalOptions="Fill"
-                                                VerticalOptions="CenterAndExpand"
-                                                Aspect="AspectFill"
-                                                BackgroundColor="#333333"
-                                                Source="{Binding ProfilePic}" 
-                                                CacheDuration="30"/>
-                    <iconize:IconButton Text="fas-pen"
-                                        TextColor="Snow"
-                                        FontSize="Large"
-                                        BackgroundColor="Transparent"
-                                        HorizontalOptions="End"
-                                        VerticalOptions="Start"
-                                        Margin="0"
-                                        Padding="8"
-                                        WidthRequest="50"
-                                        Command="{Binding EditPictureCommand}" />
-                </Grid>
-            </Frame>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save"
+                     Order="Primary"
+                     Command="{Binding SaveChangesCommand}"
+                     IsEnabled="{Binding HasUnsavedChanges}" />
+    </ContentPage.ToolbarItems>
 
-            <views:FormEntryFieldView Label="Name"
-                                      Value="{Binding Name}"
-                                      Margin="0,0,0,12" />
-            <views:FormEntryFieldView Label="Location"
-                                      Value="{Binding Location}"
-                                      IsReadonly="true"
-                                      Margin="0,0,0,12" />
-            <views:FormEditorFieldView Label="Bio"
-                                       Value="{Binding Bio}"
-                                       Margin="0,0,0,12" />
-            <views:FormPickerFieldView Label="Favourite position"
-                                       SelectedOption="{Binding SelectedPosition}"
-                                       Options="{Binding Positions}"
-                                       Margin="0,0,0,12" />
-            <views:FormEntryFieldView Label="Age"
-                                      Margin="0,0,0,12"
-                                      Value="{Binding Age}"
-                                      Keyboard="Numeric" />
-            <views:FormSwitchFieldView Label="Show age?"
-                                       Margin="0,6,0,12"
-                                       IsToggled="{Binding ShowAge}" />
-            <views:FormPickerFieldView Label="Gender"
-                                       Margin="0,0,0,12"
-                                       Options="{Binding Genders}"
-                                       SelectedOption="{Binding SelectedGender}" />
-        </StackLayout>
+    <Grid>
+        <ScrollView VerticalScrollBarVisibility="Default">
+            <StackLayout x:DataType="vm:ProfilePageViewModel"
+                         Margin="20,20,20,20"
+                         HorizontalOptions="Fill"
+                         VerticalOptions="StartAndExpand">
+                <Frame Padding="0"
+                       Margin="0,0,0,12">
+                    <Grid HeightRequest="200"
+                          BackgroundColor="{StaticResource ThemeColorWhite}"
+                          Padding="1,1,1,1">
+                        <ffimageloading:CachedImage HorizontalOptions="Fill"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    Aspect="AspectFill"
+                                                    BackgroundColor="#333333"
+                                                    Source="{Binding ProfilePic}"
+                                                    CacheDuration="30" />
+                        <iconize:IconButton Text="fas-pen"
+                                            TextColor="{StaticResource ThemeColorWhite}"
+                                            FontSize="Large"
+                                            BackgroundColor="Transparent"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Start"
+                                            Margin="0"
+                                            Padding="8"
+                                            WidthRequest="50"
+                                            Command="{Binding EditPictureCommand}" />
+                    </Grid>
+                </Frame>
 
-    </ScrollView>
+                <views:FormEntryFieldView Label="Name"
+                                          Value="{Binding Name}"
+                                          Margin="0,0,0,12" />
+                <views:FormEntryFieldView Label="Location"
+                                          Value="{Binding Location}"
+                                          IsReadonly="true"
+                                          Margin="0,0,0,12" />
+                <views:FormEditorFieldView Label="Bio"
+                                           Value="{Binding Bio}"
+                                           Margin="0,0,0,12" />
+                <views:FormPickerFieldView Label="Favourite position"
+                                           SelectedOption="{Binding SelectedPosition}"
+                                           Options="{Binding Positions}"
+                                           Margin="0,0,0,12" />
+                <views:FormEntryFieldView Label="Age"
+                                          Margin="0,0,0,12"
+                                          Value="{Binding Age}"
+                                          Keyboard="Numeric" />
+                <views:FormSwitchFieldView Label="Show age?"
+                                           Margin="0,6,0,12"
+                                           IsToggled="{Binding ShowAge}" />
+                <views:FormPickerFieldView Label="Gender"
+                                           Margin="0,0,0,12"
+                                           Options="{Binding Genders}"
+                                           SelectedOption="{Binding SelectedGender}" />
+                <views:FormEditorFieldView Label="Contact details*"
+                                           Value="{Binding ContactDetails}" />
+                <Label TextColor="{StaticResource ThemeColorWhite}"
+                       FontSize="Small"
+                       HorizontalOptions="Fill"
+                       Text="*Your details won't be shared with a match until you explicitly allow it"
+                       Margin="0,0,0,12" />
+
+
+                <BoxView HeightRequest="2"
+                         HorizontalOptions="Fill"
+                         Color="{StaticResource ThemeColorWhite}"
+                         Margin="20,80,20,12" />
+                <Button TextColor="{StaticResource ThemeColorWhite}"
+                        Text="Reset password"
+                        MinimumWidthRequest="140"
+                        Margin="0,0,0,12"
+                        Command="{Binding ResetPasswordCommand}" />
+                <Button TextColor="{StaticResource ThemeColorRed}"
+                        Text="Delete profile"
+                        MinimumWidthRequest="140"
+                        Command="{Binding NavigateToDeleteProfileCommand}" />
+            </StackLayout>
+        </ScrollView>
+
+        <views:IndicatorOverlay x:Name="IsBusyIndicator"
+                                IsActive="{Binding IsSavingInProgress}" />
+    </Grid>
 </ContentPage>

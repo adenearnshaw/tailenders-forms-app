@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -126,13 +127,17 @@ namespace Tailenders.ViewModels
             IsBusy = true;
             if (CardItems.Count - _numberOfCardsSwiped <= 0)
             {
-                var data = await _pairingsManager.SearchForPairings();
-                if (data != null)
+                var dataTask = _pairingsManager.SearchForPairings();
+                await Task.WhenAll(new List<Task>
                 {
-                    //TODO Remove duplicates
+                    dataTask,
+                    Task.Delay(500)
+                });
+                if (dataTask?.Result != null)
+                {
                     MainThread.BeginInvokeOnMainThread(() =>
                     {
-                        CardItems.AddRange(data.Select(sp => new CardItemViewModel(sp)));
+                        CardItems.AddRange(dataTask.Result.Select(sp => new CardItemViewModel(sp)));
                         HasMorePairingsAvailable();
                     });
                 }

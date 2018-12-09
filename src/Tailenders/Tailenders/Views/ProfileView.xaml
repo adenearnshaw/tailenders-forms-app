@@ -1,26 +1,71 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Tailenders.ViewModels;assembly=Tailenders"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             x:Class="Tailenders.Views.ProfileView">
-      <Grid x:DataType="vm:MatchItemViewModel">
-          <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-          <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="200"/>
-              <ColumnDefinition Width="*" />
-          </Grid.ColumnDefinitions>
+             x:Class="Tailenders.Views.ProfileView"
+             x:Name="this">
 
-        <ff:CachedImage Grid.Column="0"
-                        Grid.Row="0"
-                        HeightRequest="200"
-                        WidthRequest="200"
-                        Source="{Binding ProfileUrl}" />
-          <Label Grid.Column="1"
-                 Grid.Row="0" 
-                 Text="{Binding Age}" />
-      </Grid>
-  
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="HeadingStyle"
+                   TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="Snow" />
+                <Setter Property="FontSize"
+                        Value="Small" />
+            </Style>
+
+            <Style x:Key="DetailStyle"
+                   TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="Snow" />
+                <Setter Property="FontSize"
+                        Value="Large" />
+                <Setter Property="Margin"
+                        Value="0,0,0,12" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ScrollView>
+        <StackLayout>
+            <ff:CachedImage HeightRequest="310"
+                            HorizontalOptions="Fill"
+                            Aspect="AspectFill"
+                            Margin="0,0,0,12"
+                            Source="{Binding MatchItem.ProfileUrl, Source={x:Reference this}}" />
+
+            <StackLayout Margin="12,12,12,0">
+                <StackLayout IsVisible="{Binding MatchItem.ShowAge, Source={x:Reference this}}">
+                    <Label Style="{StaticResource HeadingStyle}"
+                           Text="Age" />
+                    <Label Style="{StaticResource DetailStyle}"
+                           Text="{Binding MatchItem.Age, Source={x:Reference this}}" />
+                </StackLayout>
+
+                <Label Style="{StaticResource HeadingStyle}"
+                       Text="Location" />
+                <Label Style="{StaticResource DetailStyle}"
+                       Text="{Binding MatchItem.Location, Source={x:Reference this}}" />
+
+                <Label Style="{StaticResource HeadingStyle}"
+                       Text="Favourite position" />
+                <Label Style="{StaticResource DetailStyle}"
+                       Text="{Binding MatchItem.FavouritePosition, Source={x:Reference this}}" />
+
+                <Label Style="{StaticResource HeadingStyle}"
+                       Text="Bio" />
+                <Label Style="{StaticResource DetailStyle}"
+                       Text="{Binding MatchItem.Bio, Source={x:Reference this}}" />
+
+                <StackLayout IsVisible="{Binding MatchItem.HasContactDetails, Source={x:Reference this}}">
+                    <Label Style="{StaticResource HeadingStyle}"
+                           Text="Contact details" />
+                    <Label Style="{StaticResource DetailStyle}"
+                           Text="{Binding MatchItem.ContactDetails, Source={x:Reference this}}" />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
 </ContentView>

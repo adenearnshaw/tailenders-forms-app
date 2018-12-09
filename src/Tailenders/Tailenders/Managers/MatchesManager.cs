@@ -8,6 +8,8 @@ namespace Tailenders.Managers
     public interface IMatchesManager
     {
         Task<IReadOnlyCollection<MatchDetail>> GetMatches();
+        Task UpdateMatchContractProfile(MatchDetail match, bool show);
+        Task Unmatch(MatchDetail match);
     }
 
     public class MatchesManager : IMatchesManager
@@ -28,15 +30,15 @@ namespace Tailenders.Managers
             return _matches;
         }
 
-
-        public Task LoadSavedData()
+        public async Task UpdateMatchContractProfile(MatchDetail match, bool show)
         {
-            return Task.FromResult<object>(null);
+            match.UserContactDetailsVisible = show;
+            await _matchesClient.UpdateMatch(match);
         }
 
-        public Task StoreData()
+        public async Task Unmatch(MatchDetail match)
         {
-            return Task.FromResult<object>(null);
+            await _matchesClient.Unmatch(match);
         }
     }
 }

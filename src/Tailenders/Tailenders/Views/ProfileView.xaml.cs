@@ -10,7 +10,6 @@ namespace Tailenders.Views
         public ProfileView()
         {
             InitializeComponent();
-            BindingContext = this.MatchItem;
         }
 
         public static readonly BindableProperty MatchItemProperty = BindableProperty.Create(

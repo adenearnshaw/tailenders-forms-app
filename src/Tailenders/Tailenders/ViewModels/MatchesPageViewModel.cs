@@ -54,12 +54,12 @@ namespace Tailenders.ViewModels
 
             var userMatches = await _matchesManager.GetMatches();
 
-            Matches.Clear();
+            //Matches.Clear();
 
             if (userMatches != null)
             {
-                Matches.AddRange(userMatches.Select(m => new MatchItemViewModel(m)));
-                RaisePropertyChanged(nameof(Matches));
+                Matches.ReplaceRange(userMatches.Select(m => new MatchItemViewModel(m)));
+                //RaisePropertyChanged(nameof(Matches));
             }
 
             HasMatches = Matches.Any();

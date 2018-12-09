@@ -5,8 +5,10 @@
              xmlns:vm="clr-namespace:Tailenders.ViewModels" 
              xmlns:converters="clr-namespace:Tailenders.Converters">
     <Application.Resources>
-        <vm:ViewModelLocator x:Key="Locator" />
         <ResourceDictionary>
+            <Color x:Key="ThemeColorGreen">#A0CA6F</Color>
+            <Color x:Key="ThemeColorWhite">#FFFAFA</Color>
+            <Color x:Key="ThemeColorRed">#FF3E3E</Color>
             <Style TargetType="Grid">
                 <Setter Property="RowSpacing" Value="0" />
                 <Setter Property="ColumnSpacing" Value="0" />
@@ -17,10 +19,28 @@
             <Style TargetType="Frame">
                 <Setter Property="HasShadow" Value="False" />
             </Style>
+
+            <Style x:Key="BaseButtonStyle" TargetType="Button">
+                <Setter Property="CornerRadius" Value="4"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="MinimumWidthRequest" Value="100"/>
+            </Style>
+
+            <Style x:Key="WhiteButtonStyle" TargetType="Button" BaseResourceKey="BaseButtonStyle">
+                <Setter Property="TextColor" Value="{StaticResource ThemeColorGreen}"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource ThemeColorWhite}"/>
+            </Style>
+            
+             <Style x:Key="RedButtonStyle" TargetType="Button" BaseResourceKey="BaseButtonStyle">
+                <Setter Property="TextColor" Value="{StaticResource ThemeColorWhite}"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource ThemeColorRed}"/>
+            </Style>
             
             <converters:ItemTappedEventArgsToItemConverter x:Key="ItemTappedEventArgsToItemConverter" />
             <converters:BooleanInverterConverter x:Key="BooleanInverterConverter" />
             <converters:ValidationMessageVisibilityConverter x:Key="ValidationMessageVisibilityConverter"/>
+
+            <vm:ViewModelLocator x:Key="Locator" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

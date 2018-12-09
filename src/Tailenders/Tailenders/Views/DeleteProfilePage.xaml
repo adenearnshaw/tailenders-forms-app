@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tailenders.Views.DeleteProfilePage"
+             BackgroundColor="{StaticResource ThemeColorGreen}"
+             Title="Delete profile"
+             BindingContext="{Binding DeleteProfile, Source={StaticResource Locator}}">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="Fill"
+                     VerticalOptions="StartAndExpand"
+                     Margin="20,20,20,20">
+            <Label TextColor="{StaticResource ThemeColorWhite}"
+                   Text="Are you sure you want to delete your profile?"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"
+                   HorizontalTextAlignment="Center"
+                   FontSize="Large"
+                   Margin="0,0,0,12" />
+            <Label TextColor="{StaticResource ThemeColorWhite}"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"
+                   HorizontalTextAlignment="Center"
+                   FontSize="Medium"
+                   Margin="0,0,0,100">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Deleting your profile is irreversible and will remove your data, however your login credentials will still remain. "/>
+                        <Span Text="Should you wish for your login credentials to also be deleted, please send an email to: "/>
+                        <Span TextDecorations="Underline" Text="tailenders@a10w.com">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SendEmailCommand}"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Button Style="{StaticResource RedButtonStyle}"
+                    WidthRequest="200"
+                    Text="Confirm deletion"
+                    Command="{Binding DeleteProfileCommand}" />
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

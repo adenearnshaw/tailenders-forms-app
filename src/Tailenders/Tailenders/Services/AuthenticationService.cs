@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Ioc;
+using Microsoft.AppCenter.Crashes;
 using Microsoft.Identity.Client;
 using Tailenders.Common;
 using Tailenders.Data;
@@ -23,7 +24,7 @@ namespace Tailenders.Services
         {
             try
             {
-                _client = new PublicClientApplication(ADB2CConstants.ClientId, ADB2CConstants.Authority)
+                _client = new PublicClientApplication(ADB2CConstants.ClientId, ADB2CConstants.SignUpAndInAuthority)
                 {
                     RedirectUri = ADB2CConstants.RedirectUrl,
                     ValidateAuthority = false
@@ -33,6 +34,7 @@ namespace Tailenders.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                Crashes.TrackError(ex);
             }
 
         }
@@ -44,7 +46,6 @@ namespace Tailenders.Services
 
             try
             {
-
                 IAccount firstAccount = accounts.FirstOrDefault();
                 authResult = await _client.AcquireTokenSilentAsync(ADB2CConstants.Scopes, firstAccount);
 
@@ -56,6 +57,7 @@ namespace Tailenders.Services
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                Crashes.TrackError(e);
             }
 
             return authResult != null;
@@ -87,6 +89,7 @@ namespace Tailenders.Services
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+                Crashes.TrackError(ex);
             }
 
             if (authResult != null)
@@ -103,6 +106,30 @@ namespace Tailenders.Services
             foreach (var account in accounts)
             {
                 await _client.RemoveAsync(account);
+            }
+        }
+
+        public async Task TryResetPassword()
+        {
+            try
+            {
+                var result = await _client.AcquireTokenAsync(ADB2CConstants.Scopes,
+                    (IAccount) null,
+                    UIBehavior.SelectAccount,
+                    null,
+                    null,
+                    ADB2CConstants.ResetPasswordAuthority,
+                    App.UiParent);
+            }
+            catch (MsalClientException)
+            {
+                return;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Crashes.TrackError(e);
+                throw;
             }
         }
     }

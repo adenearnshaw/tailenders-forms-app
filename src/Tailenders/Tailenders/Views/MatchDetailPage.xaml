@@ -10,8 +10,19 @@
     <ContentPage.Behaviors>
         <behaviors:NavigationAwareBehavior />
     </ContentPage.Behaviors>
-    
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Unmatch"
+                     Order="Default"
+                     Command="{Binding UnmatchCommand}" />
+    </ContentPage.ToolbarItems>
+
     <StackLayout>
         <views:ProfileView MatchItem="{Binding MatchItem}" />
+        <Button Style="{StaticResource WhiteButtonStyle}"
+                WidthRequest="300"
+                IsVisible="{Binding ShowRevealDetailsButton}"
+                Text="Show your contact details"
+                Command="{Binding ShowContactDetailsCommand}"/>
     </StackLayout>
 </ContentPage>

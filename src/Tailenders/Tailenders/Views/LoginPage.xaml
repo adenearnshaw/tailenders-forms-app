@@ -25,12 +25,8 @@
                    TextColor="Snow"
                    Margin="0,0,0,40" />
 
-            <Button Text="Login"
-                    TextColor="#A0CA6F"
-                    BackgroundColor="Snow"
-                    CornerRadius="4"
-                    HorizontalOptions="Center"
-                    WidthRequest="100"
+            <Button Style="{StaticResource WhiteButtonStyle}"
+                    Text="Login"
                     Command="{Binding TryLoginCommand}"/>
         </StackLayout>
     </ContentPage.Content>

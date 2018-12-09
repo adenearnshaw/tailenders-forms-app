@@ -9,8 +9,10 @@
         public static string RedirectUrl => $"msal{ClientId}://auth";
 
         public static string SignUpAndInPolicy => "B2C_1_GenericSignInSignUp";
+        public static string ResetPasswordPolicy => "B2C_1_ResetPassword";
 
-        public static string Authority => $"{_authorityBase}/{Tenant}/{SignUpAndInPolicy}";
+        public static string SignUpAndInAuthority => $"{_authorityBase}/{Tenant}/{SignUpAndInPolicy}";
+        public static string ResetPasswordAuthority => $"{_authorityBase}/{Tenant}/{ResetPasswordPolicy}";
 
         public static string[] Scopes => new string[]
             {
