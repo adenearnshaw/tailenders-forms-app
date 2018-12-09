@@ -84,11 +84,9 @@
                        Text="*Your details won't be shared with a match until you explicitly allow it"
                        Margin="0,0,0,12" />
 
-
-                <BoxView HeightRequest="2"
-                         HorizontalOptions="Fill"
-                         Color="{StaticResource ThemeColorWhite}"
-                         Margin="20,80,20,12" />
+                <ContentView HeightRequest="1"
+                             BackgroundColor="{StaticResource ThemeColorWhite}"
+                             Margin="20,80,20,12" />
                 <Button TextColor="{StaticResource ThemeColorWhite}"
                         Text="Reset password"
                         MinimumWidthRequest="140"

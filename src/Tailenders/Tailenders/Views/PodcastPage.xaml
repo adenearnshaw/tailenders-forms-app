@@ -2,17 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Tailenders.Views.PodcastPage"
-             Title="Tailenders"
-             BackgroundColor="#A0CA6F"
+             Title="Tailenders Podcast"
+             BackgroundColor="{StaticResource ThemeColorGreen}"
              BindingContext="{Binding Podcast, Source={StaticResource Locator}}">
     <ScrollView>
         <StackLayout Padding="20,20,20,0">
             <Label Text="This app is inspired by the brilliant Tailenders podcast."
-                   TextColor="Snow"
-                   Margin="0,0,0,20"/>
+                   TextColor="{StaticResource ThemeColorWhite}"
+                   Margin="0,0,0,20"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   FontSize="Large"/>
             <Label Text="Listen to Greg, Felix and Jimmy's alternative look at cricket:"
-                   TextColor="Snow"
-                   Margin="0,0,0,10"/>
+                   TextColor="{StaticResource ThemeColorWhite}"
+                   Margin="0,0,0,30"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   FontSize="Large" />
             
             <Image Source="apple_podcast_icon.png"
                     HorizontalOptions="Start"

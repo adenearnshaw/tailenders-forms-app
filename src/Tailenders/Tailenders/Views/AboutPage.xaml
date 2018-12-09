@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Tailenders.Views.AboutPage"
+             Title="About"
+             BackgroundColor="{StaticResource ThemeColorGreen}"
+             BindingContext="{Binding About, Source={StaticResource Locator}}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="SettingDetail"
+                   TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="{StaticResource ThemeColorWhite}" />
+                <Setter Property="FontSize"
+                        Value="Medium" />
+                <Setter Property="HorizontalTextAlignment"
+                        Value="Center" />
+                <Setter Property="Margin"
+                        Value="0,0,0,12" />
+            </Style>
+
+            <Style x:Key="SettingButton"
+                   TargetType="Button">
+                <Setter Property="TextColor"
+                        Value="{StaticResource ThemeColorWhite}" />
+                <Setter Property="Padding"
+                        Value="0,6,0,6" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid Margin="20,20,20,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0"
+               Style="{StaticResource SettingDetail}"
+               Text="This app has been inspired by the Tailenders podcast and their desire to help people. If you have any feedback, please don't hesitate to get in touch. Go Well!"/>
+        
+        <Button Grid.Row="1"
+                Style="{StaticResource SettingButton}"
+                Text="Send feedback" 
+                Command="{Binding SendFeedbackCommand}"/>
+
+        <Button Grid.Row="2"
+                Style="{StaticResource SettingButton}"
+                Text="Terms &amp; Conditions" 
+                Command="{Binding ShowTermsCommand}"/>
+
+        <Button Grid.Row="3"
+                Style="{StaticResource SettingButton}"
+                Text="Privacy policy"
+                Command="{Binding ShowPrivacyCommand}"/>
+
+        <!--<Button Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Grid.Row="4"
+                Style="{StaticResource SettingButton}"
+                Text="Acknowledgments"
+                Command="{Binding ShowAcknowledgementsCommand}"/>-->
+
+        <Label Grid.Row="6"
+               Style="{StaticResource SettingDetail}"
+               Text="v0.0.1"
+               HorizontalOptions="End"/>
+    </Grid>
+</ContentPage>

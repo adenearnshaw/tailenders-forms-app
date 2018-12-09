@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
@@ -23,6 +22,7 @@ namespace Tailenders.ViewModels
             ShowPodcastPageCommand = new RelayCommand(() => _navigationService.NavigateTo(PageKeys.PodcastPage));
             ShowProfilePageCommand = new RelayCommand(() => _navigationService.NavigateTo(PageKeys.ProfilePage));
             ShowSettingsPageCommand = new RelayCommand(() => _navigationService.NavigateTo(PageKeys.SearchSettingsPage));
+            ShowAboutPageCommand = new RelayCommand(() => _navigationService.NavigateTo(PageKeys.AboutPage));
             LogoutCommand = new RelayCommand(async () => await Logout());
         }
 
@@ -43,8 +43,9 @@ namespace Tailenders.ViewModels
         public ICommand ShowProfilePageCommand { get; }
         public ICommand ShowSettingsPageCommand { get; }
         public ICommand ShowPodcastPageCommand { get; }
+        public ICommand ShowAboutPageCommand { get; }
         public ICommand LogoutCommand { get; }
-
+        
         public override void OnNavigatedTo(object navigationParams)
         {
             base.OnNavigatedTo(navigationParams);

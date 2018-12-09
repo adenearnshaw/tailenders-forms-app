@@ -8,7 +8,7 @@
              xmlns:behaviors="clr-namespace:Tailenders.Behaviors;assembly=Tailenders"
              x:Class="Tailenders.Views.MenuPage"
              Title="Tailenders"
-             BackgroundColor="#A0CA6F" 
+             BackgroundColor="{StaticResource ThemeColorGreen}" 
              BindingContext="{Binding Menu, Source={StaticResource Locator}}" >
 
     <ContentPage.Behaviors>
@@ -22,14 +22,14 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Frame BackgroundColor="#8AAF5F"
+        <Frame BackgroundColor="{StaticResource ThemeColorDarkGreen}"
                HasShadow="false"
                HorizontalOptions="Fill"
                VerticalOptions="Fill">
             <StackLayout Padding="0,50,0,0"
                   HorizontalOptions="CenterAndExpand"
                   VerticalOptions="CenterAndExpand">
-                <abstractions:CircleImage BorderColor="White"
+                <abstractions:CircleImage BorderColor="{StaticResource ThemeColorWhite}"
                                           BorderThickness="2"
                                           Source="{Binding ProfilePic}"
                                           Aspect="AspectFill"
@@ -37,7 +37,7 @@
                                           HeightRequest="85" />
                 <Label Margin="0,12,0,0"
                        Text="{Binding Name}"
-                       TextColor="White"
+                       TextColor="{StaticResource ThemeColorWhite}"
                        FontSize="Large" 
                        VerticalOptions="Center"
                        VerticalTextAlignment="Center"
@@ -53,19 +53,24 @@
                                       Icon="fas-user-alt"
                                       Command="{Binding ShowProfilePageCommand}" />
             <ContentView HeightRequest="1"
-                         BackgroundColor="Snow" />
+                         BackgroundColor="{StaticResource ThemeColorWhite}" />
             <views:NavigationItemView Text="Search settings"
                                       Icon="fas-search"
                                       Command="{Binding ShowSettingsPageCommand}" />
             <ContentView HeightRequest="1"
-                         BackgroundColor="Snow" />
+                         BackgroundColor="{StaticResource ThemeColorWhite}" />
             <views:NavigationItemView Text="The podcast"
                                       Icon="fas-podcast"
                                       Command="{Binding ShowPodcastPageCommand}" />
+            <ContentView HeightRequest="1"
+                         BackgroundColor="{StaticResource ThemeColorWhite}" />
+            <views:NavigationItemView Text="About"
+                                      Icon="fas-info"
+                                      Command="{Binding ShowAboutPageCommand}"/>
         </StackLayout>
         <Button Grid.Row="2"
                 Text="Logout"
-                TextColor="#FF3E3E"
+                TextColor="{StaticResource ThemeColorRed}"
                 FontAttributes="Bold"
                 Margin="20,0,0,20"
                 Command="{Binding LogoutCommand}"

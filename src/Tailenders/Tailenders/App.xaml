@@ -7,6 +7,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="ThemeColorGreen">#A0CA6F</Color>
+            <Color x:Key="ThemeColorDarkGreen">#8AAF5F</Color>
             <Color x:Key="ThemeColorWhite">#FFFAFA</Color>
             <Color x:Key="ThemeColorRed">#FF3E3E</Color>
             <Style TargetType="Grid">
