@@ -25,7 +25,6 @@ namespace Tailenders.ViewModels
 
             var isLoginSuccessful = await AuthenticationService.Instance.TrySilentLogin();
 
-
             if (isLoginSuccessful)
             {
                 try

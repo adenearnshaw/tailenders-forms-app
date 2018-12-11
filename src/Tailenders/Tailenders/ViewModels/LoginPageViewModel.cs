@@ -4,7 +4,6 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.AppCenter.Crashes;
-using Plugin.Iconize;
 using Tailenders.Managers;
 using Tailenders.Navigation;
 using Tailenders.Services;
@@ -36,28 +35,19 @@ namespace Tailenders.ViewModels
             {
                 var profileManager = SimpleIoc.Default.GetInstance<IProfileManager>();
                 await profileManager.GetUserProfile();
-                Application.Current.MainPage = CreateNavigationPage(new MasterPage());
+                Application.Current.MainPage = App.CreateNavigationPage(new MasterPage());
  }
             catch (ProfileDoesntExistException)
             {
-                Application.Current.MainPage = CreateNavigationPage(new NewProfilePage());
+                Application.Current.MainPage = App.CreateNavigationPage(new NewProfilePage());
             }
             catch (Exception ex)
             {
                 Crashes.TrackError(ex);
-                Application.Current.MainPage = CreateNavigationPage(new ErrorPage());
+                Application.Current.MainPage = App.CreateNavigationPage(new ErrorPage());
             }
             
             IsBusy = false;
-        }
-
-        private IconNavigationPage CreateNavigationPage(Page basePage)
-        {
-            return new IconNavigationPage(basePage)
-            {
-                BarBackgroundColor = Color.FromHex("#8AAF5F"),
-                BarTextColor = Color.Snow
-            };
         }
     }
 }

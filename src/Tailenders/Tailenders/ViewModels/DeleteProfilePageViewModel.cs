@@ -37,7 +37,7 @@ namespace Tailenders.ViewModels
         {
             try
             {
-                await Email.ComposeAsync("Account deletion", string.Empty, "tailenders@a10w.com");
+                await Email.ComposeAsync("Account deletion", string.Empty, "midwicketapp@a10w.com");
             }
             catch (Exception e)
             {

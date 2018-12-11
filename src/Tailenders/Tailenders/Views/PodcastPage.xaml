@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="Tailenders.Views.PodcastPage"
              Title="Tailenders Podcast"
              BackgroundColor="{StaticResource ThemeColorGreen}"
-             BindingContext="{Binding Podcast, Source={StaticResource Locator}}">
+             BindingContext="{Binding Podcast, Source={StaticResource Locator}}" >
     <ScrollView>
         <StackLayout Padding="20,20,20,0">
-            <Label Text="This app is inspired by the brilliant Tailenders podcast."
+            <Label Text="MidWicket is inspired by the brilliant Tailenders podcast."
                    TextColor="{StaticResource ThemeColorWhite}"
                    Margin="0,0,0,20"
                    HorizontalOptions="Center"
@@ -20,15 +21,15 @@
                    HorizontalTextAlignment="Center"
                    FontSize="Large" />
             
-            <Image Source="apple_podcast_icon.png"
-                    HorizontalOptions="Start"
+            <ff:CachedImage Source="apple_podcast_icon.png"
+                    HorizontalOptions="Center"
                     HeightRequest="50"
                     WidthRequest="206"
                     Aspect="AspectFit">
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding LaunchPodcastAppCommand}" />
                 </Image.GestureRecognizers>
-            </Image>
+            </ff:CachedImage>
         </StackLayout>
     </ScrollView>
 </ContentPage>

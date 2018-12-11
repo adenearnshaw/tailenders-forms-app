@@ -20,7 +20,7 @@ namespace Tailenders.Views
                 {
                     Subject = "App feedback",
                     Body = "",
-                    To = new List<string>() { "tailendersapp@a10w.com" },
+                    To = new List<string>() { "midwicketapp@a10w.com" },
                     //Cc = ccRecipients,
                     //Bcc = bccRecipients
                 };

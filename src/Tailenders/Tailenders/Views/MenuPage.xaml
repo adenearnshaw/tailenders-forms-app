@@ -7,7 +7,7 @@
              xmlns:vm="clr-namespace:Tailenders.ViewModels;assembly=Tailenders"
              xmlns:behaviors="clr-namespace:Tailenders.Behaviors;assembly=Tailenders"
              x:Class="Tailenders.Views.MenuPage"
-             Title="Tailenders"
+             Title="MidWicket"
              BackgroundColor="{StaticResource ThemeColorGreen}" 
              BindingContext="{Binding Menu, Source={StaticResource Locator}}" >
 

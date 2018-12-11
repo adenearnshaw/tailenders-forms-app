@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Tailenders.Views.DeleteProfilePage"
@@ -26,7 +26,7 @@
                     <FormattedString>
                         <Span Text="Deleting your profile is irreversible and will remove your data, however your login credentials will still remain. "/>
                         <Span Text="Should you wish for your login credentials to also be deleted, please send an email to: "/>
-                        <Span TextDecorations="Underline" Text="tailenders@a10w.com">
+                        <Span TextDecorations="Underline" Text="midwicketapp@a10w.com">
                             <Span.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SendEmailCommand}"/>
                             </Span.GestureRecognizers>
