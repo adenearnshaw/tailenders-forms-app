@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Class="Tailenders.Views.BlockedProfilePage"
+             BindingContext="{Binding BlockedProfile, Source={StaticResource Locator}}"
+             BackgroundColor="{StaticResource ThemeColorGreen}"
+             Title="Blocked">
+    <StackLayout HorizontalOptions="Center"
+                 VerticalOptions="CenterAndExpand"
+                 Margin="20,0,20,30">
+        <ff:CachedImage HorizontalOptions="Center"
+                        Margin="0,0,0,12"
+                        Source="ic_blocked_white.png"
+                        WidthRequest="100"
+                        HeightRequest="100" />
+        <Label HorizontalTextAlignment="Center"
+               Margin="0,0,0,24"
+               TextColor="{StaticResource ThemeColorWhite}">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="It appears that your account has been suspended. This is likely due to content on your profile which contravenes our " />
+                    <Span TextDecorations="Underline"
+                          Text="Terms &amp; Conditions">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowTermsCommand}" />
+                        </Span.GestureRecognizers>
+                    </Span>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label TextColor="{StaticResource ThemeColorWhite}"
+               HorizontalTextAlignment="Center">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="If you disagree with this decision and would like us to review it, please " />
+                    <Span Text="get in touch"
+                          TextDecorations="Underline">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SendFeedbackCommand}" />
+                        </Span.GestureRecognizers>
+                    </Span>
+                    <Span Text=" and outline your reasons for reinstatement."/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </StackLayout>
+</ContentPage>

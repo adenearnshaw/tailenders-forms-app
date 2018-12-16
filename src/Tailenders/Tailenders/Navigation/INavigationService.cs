@@ -1,4 +1,7 @@
-﻿namespace Tailenders.Navigation
+﻿using System.Threading.Tasks;
+using Xamarin.Forms;
+
+namespace Tailenders.Navigation
 {
     public enum NavigationHistoryBehavior
     {
@@ -14,5 +17,8 @@
 
         bool CanGoBack { get; }
         void GoBack();
+        Task ShowModal(Page page);
+        Task HideModal();
     }
+
 }

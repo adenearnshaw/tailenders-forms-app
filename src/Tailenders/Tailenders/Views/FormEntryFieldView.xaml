@@ -14,7 +14,7 @@
                TextColor="#333333"
                FontSize="Default"
                HorizontalOptions="Fill"
-               IsTextPredictionEnabled="true"
+               IsTextPredictionEnabled="{Binding IsAutocorrectEnabled, Source={x:Reference this}}"
                Placeholder="{Binding Hint, Source={x:Reference this}}"
                PlaceholderColor="#9B9B9B"
                Keyboard="{Binding Keyboard, Source={x:Reference this}}"

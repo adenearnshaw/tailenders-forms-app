@@ -10,6 +10,7 @@ using MvvmHelpers;
 using Tailenders.Common;
 using Tailenders.Managers;
 using Tailenders.Navigation;
+using Tailenders.Views;
 using TailendersApi.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -35,6 +36,9 @@ namespace Tailenders.ViewModels
             CardSwipedCommand = new RelayCommand<SwipedCardEventArgs>(async (args) => await CardSwiped(args));
             SearchAgainCommand = new RelayCommand(async () => await RetrievePairings());
             NavigateToPartnershipsCommand = new RelayCommand(NavigateToPartnerships);
+            PreviewProfileCommand = new RelayCommand<CardItemViewModel>(async card => await PreviewProfile(card));
+
+            MessagingCenter.Instance.Subscribe<App>(this, MessageNames.ReloadSearch, ReloadSearchResults);
 
             LoadData();
         }
@@ -66,6 +70,7 @@ namespace Tailenders.ViewModels
         public ICommand CardSwipedCommand { get; private set; }
         public ICommand SearchAgainCommand { get; private set; }
         public ICommand NavigateToPartnershipsCommand { get; private set; }
+        public ICommand PreviewProfileCommand { get; private set; }
 
         private async Task LoadData()
         {
@@ -108,8 +113,11 @@ namespace Tailenders.ViewModels
 
             await CheckPairing(swipedItem.ProfileId, matchDecision);
             await RetrievePairings();
+        }
 
-
+        private async void ReloadSearchResults(App sender)
+        {
+            await RetrievePairings();
         }
 
         private async Task CheckPairing(string pairedProfileId, PairingDecision decision)
@@ -153,6 +161,12 @@ namespace Tailenders.ViewModels
 
             HasProfilesToView = hasMorePairings;
             HasNoProfilesToView = !hasMorePairings;
+        }
+
+        private async Task PreviewProfile(CardItemViewModel cardItem)
+        {
+            var modalPage = new ProfilePreviewPage(cardItem);
+            await _navigationService.ShowModal(modalPage);
         }
     }
 }

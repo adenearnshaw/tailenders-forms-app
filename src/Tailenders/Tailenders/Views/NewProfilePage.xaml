@@ -9,7 +9,7 @@
              BindingContext="{Binding NewProfile, Source={StaticResource Locator}}"
              BackgroundColor="{StaticResource ThemeColorGreen}"
              Title="Create your profile">
-
+    <Grid> 
     <ScrollView VerticalScrollBarVisibility="Default">
         <StackLayout Margin="20,20,20,20">
             <StackLayout BindingContext="{Binding ProfileVm}">
@@ -40,6 +40,7 @@
                                           Hint="What's your name"
                                           Margin="0,0,0,12"
                                           IsValid="{Binding IsNameValid}"
+                                          IsAutocorrectEnabled="false"
                                           ValidationMessage="Please enter your name" />
                 <views:FormEntryFieldView Label="Age"
                                           Margin="0,0,0,12"
@@ -99,28 +100,30 @@
                          VerticalOptions="StartAndExpand"
                          Margin="0,0,0,12">
                 <inputkit:CheckBox Type="Check"
-                                   IsChecked="{Binding HasAgreedToTerms}" />
+                                   IsChecked="{Binding HasAgreedToTerms}"
+                                   BoxBackgroundColor="{StaticResource ThemeColorWhite}"/>
                 <Label TextColor="{StaticResource ThemeColorWhite}"
                        VerticalOptions="CenterAndExpand"
                        HorizontalOptions="Start"
-                       HorizontalTextAlignment="Start">
+                       HorizontalTextAlignment="Start"
+                       Margin="12,0,0,0">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="Checking this box indicates that you agree to both the " />
                             <Span TextDecorations="Underline"
-                                  Text="Terms &amp; Conditions ">
+                                  Text="Terms &amp; Conditions">
                                 <Span.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding AboutVm.ShowTermsCommand}" />
                                 </Span.GestureRecognizers>
                             </Span>
-                            <Span Text="and the "/>
+                            <Span Text=" and the "/>
                             <Span TextDecorations="Underline"
-                                  Text="Privacy Policy ">
+                                  Text="Privacy Policy">
                                 <Span.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding AboutVm.ShowPrivacyCommand}" />
                                 </Span.GestureRecognizers>
                             </Span>
-                            <Span Text="of this app" />
+                            <Span Text=" of this app." />
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
@@ -128,11 +131,14 @@
 
 
             <Button Text="Get started"
-                    HorizontalOptions="Fill"
-                    TextColor="{StaticResource ThemeColorWhite}"
-                    BorderColor="{StaticResource ThemeColorWhite}"
+                    Style="{StaticResource WhiteButtonStyle}"
                     IsEnabled="{Binding CanCreateProfile}"
-                    Command="{Binding CreateProfileCommand}" />
+                    Command="{Binding CreateProfileCommand}"
+                    MinimumWidthRequest="240"/>
         </StackLayout>
     </ScrollView>
+        
+        <views:IndicatorOverlay x:Name="IsBusyIndicator" IsActive="{Binding IsBusy}" />
+        
+        </Grid>
 </ContentPage>

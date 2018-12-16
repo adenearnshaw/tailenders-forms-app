@@ -15,20 +15,24 @@ namespace Tailenders.Managers
         Task DeleteUserProfile();
         Task<Profile> UploadProfileImage(MediaFile mediaFile);
         Task RequestPasswordReset();
+        Task ReportUser(string profileId, ReportProfileReason reason);
     }
 
     public class ProfileManager : IProfileManager
     {
         private readonly IProfilesClient _profilesClient;
         private readonly IProfileImageUploader _profileImageUploader;
+        private readonly ICredentialsProvider _credentialsProvider;
 
         private Profile _userProfile;
 
         public ProfileManager(IProfilesClient profilesClient,
-                              IProfileImageUploader profileImageUploader)
+                              IProfileImageUploader profileImageUploader,
+                              ICredentialsProvider credentialsProvider)
         {
             _profilesClient = profilesClient;
             _profileImageUploader = profileImageUploader;
+            _credentialsProvider = credentialsProvider;
         }
 
         public async Task<Profile> GetUserProfile()
@@ -87,6 +91,11 @@ namespace Tailenders.Managers
         public async Task RequestPasswordReset()
         {
             await AuthenticationService.Instance.TryResetPassword();
+        }
+
+        public async Task ReportUser(string profileId, ReportProfileReason reason)
+        {
+            await _profilesClient.ReportProfile(profileId, reason);
         }
     }
 }

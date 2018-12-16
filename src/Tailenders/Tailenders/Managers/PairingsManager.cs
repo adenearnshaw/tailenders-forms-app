@@ -10,6 +10,7 @@ namespace Tailenders.Managers
     {
         Task<List<SearchProfile>> SearchForPairings();
         Task<MatchResult> SendPairingDecision(string profileId, PairingDecision decision);
+        Task BlockPairing(string profileId);
     }
 
     public class PairingsManager : IPairingsManager
@@ -19,6 +20,11 @@ namespace Tailenders.Managers
         public PairingsManager(IPairingsClient pairingsClient)
         {
             _pairingsClient = pairingsClient;
+        }
+
+        public async Task BlockPairing(string profileId)
+        {
+            await _pairingsClient.BlockPairing(profileId);
         }
 
         public async Task<List<SearchProfile>> SearchForPairings()
@@ -32,6 +38,8 @@ namespace Tailenders.Managers
             var isMatch = await _pairingsClient.SendPairDecision(profileId, decision);
             return isMatch;
         }
+
+        
     }
 }
 

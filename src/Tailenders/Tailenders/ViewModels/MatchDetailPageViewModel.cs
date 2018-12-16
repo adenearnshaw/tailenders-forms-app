@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Command;
 using Tailenders.Common;
 using Tailenders.Managers;
 using Tailenders.Navigation;
+using TailendersApi.Contracts;
 using Xamarin.Forms;
 
 namespace Tailenders.ViewModels
@@ -12,15 +13,20 @@ namespace Tailenders.ViewModels
     {
         private readonly IMatchesManager _matchesManager;
         private readonly INavigationService _navigationService;
+        private readonly IProfileManager _profileManager;
 
         public MatchDetailPageViewModel(IMatchesManager matchesManager,
-                                        INavigationService navigationService)
+                                        INavigationService navigationService,
+                                        IProfileManager profileManager)
         {
             _matchesManager = matchesManager;
             _navigationService = navigationService;
+            _profileManager = profileManager;
 
             ShowContactDetailsCommand = new RelayCommand(ShowContactDetails);
             UnmatchCommand = new RelayCommand(Unmatch);
+            RequestBlockCommand = new RelayCommand(RequestBlockProfile);
+            RequestReportCommand = new RelayCommand(RequestReportProfile);
         }
 
         private MatchItemViewModel _matchItem;
@@ -39,6 +45,8 @@ namespace Tailenders.ViewModels
 
         public ICommand ShowContactDetailsCommand { get; }
         public ICommand UnmatchCommand { get; }
+        public ICommand RequestReportCommand { get; }
+        public ICommand RequestBlockCommand { get; }
 
         public override void OnNavigatedTo(object navigationParams)
         {
@@ -54,7 +62,7 @@ namespace Tailenders.ViewModels
             MessagingCenter.Instance.Send(this, MessageNames.SendContactDetails);
         }
 
-        public async Task ShowContactDetailsCallBack(bool result)
+        public void ShowContactDetailsCallBack(bool result)
         {
             if (!result)
                 return;
@@ -75,6 +83,29 @@ namespace Tailenders.ViewModels
 
             await _matchesManager.Unmatch(MatchItem.MatchDetail);
             _navigationService.GoBack();
+        }
+
+        public async Task ReportProfileCallback(ReportProfileReason result)
+        {
+            await _profileManager.ReportUser(MatchItem.MatchDetail.MatchedProfile.Id, result);
+        }
+
+        public async Task BlockProfileCallback(bool result)
+        {
+            if (!result)
+                return;
+
+            await _matchesManager.BlockMatch(MatchItem.MatchDetail);
+        }
+
+        private void RequestReportProfile()
+        {
+            MessagingCenter.Send(this, MessageNames.ReportProfile);
+        }
+
+        private void RequestBlockProfile()
+        {
+            MessagingCenter.Send(this, MessageNames.BlockProfile);
         }
     }
 }

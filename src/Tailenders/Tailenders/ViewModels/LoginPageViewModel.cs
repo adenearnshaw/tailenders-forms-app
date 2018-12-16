@@ -30,21 +30,29 @@ namespace Tailenders.ViewModels
         {
             IsBusy = true;
 
-            await AuthenticationService.Instance.TryLogin();
-            try
+            var didLogin = await AuthenticationService.Instance.TryLogin();
+
+            if (didLogin)
             {
-                var profileManager = SimpleIoc.Default.GetInstance<IProfileManager>();
-                await profileManager.GetUserProfile();
-                Application.Current.MainPage = App.CreateNavigationPage(new MasterPage());
- }
-            catch (ProfileDoesntExistException)
-            {
-                Application.Current.MainPage = App.CreateNavigationPage(new NewProfilePage());
-            }
-            catch (Exception ex)
-            {
-                Crashes.TrackError(ex);
-                Application.Current.MainPage = App.CreateNavigationPage(new ErrorPage());
+                try
+                {
+                    var profileManager = SimpleIoc.Default.GetInstance<IProfileManager>();
+                    await profileManager.GetUserProfile();
+                    Application.Current.MainPage = App.CreateNavigationPage(new MasterPage());
+                }
+                catch (ProfileBlockedException)
+                {
+                    await Application.Current.MainPage.Navigation.PushAsync(new BlockedProfilePage());
+                }
+                catch (ProfileDoesntExistException)
+                {
+                    Application.Current.MainPage = App.CreateNavigationPage(new NewProfilePage());
+                }
+                catch (Exception ex)
+                {
+                    Crashes.TrackError(ex);
+                    await Application.Current.MainPage.Navigation.PushAsync(new ErrorPage());
+                }
             }
             
             IsBusy = false;

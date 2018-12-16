@@ -13,6 +13,7 @@ using Tailenders.Managers;
 using Tailenders.Navigation;
 using TailendersApi.Contracts;
 using Xamarin.Forms;
+using Tailenders.Views;
 
 namespace Tailenders.ViewModels
 {
@@ -197,6 +198,8 @@ namespace Tailenders.ViewModels
 
         public override void OnNavigatingFrom()
         {
+            MessagingCenter.Instance.Send(App.Current, MessageNames.ReloadSearch);
+
             base.OnNavigatingFrom();
 
             //SaveChanges();
@@ -246,7 +249,13 @@ namespace Tailenders.ViewModels
                     Task.Delay(500)
                 });
 
+                MessagingCenter.Instance.Send(App.Current, MessageNames.ReloadSearch);
                 HasUnsavedChanges = false;
+            }
+            catch (TailendersApi.Client.Exceptions.ProfileBlockedException)
+            {
+                App.Current.MainPage = App.CreateNavigationPage(new LoginPage());
+                await App.Current.MainPage.Navigation.PushAsync(new BlockedProfilePage());
             }
             catch (Exception e)
             {

@@ -32,6 +32,7 @@ namespace Tailenders.ViewModels
 
             //ViewModels
             SimpleIoc.Default.Register<AboutPageViewModel>();
+            SimpleIoc.Default.Register<BlockedProfilePageViewModel>();
             SimpleIoc.Default.Register<ConversationPageViewModel>();
             SimpleIoc.Default.Register<DeleteProfilePageViewModel>();
             SimpleIoc.Default.Register<LoginPageViewModel>();
@@ -46,6 +47,7 @@ namespace Tailenders.ViewModels
         }
 
         public AboutPageViewModel About => SimpleIoc.Default.GetInstance<AboutPageViewModel>();
+        public BlockedProfilePageViewModel BlockedProfile => SimpleIoc.Default.GetInstance<BlockedProfilePageViewModel>();
         public ConversationPageViewModel Conversation => SimpleIoc.Default.GetInstance<ConversationPageViewModel>();
         public DeleteProfilePageViewModel DeleteProfile => SimpleIoc.Default.GetInstance<DeleteProfilePageViewModel>();
         public LoginPageViewModel Login => SimpleIoc.Default.GetInstance<LoginPageViewModel>();

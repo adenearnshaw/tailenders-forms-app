@@ -8,7 +8,7 @@
      <StackLayout HorizontalOptions="Fill"
                  VerticalOptions="StartAndExpand">
         <Label Text="{Binding Label, Source={x:Reference this}}"
-               TextColor="Snow"
+               TextColor="{StaticResource ThemeColorWhite}"
                FontSize="Small"
                Margin="0,0,0,6"/>
          
@@ -25,7 +25,7 @@
                                      BarHeight="40"/>
         
         <Label Text="{Binding ValidationMessage, Source={x:Reference this}}"
-               TextColor="#CE1414"
+               TextColor="{StaticResource ThemeColorRed}"
                FontSize="Small"
                IsVisible="{Binding IsValid, Source={x:Reference this}, Converter={StaticResource ValidationMessageVisibilityConverter}}"/>
     </StackLayout>

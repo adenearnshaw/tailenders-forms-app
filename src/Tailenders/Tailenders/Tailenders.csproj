@@ -17,7 +17,7 @@
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.3.0" />
     <PackageReference Include="Xam.Plugin.Iconize" Version="3.2.0.75" />
     <PackageReference Include="Xam.Plugin.Iconize.FontAwesome" Version="3.2.0.75" />
-    <PackageReference Include="TailendersApi.Client" Version="0.0.3-alpha4" />
+    <PackageReference Include="TailendersApi.Client" Version="0.0.3-alpha7" />
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.4.859" />
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />

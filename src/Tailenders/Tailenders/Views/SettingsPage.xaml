@@ -5,14 +5,22 @@
              x:Class="Tailenders.Views.SettingsPage"
              BindingContext="{Binding Settings, Source={StaticResource Locator}}"
              Title="Search settings"
-             BackgroundColor="#A0CA6F"
+             BackgroundColor="{StaticResource ThemeColorGreen}"
              xmlns:views="clr-namespace:Tailenders.Views"
              xmlns:behaviors="clr-namespace:Tailenders.Behaviors;assembly=Tailenders">
 
     <ContentPage.Behaviors>
         <behaviors:NavigationAwareBehavior />
     </ContentPage.Behaviors>
+    
+     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save"
+                     Order="Primary"
+                     Command="{Binding SaveChangesCommand}"
+                     IsEnabled="{Binding HasUnsavedChanges}" />
+    </ContentPage.ToolbarItems>
 
+    <Grid>
     <ScrollView VerticalScrollBarVisibility="Default">
         <StackLayout x:DataType="vm:SettingsPageViewModel"
                      Margin="20,20,20,20">
@@ -36,4 +44,7 @@
                
         </StackLayout>
     </ScrollView>
+        <views:IndicatorOverlay x:Name="IsBusyIndicator"
+                                IsActive="{Binding IsSavingInProgress}" />
+        </Grid>
 </ContentPage>

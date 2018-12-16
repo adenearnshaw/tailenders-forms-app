@@ -24,7 +24,6 @@ namespace Tailenders.ViewModels
             IsBusy = true;
 
             var isLoginSuccessful = await AuthenticationService.Instance.TrySilentLogin();
-
             if (isLoginSuccessful)
             {
                 try
@@ -32,6 +31,10 @@ namespace Tailenders.ViewModels
                     var profileManager = SimpleIoc.Default.GetInstance<IProfileManager>();
                     await profileManager.GetUserProfile();
                     Application.Current.MainPage = App.CreateNavigationPage(new MasterPage());
+                }
+                catch (ProfileBlockedException)
+                {
+                    Application.Current.MainPage = App.CreateNavigationPage(new BlockedProfilePage());
                 }
                 catch (ProfileDoesntExistException)
                 {
@@ -41,17 +44,15 @@ namespace Tailenders.ViewModels
                 catch (Exception ex)
                 {
                     Crashes.TrackError(ex);
-                    Application.Current.MainPage = App.CreateNavigationPage(new ErrorPage());
+                    await Application.Current.MainPage.Navigation.PushAsync(new ErrorPage());
                 }
             }
             else
             {
-                Application.Current.MainPage = new LoginPage();
+                Application.Current.MainPage = App.CreateNavigationPage(new LoginPage());
             }
 
             IsBusy = false;
         }
-
-        
     }
 }

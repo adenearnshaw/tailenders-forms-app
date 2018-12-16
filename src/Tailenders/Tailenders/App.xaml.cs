@@ -17,7 +17,7 @@ namespace Tailenders
             InitializeComponent();
             Iconize.With(new Plugin.Iconize.Fonts.FontAwesomeSolidModule());
 
-            MainPage = new LaunchPage();
+            MainPage = CreateNavigationPage(new LaunchPage());
         }
 
         //public static ViewModelLocator Locator { get; set; }
@@ -30,6 +30,7 @@ namespace Tailenders
             base.OnStart();
 
             AppCenter.Start("ios=d2272fc1-1aea-46a7-b426-6a6a4124bbee;", typeof(Analytics), typeof(Crashes));
+            Crashes.NotifyUserConfirmation(UserConfirmation.AlwaysSend);
         }
 
         public static NavigationPage CreateNavigationPage(Page basePage)
@@ -39,6 +40,15 @@ namespace Tailenders
                 BarBackgroundColor = Color.FromHex("#8AAF5F"),
                 BarTextColor = Color.Snow
             };
+        }
+
+        public static async void CloseModal()
+        {
+            while (Current.MainPage.Navigation.ModalStack.Count > 0)
+            {
+                await Current.MainPage.Navigation.PopModalAsync();
+            }
+
         }
     }
 }

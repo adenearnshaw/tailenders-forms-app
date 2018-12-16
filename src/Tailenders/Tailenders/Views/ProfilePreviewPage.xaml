@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="Tailenders.Views.ProfilePreviewPage"
+             xmlns:behaviors="clr-namespace:Tailenders.Behaviors;assembly=Tailenders"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:views="clr-namespace:Tailenders.Views"
+             Title="{Binding Name}"
+             BackgroundColor="{StaticResource ThemeColorGreen}">
+    <ContentPage.Behaviors>
+        <behaviors:NavigationAwareBehavior />
+    </ContentPage.Behaviors>
+    
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style x:Key="HeadingStyle"
+                   TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="{StaticResource ThemeColorWhite}" />
+                <Setter Property="FontSize"
+                        Value="Small" />
+            </Style>
+
+            <Style x:Key="DetailStyle"
+                   TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="{StaticResource ThemeColorWhite}" />
+                <Setter Property="FontSize"
+                        Value="Large" />
+                <Setter Property="Margin"
+                        Value="0,0,0,12" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    
+    <Grid>
+    <ScrollView>
+        <Grid VerticalOptions="StartAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <ff:CachedImage Grid.Row="0"
+                            HeightRequest="410"
+                            HorizontalOptions="Fill"
+                            Aspect="AspectFill"
+                            Margin="0,0,0,12"
+                            Source="{Binding CardItem.PhotoUrl}" />
+                             
+            <ImageButton Grid.Row="0"
+                         Source="ic_cancel_white.png"
+                         HorizontalOptions="End"
+                         VerticalOptions="Start"
+                         HeightRequest="40"
+                         WidthRequest="40"
+                         Margin="12,12,12,12"
+                         Clicked="CloseModalClicked"/>
+            
+            <StackLayout Grid.Row="1"
+                         Margin="12,6,12,0">
+                 <Label Style="{StaticResource DetailStyle}"
+                        FontSize="32"
+                       Text="{Binding CardItem.Name}" />
+                
+                <StackLayout IsVisible="{Binding CardItem.ShowAge}">
+                    <Label Style="{StaticResource HeadingStyle}"
+                           Text="Age" />
+                    <Label Style="{StaticResource DetailStyle}"
+                           Text="{Binding CardItem.Age}" />
+                </StackLayout>
+
+                <Label Style="{StaticResource HeadingStyle}"
+                       Text="Location" />
+                <Label Style="{StaticResource DetailStyle}"
+                       Text="{Binding CardItem.Location}" />
+
+                <Label Style="{StaticResource HeadingStyle}"
+                       Text="Favourite position" />
+                <Label Style="{StaticResource DetailStyle}"
+                       Text="{Binding CardItem.FavouritePosition}" />
+
+                <Label Style="{StaticResource HeadingStyle}"
+                       Text="Bio" />
+                <Label Style="{StaticResource DetailStyle}"
+                       Text="{Binding CardItem.Bio}" />
+                
+                <ContentView HeightRequest="1"
+                             BackgroundColor="{StaticResource ThemeColorWhite}"
+                             Margin="20,80,20,12" />
+                <Button TextColor="{StaticResource ThemeColorRed}"
+                        Text="Block Profile"
+                        MinimumWidthRequest="140"
+                        Margin="0,0,0,12"
+                        Command="{Binding RequestBlockCommand}" />
+                <Button TextColor="{StaticResource ThemeColorRed}"
+                        Text="Report profile"
+                        MinimumWidthRequest="140"
+                        Command="{Binding RequestReportCommand}" />
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+        
+        <views:IndicatorOverlay x:Name="IsBusyIndicator" IsActive="{Binding IsBusy}" />
+        </Grid>
+</ContentPage>

@@ -13,6 +13,7 @@ namespace Tailenders.Navigation
             var navigationService = new FormsNavigationService();
 
             navigationService.Configure(PageKeys.AboutPage, typeof(AboutPage));
+            navigationService.Configure(PageKeys.BlockedProfilePage, typeof(BlockedProfilePage));
             navigationService.Configure(PageKeys.ConversationPage, typeof(ConversationPage));
             navigationService.Configure(PageKeys.DeleteProfilePage, typeof(DeleteProfilePage));
             navigationService.Configure(PageKeys.LoginPage, typeof(LoginPage));

@@ -8,9 +8,9 @@ namespace Tailenders.ViewModels
 {
     public class AboutPageViewModel : BaseViewModel
     {
-        private const string TermsUrl = "http://midwicketapp.a10w.com/terms_and_conditions.html/";
-        private const string PrivacyUrl = "http://midwicketapp.a10w.com/privacy_policy.html/";
-        private const string AcknowledgementsUrl = "http://midwicketapp.a10w.com/acknowledgements.html/";
+        private const string TermsUrl = "http://midwicketapp.a10w.com/terms_and_conditions.html";
+        private const string PrivacyUrl = "http://midwicketapp.a10w.com/privacy_policy.html";
+        private const string AcknowledgementsUrl = "http://midwicketapp.a10w.com/acknowledgements.html";
 
         public AboutPageViewModel()
         {
@@ -50,11 +50,6 @@ namespace Tailenders.ViewModels
         private async Task ShowAcknowledgements()
         {
             await ShowUrl(AcknowledgementsUrl);
-        }
-
-        private async Task ShowUrl(string uri)
-        {
-            await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
         }
     }
 }

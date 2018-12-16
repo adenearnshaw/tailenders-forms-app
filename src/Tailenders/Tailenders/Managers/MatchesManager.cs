@@ -10,6 +10,7 @@ namespace Tailenders.Managers
         Task<IReadOnlyCollection<MatchDetail>> GetMatches();
         Task UpdateMatchContractProfile(MatchDetail match, bool show);
         Task Unmatch(MatchDetail match);
+        Task BlockMatch(MatchDetail match);
     }
 
     public class MatchesManager : IMatchesManager
@@ -39,6 +40,11 @@ namespace Tailenders.Managers
         public async Task Unmatch(MatchDetail match)
         {
             await _matchesClient.Unmatch(match);
+        }
+
+        public  async Task BlockMatch(MatchDetail match)
+        {
+            await _matchesClient.BlockMatch(match);
         }
     }
 }

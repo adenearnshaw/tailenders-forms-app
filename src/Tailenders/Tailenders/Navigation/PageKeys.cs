@@ -3,6 +3,7 @@
     public static class PageKeys
     {
         public static string AboutPage => PageKey.About.ToString();
+        public static string BlockedProfilePage => PageKey.BlockedProfile.ToString();
         public static string ConversationPage => PageKey.Conversation.ToString();
         public static string DeleteProfilePage => PageKey.DeleteProfile.ToString();
         public static string ErrorPage => PageKey.Error.ToString();
@@ -21,6 +22,7 @@
         enum PageKey
         {
             About,
+            BlockedProfile,
             Conversation,
             DeleteProfile,
             Error,

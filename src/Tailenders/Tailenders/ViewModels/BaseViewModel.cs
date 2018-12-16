@@ -1,5 +1,7 @@
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using Tailenders.Navigation;
+using Xamarin.Essentials;
 
 namespace Tailenders.ViewModels
 {
@@ -18,6 +20,11 @@ namespace Tailenders.ViewModels
 
         public virtual void OnNavigatingFrom()
         {
+        }
+
+        protected async Task ShowUrl(string uri)
+        {
+            await Browser.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
         }
     }
 }

@@ -1,7 +1,7 @@
 using Xamarin.Forms;
 using System;
 using Xamarin.Essentials;
-using System.Collections.Generic;
+using Tailenders.Services;
 
 namespace Tailenders.Views
 {
@@ -10,20 +10,14 @@ namespace Tailenders.Views
         public ErrorPage()
         {
             InitializeComponent();
+            AuthenticationService.Instance.TryLogout();
         }
 
         public async void SendFeedbackClicked(object sender, EventArgs e)
         {
             try
             {
-                var message = new EmailMessage
-                {
-                    Subject = "App feedback",
-                    Body = "",
-                    To = new List<string>() { "midwicketapp@a10w.com" },
-                    //Cc = ccRecipients,
-                    //Bcc = bccRecipients
-                };
+                var message = new EmailMessage("App feedback", "", "midwicketapp@a10w.com" );
                 await Email.ComposeAsync(message);
             }
             catch (FeatureNotSupportedException)

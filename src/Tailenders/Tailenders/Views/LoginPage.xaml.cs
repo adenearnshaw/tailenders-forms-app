@@ -8,7 +8,9 @@ namespace Tailenders.Views
 	{
 		public LoginPage ()
 		{
-			InitializeComponent ();
-		}
+            NavigationPage.SetHasNavigationBar(this, false);
+            InitializeComponent();
+            NavigationPage.SetBackButtonTitle(this, "Back");
+        }
 	}
 }

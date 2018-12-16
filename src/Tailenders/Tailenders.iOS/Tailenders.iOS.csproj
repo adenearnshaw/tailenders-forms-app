@@ -119,6 +119,11 @@
     <Compile Include="Effects\TopPaddingWhenKeyboardAppearsEffect.cs" />
     <BundleResource Include="Resources\iconize-fontawesome-solid.otf" />
     <Compile Include="CustomRenderers\CustomPageRenderer.cs" />
+    <BundleResource Include="Resources\ic_blocked_white.png" />
+    <BundleResource Include="Resources\ic_remove_white.png" />
+    <BundleResource Include="Resources\ic_block_white.png" />
+    <BundleResource Include="Resources\ic_info_white.png" />
+    <BundleResource Include="Resources\ic_cancel_white.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

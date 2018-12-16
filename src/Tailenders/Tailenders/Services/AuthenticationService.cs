@@ -63,7 +63,7 @@ namespace Tailenders.Services
             return authResult != null;
         }
 
-        public async Task<string> TryLogin()
+        public async Task<bool> TryLogin()
         {
             AuthenticationResult authResult = null;
             IEnumerable<IAccount> accounts = await _client.GetAccountsAsync();
@@ -84,19 +84,21 @@ namespace Tailenders.Services
                 catch (MsalException e)
                 {
                     Debug.WriteLine(e.Message);
+                    return false;
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
                 Crashes.TrackError(ex);
+                return false;
             }
 
             if (authResult != null)
             {
                 _credentialsProvider.UpdateCredentials(authResult.UniqueId, authResult.AccessToken);
             }
-            return authResult?.AccessToken ?? string.Empty;
+            return true;
         }
 
         public async Task TryLogout()

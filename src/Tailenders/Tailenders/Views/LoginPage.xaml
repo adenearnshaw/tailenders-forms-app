@@ -2,10 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:views="clr-namespace:Tailenders.Views;assembly=Tailenders"
              x:Class="Tailenders.Views.LoginPage"
              BackgroundColor="#A0CA6F"
              BindingContext="{Binding Login, Source={StaticResource Locator}}">
-    <ContentPage.Content>
+    <Grid>
         <StackLayout HorizontalOptions="Center"
                      VerticalOptions="Center">
             <ff:CachedImage Source="te_splash_logo.png"
@@ -30,5 +31,6 @@
                     Command="{Binding TryLoginCommand}"
                     WidthRequest="120" />
         </StackLayout>
-    </ContentPage.Content>
+        <views:IndicatorOverlay x:Name="IsBusyIndicator" IsActive="{Binding IsBusy}" />
+    </Grid>
 </ContentPage>

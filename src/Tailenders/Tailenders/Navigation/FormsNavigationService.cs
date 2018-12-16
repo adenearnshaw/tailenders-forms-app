@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Tailenders.Navigation
@@ -45,5 +46,19 @@ namespace Tailenders.Navigation
                 throw new ArgumentException($"No such page: {pageKey}.", nameof(pageKey));
             }
         }
+
+        public async Task ShowModal(Page page)
+        {
+            await MainPage.Navigation.PushModalAsync(page);
+        }
+
+        public async Task HideModal()
+        {
+            while (MainPage.Navigation.ModalStack.Count > 0)
+            {
+                await MainPage.Navigation.PopModalAsync();
+            }
+        }
+
     }
 }

@@ -33,6 +33,18 @@ namespace Tailenders.Views
             },
             defaultBindingMode: BindingMode.OneWay);
 
+        public static readonly BindableProperty IsAutocorrectEnabledProperty = BindableProperty.Create(
+            nameof(IsAutocorrectEnabled),
+            typeof(bool),
+            typeof(FormEntryFieldView),
+            true,
+            propertyChanging: (bindable, oldValue, newValue) =>
+            {
+                var ctrl = (FormEntryFieldView)bindable;
+                ctrl.IsAutocorrectEnabled = (bool)newValue;
+            },
+            defaultBindingMode: BindingMode.OneWay);
+
         public Keyboard Keyboard
         {
             get => (Keyboard)base.GetValue(KeyboardProperty);
@@ -43,6 +55,12 @@ namespace Tailenders.Views
         {
             get => (string)base.GetValue(HintProperty);
             set => base.SetValue(HintProperty, value);
+        }
+
+        public bool IsAutocorrectEnabled
+        {
+            get => (bool)base.GetValue(IsAutocorrectEnabledProperty);
+            set => base.SetValue(IsAutocorrectEnabledProperty, value);
         }
     }
 }
