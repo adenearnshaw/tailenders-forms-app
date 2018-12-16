@@ -17,14 +17,24 @@ namespace Tailenders.Services
         private static AuthenticationService _instance;
         public static AuthenticationService Instance => _instance ?? (_instance = new AuthenticationService());
 
-        private readonly PublicClientApplication _client;
         private readonly CredentialsProvider _credentialsProvider;
+
+        private PublicClientApplication _client;
+
+        public void EnableDevMode()
+        {
+            _client = new PublicClientApplication(ADB2CConstants.ClientId, ADB2CConstants.EmailSignUpAndInAuthority)
+            {
+                RedirectUri = ADB2CConstants.RedirectUrl,
+                ValidateAuthority = false
+            };
+        }
 
         public AuthenticationService()
         {
             try
             {
-                _client = new PublicClientApplication(ADB2CConstants.ClientId, ADB2CConstants.SignUpAndInAuthority)
+                _client = new PublicClientApplication(ADB2CConstants.ClientId, ADB2CConstants.FacebookSignUpAndInAuthority)
                 {
                     RedirectUri = ADB2CConstants.RedirectUrl,
                     ValidateAuthority = false

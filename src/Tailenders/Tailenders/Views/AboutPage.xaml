@@ -1,10 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:Tailenders.Behaviors"
              x:Class="Tailenders.Views.AboutPage"
              Title="About"
              BackgroundColor="{StaticResource ThemeColorGreen}"
              BindingContext="{Binding About, Source={StaticResource Locator}}">
+    <ContentPage.Behaviors>
+        <behaviors:NavigationAwareBehavior />
+    </ContentPage.Behaviors>
+    
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="SettingDetail"
@@ -67,7 +72,7 @@
 
         <Label Grid.Row="6"
                Style="{StaticResource SettingDetail}"
-               Text="v0.0.1"
+               Text="{Binding AppVersion}"
                HorizontalOptions="End"/>
     </Grid>
 </ContentPage>

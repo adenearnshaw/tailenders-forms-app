@@ -12,7 +12,12 @@
             <ff:CachedImage Source="te_splash_logo.png"
                             HeightRequest="130"
                             WidthRequest="130"
-                            Margin="0,0,0,20"/>
+                            Margin="0,0,0,20">
+                <ff:CachedImage.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="EnableDevTapped"
+                                          NumberOfTapsRequired="5"/>
+                </ff:CachedImage.GestureRecognizers>
+            </ff:CachedImage>
             <Label Text="Welcome to MidWicket"
                    HorizontalOptions="Center"
                    HorizontalTextAlignment="Center"

@@ -20,10 +20,29 @@ namespace Tailenders.ViewModels
             ShowAcknowledgementsCommand = new RelayCommand(async () => await ShowAcknowledgements());
         }
 
+        private string _appVersion;
+        public string AppVersion
+        {
+            get => _appVersion;
+            set => Set(ref _appVersion, value);
+        }
+
         public ICommand SendFeedbackCommand { get; }
         public ICommand ShowTermsCommand { get; }
         public ICommand ShowPrivacyCommand { get; }
         public ICommand ShowAcknowledgementsCommand { get; }
+
+        public override void OnNavigatedTo(object navigationParams)
+        {
+            base.OnNavigatedTo(navigationParams);
+
+            var appVersion = AppInfo.VersionString;
+#if DEBUG
+            appVersion += $".{AppInfo.BuildString}";
+#endif
+            AppVersion = $"v{appVersion}";
+
+        }
 
         private async Task SendFeeback()
         {

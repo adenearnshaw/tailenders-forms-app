@@ -1,5 +1,8 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System;
+using Tailenders.Services;
+using Xamarin.Essentials;
 
 namespace Tailenders.Views
 {
@@ -12,5 +15,14 @@ namespace Tailenders.Views
             InitializeComponent();
             NavigationPage.SetBackButtonTitle(this, "Back");
         }
-	}
+
+        public void EnableDevTapped(object sender, EventArgs e)
+        {
+            AuthenticationService.Instance.EnableDevMode();
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await DisplayAlert("Dev mode active", "Dev mode now active", "Ok");
+            });
+        }
+    }
 }
