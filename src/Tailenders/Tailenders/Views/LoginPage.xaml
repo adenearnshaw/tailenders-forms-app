@@ -35,6 +35,19 @@
                     Text="Login"
                     Command="{Binding TryLoginCommand}"
                     WidthRequest="120" />
+            <Label TextColor="{StaticResource ThemeColorWhite}"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,6,0,0"
+                   FontSize="Small"
+                   TextDecorations="Underline"
+                   Text="Terms &amp; Conditions">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShowTermsCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            
         </StackLayout>
         <views:IndicatorOverlay x:Name="IsBusyIndicator" IsActive="{Binding IsBusy}" />
     </Grid>

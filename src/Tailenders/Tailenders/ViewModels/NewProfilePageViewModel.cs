@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using Microsoft.AppCenter.Crashes;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System;
@@ -65,42 +66,55 @@ namespace Tailenders.ViewModels
 
         private async Task CreateProfile()
         {
-            int.TryParse(ProfileVm.Age, out int age);
-
-            if (!string.IsNullOrWhiteSpace(ProfileVm.Age) && age < 18)
+            try
             {
-                MessagingCenter.Send(this, MessageNames.NotOldEnough);
+                IsBusy = true;
+
+                int.TryParse(ProfileVm.Age, out int age);
+
+                if (!string.IsNullOrWhiteSpace(ProfileVm.Age) && age < 18)
+                {
+                    MessagingCenter.Send(this, MessageNames.NotOldEnough);
+                }
+
+                if (!IsFormValid(age))
+                    return;
+
+
+                var minAge = Convert.ToInt32(SettingsVm.MinAge);
+                var maxAge = Convert.ToInt32(SettingsVm.MaxAge);
+
+                var profile = new Profile
+                {
+                    Id = _credentialsProvider.UserId,
+                    Name = ProfileVm.Name,
+                    Age = age,
+                    ShowAge = ProfileVm.ShowAge,
+                    Location = ProfileVm.Location,
+                    Bio = ProfileVm.Bio,
+                    FavouritePosition = ProfileVm.SelectedPosition?.Value ?? 0,
+                    Gender = ProfileVm.SelectedGender?.Value ?? 0,
+                    SearchForCategory = SettingsVm.SearchFor?.Value ?? 0,
+                    SearchRadius = 30,
+                    SearchMinAge = minAge,
+                    SearchMaxAge = maxAge,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
+                };
+
+                await _profileManager.SaveUserProfile(profile, true);
+                await _profileManager.UploadProfileImage(_profilePhotoFile);
+
+                Application.Current.MainPage = App.CreateNavigationPage(new MasterPage());
             }
-
-            if (!IsFormValid(age))
-                return;
-
-
-            var minAge = Convert.ToInt32(SettingsVm.MinAge);
-            var maxAge = Convert.ToInt32(SettingsVm.MaxAge);
-
-            var profile = new Profile
+            catch (Exception ex)
             {
-                Id = _credentialsProvider.UserId,
-                Name = ProfileVm.Name,
-                Age = age,
-                ShowAge = ProfileVm.ShowAge,
-                Location = ProfileVm.Location,
-                Bio = ProfileVm.Bio,
-                FavouritePosition = ProfileVm.SelectedPosition?.Value ?? 0,
-                Gender = ProfileVm.SelectedGender?.Value ?? 0,
-                SearchForCategory = SettingsVm.SearchFor?.Value ?? 0,
-                SearchRadius = 30,
-                SearchMinAge = minAge,
-                SearchMaxAge = maxAge,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
-            };
-
-            await _profileManager.SaveUserProfile(profile, true);
-            await _profileManager.UploadProfileImage(_profilePhotoFile);
-
-            Application.Current.MainPage = App.CreateNavigationPage(new MasterPage());
+                Crashes.TrackError(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private bool IsFormValid(int age = 0)

@@ -8,10 +8,6 @@ namespace Tailenders.ViewModels
 {
     public class AboutPageViewModel : BaseViewModel
     {
-        private const string TermsUrl = "http://midwicketapp.a10w.com/terms_and_conditions.html";
-        private const string PrivacyUrl = "http://midwicketapp.a10w.com/privacy_policy.html";
-        private const string AcknowledgementsUrl = "http://midwicketapp.a10w.com/acknowledgements.html";
-
         public AboutPageViewModel()
         {
             SendFeedbackCommand = new RelayCommand(async () => await SendFeeback());
@@ -48,7 +44,7 @@ namespace Tailenders.ViewModels
         {
             try
             {
-                await Email.ComposeAsync("App feedback", string.Empty, "midwicketapp@a10w.com");
+                await Email.ComposeAsync("App feedback", string.Empty, ContactEmail);
             }
             catch (Exception e)
             {

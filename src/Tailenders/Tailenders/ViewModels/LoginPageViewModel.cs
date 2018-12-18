@@ -22,9 +22,13 @@ namespace Tailenders.ViewModels
             _navigationService = navigationService;
 
             TryLoginCommand = new RelayCommand(async () => await TryLogin());
+            ShowTermsCommand = new RelayCommand(async () => await ShowTerms());
+            EnableDevModeCommand = new RelayCommand(EnableDevMode);
         }
 
         public ICommand TryLoginCommand { get; }
+        public ICommand ShowTermsCommand { get; }
+        public ICommand EnableDevModeCommand { get; }
 
         public async Task TryLogin()
         {
@@ -56,6 +60,16 @@ namespace Tailenders.ViewModels
             }
             
             IsBusy = false;
+        }
+
+        private async Task ShowTerms()
+        {
+            await ShowUrl(TermsUrl);
+        }
+
+        private void EnableDevMode()
+        {
+            // TODO
         }
     }
 }

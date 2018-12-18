@@ -184,6 +184,13 @@ namespace Tailenders.ViewModels
             set => Set(ref _isSavingInProgress, value);
         }
 
+        private bool _isPhotoUploading;
+        public bool IsPhotoUploading
+        {
+            get => _isPhotoUploading;
+            set => Set(ref _isPhotoUploading, value);
+        }
+
         public ICommand SaveChangesCommand { get; private set; }
         public ICommand EditPictureCommand { get; internal set; }
         public ICommand NavigateToDeleteProfileCommand { get; private set; }
@@ -281,18 +288,21 @@ namespace Tailenders.ViewModels
                 return;
             }
 
-            var file = await CrossMedia.Current.PickPhotoAsync();
-
             try
             {
-                IsBusy = true;
+                var file = await CrossMedia.Current.PickPhotoAsync();
+
+                IsSavingInProgress = IsPhotoUploading = IsBusy = true;
                 var updatedProfile = await _profileManager.UploadProfileImage(file);
                 ProfilePic = updatedProfile.Images.First().ImageUrl;
-                IsBusy = false;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                IsSavingInProgress = IsPhotoUploading = IsBusy = false;
             }
         }
 

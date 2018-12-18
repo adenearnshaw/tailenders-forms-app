@@ -138,7 +138,7 @@
         </StackLayout>
     </ScrollView>
         
-        <views:IndicatorOverlay x:Name="IsBusyIndicator" IsActive="{Binding IsBusy}" />
+        <views:IndicatorOverlay x:Name="IsBusyIndicator" IsActive="{Binding IsBusy}" OverlayText="Creating your profile..." />
         
         </Grid>
 </ContentPage>

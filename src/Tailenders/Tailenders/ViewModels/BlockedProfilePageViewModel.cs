@@ -8,7 +8,7 @@ namespace Tailenders.ViewModels
 {
     public class BlockedProfilePageViewModel : BaseViewModel
     {
-        private const string TermsUrl = "http://midwicketapp.a10w.com/terms_and_conditions.html#behaviour";
+        private const string BehaviorTermsUrl = "http://midwicketapp.a10w.com/terms_and_conditions.html#behaviour";
 
         public BlockedProfilePageViewModel()
         {
@@ -38,7 +38,7 @@ namespace Tailenders.ViewModels
 
         private async Task ShowTerms()
         {
-            await ShowUrl(TermsUrl);
+            await ShowUrl(BehaviorTermsUrl);
         }
     }
 }
