@@ -132,9 +132,9 @@
 
             <Button Text="Get started"
                     Style="{StaticResource WhiteButtonStyle}"
-                    IsEnabled="{Binding CanCreateProfile}"
+                    IsEnabled="{Binding CanCreateProfile, FallbackValue=False, TargetNullValue=False}"
                     Command="{Binding CreateProfileCommand}"
-                    MinimumWidthRequest="240"/>
+                    WidthRequest="280"/>
         </StackLayout>
     </ScrollView>
         

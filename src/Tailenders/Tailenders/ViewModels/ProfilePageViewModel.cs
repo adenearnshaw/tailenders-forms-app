@@ -151,7 +151,7 @@ namespace Tailenders.ViewModels
         private string _profilePic;
         public string ProfilePic
         {
-            get => _profilePic;
+            get => !string.IsNullOrWhiteSpace(_profilePic) ? _profilePic : "te_avatar_default.jpg";
             set
             {
                 Set(ref _profilePic, value);

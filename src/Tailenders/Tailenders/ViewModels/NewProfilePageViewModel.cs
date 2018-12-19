@@ -103,7 +103,11 @@ namespace Tailenders.ViewModels
                 };
 
                 await _profileManager.SaveUserProfile(profile, true);
-                await _profileManager.UploadProfileImage(_profilePhotoFile);
+
+                if (_profilePhotoFile != null)
+                {
+                    await _profileManager.UploadProfileImage(_profilePhotoFile);
+                }
 
                 Application.Current.MainPage = App.CreateNavigationPage(new MasterPage());
             }
